@@ -2,3 +2,5 @@
 *.project*
 *.settings*
 *target*
+*Introduction.docx*
+*TestCases.xlsx*
