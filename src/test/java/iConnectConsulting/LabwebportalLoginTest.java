@@ -75,12 +75,11 @@ public class LabwebportalLoginTest {
 		WebElement testOrder = driver.findElement(By.cssSelector("a[href='#/test-order']"));
 		testOrder.click();
 		// 7. Fill in Specimen Id textfield
-		wait.until(ExpectedConditions.visibilityOfElementLocated(
-				By.cssSelector("input[class^='form-control'][type$='text'][data-role$='maskedtextbox']")));
-		WebElement specimenID = driver
-				.findElement(By.cssSelector("input[class^='form-control'][type$='text'][data-role$='maskedtextbox']"));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input")));
+		WebElement specimenID = driver.findElement(By.cssSelector("input"));
 		specimenID.clear();
 		specimenID.sendKeys("dan12346");
+
 		// 8. Click Physician Name textfield
 		// 9. Select any physician
 		// 10. Click Apply selected button
