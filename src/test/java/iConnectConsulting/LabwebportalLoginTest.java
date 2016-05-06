@@ -3,6 +3,9 @@
  */
 package iConnectConsulting;
 
+import java.util.List;
+import java.util.Random;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -79,13 +82,55 @@ public class LabwebportalLoginTest {
 		WebElement specimenID = driver.findElement(By.cssSelector("input"));
 		specimenID.clear();
 		specimenID.sendKeys("dan12346");
-
 		// 8. Click Physician Name textfield
+		WebElement physicianName = driver.findElement(By.cssSelector("i[class='fa fa-ellipsis-h']"));
+		physicianName.click();
 		// 9. Select any physician
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("k-grid-content")));
+		WebElement physicianNameTable = driver.findElement(By.className("k-grid-content"));
+		List<WebElement> rowsPhysicianName = physicianNameTable.findElements(By.tagName("tr"));
+		Random rand = new Random();
+		int randomNumber = rand.nextInt(rowsPhysicianName.size());
+		for (int i = 0; i < rowsPhysicianName.size(); i++) {
+			if (i == randomNumber) {
+				rowsPhysicianName.get(i).click();
+				break;
+			}
+		}
 		// 10. Click Apply selected button
+		WebElement applySelectedButtonPhysicians = driver
+				.findElement(By.xpath("//button[@class='btn btn-primary btn-form-md']"));
+		applySelectedButtonPhysicians.click();
 		// 11. Click Last Name box
-		// 12. Select any existing patient
-		// Click Apply selected button
+		WebElement lastNameTextField = driver
+				.findElement(By.cssSelector("input[class='item-focusable order-field-input empty']"));
+		lastNameTextField.click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(
+				By.cssSelector("button[class='btn btn-default btn-form-md pull-left ng-scope']")));
+		// 12. Click Add New button
+		WebElement addNewButton = driver
+				.findElement(By.cssSelector("button[class='btn btn-default btn-form-md pull-left ng-scope']"));
+		addNewButton.click();
+		// Fill out Last name text field
+
+		WebElement addLastName = driver.findElement(By.xpath("(//input[@type='text'])[42]"));
+		addLastName.sendKeys("Hello");
+		WebElement addFirstName = driver.findElement(By.xpath("(//input[@type='text'])[43]"));
+		addFirstName.sendKeys("Hello");
+		WebElement addDateOfBirth = driver.findElement(By.cssSelector(
+				"input[class='form-control item-focusable order-field-input ng-pristine ng-untouched ng-valid empty k-input']"));
+		addDateOfBirth.sendKeys("12/21/1978");
+		List<WebElement> maleFemaleRadioButton = driver
+				.findElements(By.cssSelector("fa-radio[class='ng-scope ng-isolate-scope']"));
+		maleFemaleRadioButton.get(1).click();
+
+		WebElement submitButton = driver.findElement(By.cssSelector("button[class='btn btn-primary btn-form-md']"));
+		submitButton.click();
+
+		// Fill out First name text field
+		// Fill out Date of Birth
+		// Select Gender radio button
+		// Click Submit button
 		// Select Uninsured radiobutton under Billing Method
 		// Enter 304 under DIAGNOSIS CODES
 		// Select any diagnos from dropdown menue
@@ -98,6 +143,25 @@ public class LabwebportalLoginTest {
 		// Click Submit button
 		// Click Agree on the desclaimer
 		// Verify if Order placed module is displayed
+
+		// // Select any existing patient
+		// WebElement patientsNameTable =
+		// driver.findElement(By.className("k-grid-content"));
+		// List<WebElement> rowsPatientsName =
+		// patientsNameTable.findElements(By.tagName("tr"));
+		// randomNumber = rand.nextInt(rowsPatientsName.size());
+		// for (int i = 0; i < rowsPatientsName.size(); i++) {
+		// if (i == randomNumber) {
+		// rowsPatientsName.get(i).click();
+		// break;
+		// }
+		// }
+		// // Click Apply selected button
+		// WebElement applySelectedButtonPatinets = driver
+		// .findElement(By.xpath("//button[@class='btn btn-primary
+		// btn-form-md']"));
+		// applySelectedButtonPatinets.click();
+
 	}
 
 	// @After
