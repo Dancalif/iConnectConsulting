@@ -9,6 +9,7 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -55,9 +56,10 @@ public class LabwebportalLoginTest {
 	// }
 
 	@Test
-	public void testOrderSubmit() {
+	public void testOrderSubmit() throws InterruptedException {
 		// 1. Got to www.labwebportal.com
 		driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
+		driver.manage().window().maximize();
 		// 2. Fill in username
 		WebElement usernameTextField = driver.findElement(By.id("username"));
 		usernameTextField.clear();
@@ -70,7 +72,7 @@ public class LabwebportalLoginTest {
 		WebElement signInButton = driver.findElement(By.xpath("//*[@type='submit']"));
 		signInButton.click();
 		// 5. Verify if user successfully signed in
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		WebDriverWait wait = new WebDriverWait(driver, 100);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[href='#/dashboard']")));
 		Assert.assertTrue("Dashboard exists",
 				driver.findElement(By.cssSelector("a[href='#/dashboard']")).isDisplayed());
@@ -102,8 +104,11 @@ public class LabwebportalLoginTest {
 				.findElement(By.xpath("//button[@class='btn btn-primary btn-form-md']"));
 		applySelectedButtonPhysicians.click();
 		// 11. Click Last Name box
-		WebElement lastNameTextField = driver
-				.findElement(By.cssSelector("input[class='item-focusable order-field-input empty']"));
+		Thread.sleep(1000);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(
+				"design-item-lookup[data-item-id='Sample___PID'] > div > div > div > div > div > div[class='input-group-btn']")));
+		WebElement lastNameTextField = driver.findElement(By.cssSelector(
+				"design-item-lookup[data-item-id='Sample___PID'] > div > div > div > div > div > div[class='input-group-btn']"));
 		lastNameTextField.click();
 		wait.until(ExpectedConditions.visibilityOfElementLocated(
 				By.cssSelector("button[class='btn btn-default btn-form-md pull-left ng-scope']")));
@@ -111,34 +116,81 @@ public class LabwebportalLoginTest {
 		WebElement addNewButton = driver
 				.findElement(By.cssSelector("button[class='btn btn-default btn-form-md pull-left ng-scope']"));
 		addNewButton.click();
-		// Fill out Last name text field
-
-		WebElement addLastName = driver.findElement(By.xpath("(//input[@type='text'])[42]"));
-		addLastName.sendKeys("Hello");
-		WebElement addFirstName = driver.findElement(By.xpath("(//input[@type='text'])[43]"));
-		addFirstName.sendKeys("Hello");
+		// Enter Date of Birth
 		WebElement addDateOfBirth = driver.findElement(By.cssSelector(
 				"input[class='form-control item-focusable order-field-input ng-pristine ng-untouched ng-valid empty k-input']"));
+		addDateOfBirth.clear();
 		addDateOfBirth.sendKeys("12/21/1978");
-		List<WebElement> maleFemaleRadioButton = driver
-				.findElements(By.cssSelector("fa-radio[class='ng-scope ng-isolate-scope']"));
-		maleFemaleRadioButton.get(1).click();
-
-		WebElement submitButton = driver.findElement(By.cssSelector("button[class='btn btn-primary btn-form-md']"));
-		submitButton.click();
-
+		// Fill out Last name text field
+		WebElement addLastName = driver.findElement(By.xpath("(//input[@type='text'])[42]"));
+		addLastName.clear();
+		addLastName.sendKeys("Hello");
 		// Fill out First name text field
-		// Fill out Date of Birth
-		// Select Gender radio button
+		WebElement addFirstName = driver.findElement(By.xpath("(//input[@type='text'])[43]"));
+		addFirstName.clear();
+		addFirstName.sendKeys("Hello");
+
+		List<WebElement> maleFemaleRadioButtons = driver.findElements(By.cssSelector(
+				"design-item-list-box[class='lwp-design__item col-md-6 column ng-isolate-scope'][data-item-id='Patients___SEX'] > div > div > ul > li > div > fa-radio"));
+		maleFemaleRadioButtons.get(1).click();
 		// Click Submit button
-		// Select Uninsured radiobutton under Billing Method
+		WebElement submitButton = driver.findElement(
+				By.xpath("//button[contains(@class,'btn btn-primary btn-form-md')]//span[text()='Submit']"));
+		Thread.sleep(1000);
+		addDateOfBirth.click();
+		submitButton.click();
+		Thread.sleep(3000);
+		WebElement scrollToBillingMethodSection = driver.findElement(By.xpath("//span[text()='Birth Date']"));
+		scrollToBillingMethodSection.sendKeys(Keys.PAGE_DOWN);
+		wait.until(ExpectedConditions
+				.elementToBeClickable(By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']")));
+		Thread.sleep(3000);
+		WebElement uninsuredRadioButton = driver
+				.findElement(By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
+		uninsuredRadioButton.click();
 		// Enter 304 under DIAGNOSIS CODES
+		wait.until(ExpectedConditions
+				.visibilityOfElementLocated(By.xpath("//input[contains(@placeholder, 'Select diagnosis...')]")));
+		WebElement diagnosisCodeInput = driver
+				.findElement(By.xpath("//input[contains(@placeholder, 'Select diagnosis...')]"));
+		diagnosisCodeInput.sendKeys("304");
 		// Select any diagnos from dropdown menue
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("span[class='k-state-default']")));
+		List<WebElement> diagnosOptions = driver.findElements(By.cssSelector("span[class='k-state-default']"));
+		diagnosOptions.get(2).click();
 		// Click Urine radiobutton under SPECIMEN TYPE
+		WebElement urineRadioButton = driver
+				.findElement(By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
+		urineRadioButton.sendKeys(Keys.PAGE_DOWN);
+		Thread.sleep(1000);
+		urineRadioButton.click();
 		// Click RECORD POC RESULTS to expand the options
+		WebElement recordPOCResultsExpand = driver.findElement(By.cssSelector(
+				"design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309'] > div > div > div > a"));
+		recordPOCResultsExpand.click();
 		// Select several checkboxes under RECORD POC RESULTS
+
+		List<WebElement> posCheckBoxes = driver.findElements(By.cssSelector(
+				"data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='POS(+)'] > i"));
+		List<WebElement> negCheckBoxes = driver.findElements(By.cssSelector(
+				"data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='NEG(-)'] > i"));
+
+		int maxNum = 0;
+		do {
+			int posRandomNumber = rand.nextInt(posCheckBoxes.size());
+			int negRandomNumber = rand.nextInt(negCheckBoxes.size());
+			try {
+				posCheckBoxes.get(posRandomNumber).click();
+				negCheckBoxes.get(negRandomNumber).click();
+			} catch (Exception e) {
+
+			}
+			maxNum++;
+		} while (maxNum < 3);
+
 		// Click Perform Custom Profile under SELECT YOUR TESTING OPTION
-		// Check several checkboxes under PATIENT'S PRESCRIBED MEDICATIONS
+		// Check several checkboxes under PATIENT'S PRESCRIBED
+		// MEDICATIONS
 		// Enter initials into the Collector's initials textfield
 		// Click Submit button
 		// Click Agree on the desclaimer
