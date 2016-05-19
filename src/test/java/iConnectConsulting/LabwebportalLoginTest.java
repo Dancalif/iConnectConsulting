@@ -9,10 +9,12 @@ import java.util.Random;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -22,7 +24,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class LabwebportalLoginTest {
 	WebDriver driver = new FirefoxDriver();
-
+	JavascriptExecutor je = (JavascriptExecutor) driver;
+	Actions action = new Actions(driver);
 	// @Test
 	// public void labwebportalLoginPass() {
 	// // 1. Got to www.labwebportal.com
@@ -136,10 +139,12 @@ public class LabwebportalLoginTest {
 		// Click Submit button
 		WebElement submitButton = driver.findElement(
 				By.xpath("//button[contains(@class,'btn btn-primary btn-form-md')]//span[text()='Submit']"));
+		Thread.sleep(3000);
+		addDateOfBirth.click();
 		Thread.sleep(1000);
 		addDateOfBirth.click();
 		submitButton.click();
-		Thread.sleep(3000);
+		Thread.sleep(1000);
 		WebElement scrollToBillingMethodSection = driver.findElement(By.xpath("//span[text()='Birth Date']"));
 		scrollToBillingMethodSection.sendKeys(Keys.PAGE_DOWN);
 		wait.until(ExpectedConditions
@@ -174,45 +179,52 @@ public class LabwebportalLoginTest {
 				"data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='POS(+)'] > i"));
 		List<WebElement> negCheckBoxes = driver.findElements(By.cssSelector(
 				"data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='NEG(-)'] > i"));
-
 		int maxNum = 0;
 		do {
 			int posRandomNumber = rand.nextInt(posCheckBoxes.size());
 			int negRandomNumber = rand.nextInt(negCheckBoxes.size());
+
 			try {
 				posCheckBoxes.get(posRandomNumber).click();
-				negCheckBoxes.get(negRandomNumber).click();
+				maxNum++;
 			} catch (Exception e) {
-
+				je.executeScript("arguments[0].scrollIntoView(true);", urineRadioButton);
 			}
-			maxNum++;
-		} while (maxNum < 3);
+
+			try {
+				negCheckBoxes.get(negRandomNumber).click();
+				maxNum++;
+			} catch (Exception e) {
+				je.executeScript("arguments[0].scrollIntoView(true);", urineRadioButton);
+			}
+		} while (maxNum < 6);
 
 		// Click Perform Custom Profile under SELECT YOUR TESTING OPTION
-		// Check several checkboxes under PATIENT'S PRESCRIBED
+		WebElement performCustomProfileCheckbox = driver
+				.findElement(By.xpath("//span[text()='PERFORM CUSTOM PROFILE']"));
+		performCustomProfileCheckbox.click();
+		WebElement performCustomProfileArrow = driver.findElement(By.cssSelector("span[class='k-icon k-i-arrow-s']"));
+		performCustomProfileArrow.click();
+		WebElement firstOptionCustomProfile = driver.findElement(By.xpath("//li[text()='FULLPANELMIX']"));
+		firstOptionCustomProfile.click();
 		// MEDICATIONS
+		List<WebElement> medicationsCheckBoxes = driver.findElements(
+				By.cssSelector("div[class='animated row fadeInRight'] > div > ul > li > div > div > fa-check-box > i"));
+		randomNumber = rand.nextInt(medicationsCheckBoxes.size());
+		do {
+			medicationsCheckBoxes.get(randomNumber).click();
+			maxNum++;
+		} while (maxNum < 8);
 		// Enter initials into the Collector's initials textfield
+		WebElement collectorInitialsTextField = driver.findElement(
+				By.cssSelector("design-item-text-box[data-item-id='Sample___ORDERING_PHYSICIAN'] > div > div > input"));
+		collectorInitialsTextField.clear();
+		collectorInitialsTextField.sendKeys("DU");
 		// Click Submit button
+		WebElement finalSubmitButton = driver.findElement(By.xpath("//span[text()='Submit']"));
+		finalSubmitButton.click();
 		// Click Agree on the desclaimer
 		// Verify if Order placed module is displayed
-
-		// // Select any existing patient
-		// WebElement patientsNameTable =
-		// driver.findElement(By.className("k-grid-content"));
-		// List<WebElement> rowsPatientsName =
-		// patientsNameTable.findElements(By.tagName("tr"));
-		// randomNumber = rand.nextInt(rowsPatientsName.size());
-		// for (int i = 0; i < rowsPatientsName.size(); i++) {
-		// if (i == randomNumber) {
-		// rowsPatientsName.get(i).click();
-		// break;
-		// }
-		// }
-		// // Click Apply selected button
-		// WebElement applySelectedButtonPatinets = driver
-		// .findElement(By.xpath("//button[@class='btn btn-primary
-		// btn-form-md']"));
-		// applySelectedButtonPatinets.click();
 
 	}
 
