@@ -20,6 +20,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.iConnectConsulting.pageobjects.DashBoardPage;
+import com.iConnectConsulting.pageobjects.SignInPage;
+import com.iConnectConsulting.util.WebUtil;
+
 /**
  * @author dancalif
  *
@@ -31,37 +35,25 @@ public class LabwebportalLoginTest {
 	Random rand = new Random();
 	StringBuilder randomString = new StringBuilder();
 	String candidateChars = "abcdefghijklmnopqrstuvwxyz";
-	// @Test
-	// public void labwebportalLoginPass() {
-	// // 1. Got to www.labwebportal.com
-	// driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
-	// // 2. Fill in username
-	// WebElement usernameTextField = driver.findElement(By.id("username"));
-	// usernameTextField.clear();
-	// usernameTextField.sendKeys("ptox");
-	// // 3. Fill in password
-	// WebElement passwordTextField = driver.findElement(By.name("password"));
-	// passwordTextField.clear();
-	// passwordTextField.sendKeys("ptox2013");
-	// // 4. Click Sing in button
-	// WebElement signInButton =
-	// driver.findElement(By.xpath("//*[@type='submit']"));
-	// signInButton.click();
-	// // 5. Verify if user successfully signed in
-	// WebDriverWait wait = new WebDriverWait(driver, 30);
-	// wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("a[href='#/dashboard']")));
-	// Assert.assertTrue("Dashboard exists",
-	// driver.findElement(By.cssSelector("a[href='#/dashboard']")).isDisplayed());
-	// WebElement profileButton = driver.findElement(By.xpath("//*[@class = 'fa
-	// fa-caret-down']"));
-	// profileButton.click();
-	// WebElement signoutButton = driver.findElement(By.linkText("Logout"));
-	// signoutButton.click();
-	// // 6. Verify if user is signed out
-	// wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username"))).isDisplayed();
-	// Assert.assertTrue("User is not signed out",
-	// driver.findElement(By.id("username")).isDisplayed());
-	// }
+	WebDriverWait wait = new WebDriverWait(driver, 30);
+
+	@Test
+	public void labwebportalLoginPass() {
+		// Got to www.labwebportal.com
+		SignInPage signInPage = WebUtil.goToSignInPage(driver);
+		// Fill in username
+		signInPage.fillInUserName(driver, "ptox");
+		// Fill in password
+		signInPage.fillInPassword(driver, "ptox2013");
+		// Click Sing in button
+		DashBoardPage dashBoardPage = signInPage.clickSignInButton(driver);
+		// Verify if user successfully signed in
+		Assert.assertTrue("Dashboard exists", dashBoardPage.isDashboardExist(driver));
+		// Sign out
+		signInPage = dashBoardPage.signOut(driver);
+		// Verify if user is signed out
+		Assert.assertTrue("User is not signed out", signInPage.isUsernameExist(driver));
+	}
 
 	@Test
 	public void testOrderSubmit() throws InterruptedException {
