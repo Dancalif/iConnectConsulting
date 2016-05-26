@@ -3,6 +3,8 @@
  */
 package iConnectConsulting;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
 import java.util.Random;
 
@@ -26,6 +28,9 @@ public class LabwebportalLoginTest {
 	WebDriver driver = new FirefoxDriver();
 	JavascriptExecutor je = (JavascriptExecutor) driver;
 	Actions action = new Actions(driver);
+	Random rand = new Random();
+	StringBuilder randomString = new StringBuilder();
+	String candidateChars = "abcdefghijklmnopqrstuvwxyz";
 	// @Test
 	// public void labwebportalLoginPass() {
 	// // 1. Got to www.labwebportal.com
@@ -85,8 +90,10 @@ public class LabwebportalLoginTest {
 		// 7. Fill in Specimen Id textfield
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("input")));
 		WebElement specimenID = driver.findElement(By.cssSelector("input"));
+		int numberID = 1000 + rand.nextInt(8999);
+		String specimenIDName = "DanU" + numberID;
 		specimenID.clear();
-		specimenID.sendKeys("dan12346");
+		specimenID.sendKeys(specimenIDName);
 		// 8. Click Physician Name textfield
 		WebElement physicianName = driver.findElement(By.cssSelector("i[class='fa fa-ellipsis-h']"));
 		physicianName.click();
@@ -94,18 +101,39 @@ public class LabwebportalLoginTest {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("k-grid-content")));
 		WebElement physicianNameTable = driver.findElement(By.className("k-grid-content"));
 		List<WebElement> rowsPhysicianName = physicianNameTable.findElements(By.tagName("tr"));
-		Random rand = new Random();
 		int randomNumber = rand.nextInt(rowsPhysicianName.size());
-		for (int i = 0; i < rowsPhysicianName.size(); i++) {
+		for (int i = 0; i < rowsPhysicianName.size(); i++)
+
+		{
 			if (i == randomNumber) {
 				rowsPhysicianName.get(i).click();
 				break;
 			}
 		}
+
 		// 10. Click Apply selected button
 		WebElement applySelectedButtonPhysicians = driver
 				.findElement(By.xpath("//button[@class='btn btn-primary btn-form-md']"));
 		applySelectedButtonPhysicians.click();
+
+		// Verify if Specimen ID is unique
+		boolean doFlag = false;
+		do {
+			try {
+				WebElement uniqueMessage = driver.findElement(By.xpath("//span[text()='The value is not unique']"));
+				if (uniqueMessage.isDisplayed()) {
+					numberID = 1000 + rand.nextInt(8999);
+					specimenIDName = "DanU" + numberID;
+					specimenID.clear();
+					specimenID.sendKeys(specimenIDName);
+				} else {
+					break;
+				}
+			} catch (Exception e1) {
+				doFlag = true;
+			}
+		} while (doFlag == false);
+
 		// 11. Click Last Name box
 		Thread.sleep(1000);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(
@@ -126,12 +154,28 @@ public class LabwebportalLoginTest {
 		addDateOfBirth.sendKeys("12/21/1978");
 		// Fill out Last name text field
 		WebElement addLastName = driver.findElement(By.xpath("(//input[@type='text'])[42]"));
+
+		// String lastName =
+		// StringBuilder sb = new StringBuilder();
+
+		int lengthOfLastName = 8;
+		int doFlagInt = 0;
+		do
+
+		{
+			for (int i = 0; i < lengthOfLastName; i++) {
+				randomString.append(candidateChars.charAt(rand.nextInt(candidateChars.length())));
+				doFlagInt++;
+			}
+		} while (doFlagInt < 8);
+
 		addLastName.clear();
-		addLastName.sendKeys("Hello");
+		addLastName.sendKeys(randomString);
+
 		// Fill out First name text field
 		WebElement addFirstName = driver.findElement(By.xpath("(//input[@type='text'])[43]"));
 		addFirstName.clear();
-		addFirstName.sendKeys("Hello");
+		addFirstName.sendKeys("Dan");
 
 		List<WebElement> maleFemaleRadioButtons = driver.findElements(By.cssSelector(
 				"design-item-list-box[class='lwp-design__item col-md-6 column ng-isolate-scope'][data-item-id='Patients___SEX'] > div > div > ul > li > div > fa-radio"));
@@ -180,7 +224,9 @@ public class LabwebportalLoginTest {
 		List<WebElement> negCheckBoxes = driver.findElements(By.cssSelector(
 				"data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='NEG(-)'] > i"));
 		int maxNum = 0;
-		do {
+		do
+
+		{
 			int posRandomNumber = rand.nextInt(posCheckBoxes.size());
 			int negRandomNumber = rand.nextInt(negCheckBoxes.size());
 
@@ -205,16 +251,37 @@ public class LabwebportalLoginTest {
 		performCustomProfileCheckbox.click();
 		WebElement performCustomProfileArrow = driver.findElement(By.cssSelector("span[class='k-icon k-i-arrow-s']"));
 		performCustomProfileArrow.click();
+		Thread.sleep(1000);
 		WebElement firstOptionCustomProfile = driver.findElement(By.xpath("//li[text()='FULLPANELMIX']"));
 		firstOptionCustomProfile.click();
 		// MEDICATIONS
 		List<WebElement> medicationsCheckBoxes = driver.findElements(
 				By.cssSelector("div[class='animated row fadeInRight'] > div > ul > li > div > div > fa-check-box > i"));
-		randomNumber = rand.nextInt(medicationsCheckBoxes.size());
-		do {
-			medicationsCheckBoxes.get(randomNumber).click();
+
+		// do {
+		// randomNumber = rand.nextInt(medicationsCheckBoxes.size());
+		// action.moveToElement(medicationsCheckBoxes.get(randomNumber));
+		// action.perform();
+		// maxNum++;
+		// } while (maxNum < 8);
+		maxNum = 0;
+		do
+
+		{
+			randomNumber = rand.nextInt(medicationsCheckBoxes.size());
+			WebElement myElement = medicationsCheckBoxes.get(randomNumber);
+			myElement.sendKeys(Keys.PAGE_DOWN);
+			Thread.sleep(1000);
+			try {
+				myElement.click();
+			} catch (Exception e) {
+				myElement.sendKeys(Keys.PAGE_UP);
+				Thread.sleep(1000);
+				myElement.click();
+			}
 			maxNum++;
 		} while (maxNum < 8);
+
 		// Enter initials into the Collector's initials textfield
 		WebElement collectorInitialsTextField = driver.findElement(
 				By.cssSelector("design-item-text-box[data-item-id='Sample___ORDERING_PHYSICIAN'] > div > div > input"));
@@ -224,8 +291,23 @@ public class LabwebportalLoginTest {
 		WebElement finalSubmitButton = driver.findElement(By.xpath("//span[text()='Submit']"));
 		finalSubmitButton.click();
 		// Click Agree on the desclaimer
+		WebElement agreeButon = driver.findElement(By.xpath("//span[text()='Agree']"));
+		agreeButon.click();
+		Thread.sleep(2000);
 		// Verify if Order placed module is displayed
+		String orderPlacedText = driver.findElement(By.xpath("//div[contains(@class,'modal-header')]/h1")).getText();
 
+		assertEquals("Order Placed", orderPlacedText);
+		// name of patient
+		String nameUnderOrder = driver.findElement(By.xpath("//div[@class='modal-body']/div/p/b")).getText();
+		assertEquals(specimenIDName, nameUnderOrder);
+		// click OK button to finish
+		Thread.sleep(2000);
+		WebElement okButton = driver.findElement(By.xpath("//span[text()='OK']"));
+		okButton.click();
+		// Verify if order was placed
+		WebElement allSpecimensButton = driver.findElement(By.cssSelector("a[href='#/all-specimens']"));
+		allSpecimensButton.click();
 	}
 
 	// @After
