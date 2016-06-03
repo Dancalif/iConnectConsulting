@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SignInPage {
-
 	public void fillInUserName(WebDriver driver, String s) {
 		WebElement usernameTextField = driver.findElement(By.id("username"));
 		usernameTextField.clear();
@@ -29,7 +28,7 @@ public class SignInPage {
 		return PageFactory.initElements(driver, DashBoardPage.class);
 	}
 
-	public boolean isUsernameExist(WebDriver driver) {
+	public boolean doesUsernameExist(WebDriver driver) {
 		return driver.findElement(By.id("username")).isDisplayed();
 	}
 }

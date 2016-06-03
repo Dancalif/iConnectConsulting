@@ -9,6 +9,7 @@ public class WebUtil {
 
 	public static SignInPage goToSignInPage(WebDriver driver) {
 		driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
+		driver.manage().window().maximize();
 		return PageFactory.initElements(driver, SignInPage.class);
 	}
 
