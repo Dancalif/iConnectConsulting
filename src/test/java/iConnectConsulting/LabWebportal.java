@@ -15,8 +15,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.iConnectConsulting.categories.Critical;
@@ -38,13 +38,13 @@ import com.iConnectConsulting.util.WebUtil;
 public class LabWebportal {
 
 	// FF Browser
-	// WebDriver driver = new FirefoxDriver();
+	WebDriver driver = new FirefoxDriver();
 
 	// Chrome Browser
 	// WebDriver driver = new ChromeDriver();
 
 	// Safari Browser
-	WebDriver driver = new SafariDriver();
+	// WebDriver driver = new SafariDriver();
 
 	JavascriptExecutor je = (JavascriptExecutor) driver;
 	Actions action = new Actions(driver);
