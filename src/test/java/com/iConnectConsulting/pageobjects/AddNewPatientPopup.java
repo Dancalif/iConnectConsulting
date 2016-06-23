@@ -1,31 +1,28 @@
 package com.iConnectConsulting.pageobjects;
 
 import java.util.List;
-import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class AddNewPatientPopup {
-	StringBuilder randomString = new StringBuilder();
-	String candidateChars = "abcdefghijklmnopqrstuvwxyz";
-	Random rand = new Random();
+import com.iConnectConsulting.util.WebUtil;
 
-	public void fillInDateOfBirthTextfield(WebDriver driver) {
-		WebElement addDateOfBirth = driver.findElement(By.cssSelector(
-				"input[class='form-control item-focusable order-field-input ng-pristine ng-untouched ng-valid empty k-input']"));
-		Random rand = new Random();
-		int yyyy = 1900 + rand.nextInt(116);
-		int mm = 1 + rand.nextInt(12);
+public class AddNewPatientPopup {
+	StringBuilder randomStringBuilder = new StringBuilder();
+	String candidateChars = "abcdefghijklmnopqrstuvwxyz";
+
+	public void fillInDateOfBirthTextfield(WebDriver driver) throws InterruptedException {
+		int yyyy = 1900 + WebUtil.randNumber(116);
+		int mm = 1 + WebUtil.randNumber(12);
 		int dd = 0;
 
 		switch (mm) {
 		case 2:
 			if (yyyy % 4 == 0) {
-				dd = 1 + rand.nextInt(29);
+				dd = 1 + WebUtil.randNumber(29);
 			} else {
-				dd = 1 + rand.nextInt(28);
+				dd = 1 + WebUtil.randNumber(28);
 			}
 			break;
 		case 1:
@@ -35,9 +32,9 @@ public class AddNewPatientPopup {
 		case 8:
 		case 10:
 		case 12:
-			dd = 1 + rand.nextInt(31);
+			dd = 1 + WebUtil.randNumber(31);
 		default:
-			dd = 1 + rand.nextInt(30);
+			dd = 1 + WebUtil.randNumber(30);
 		}
 		String year = Integer.toString(yyyy);
 		String month = Integer.toString(mm);
@@ -48,51 +45,50 @@ public class AddNewPatientPopup {
 		if (dd < 10) {
 			day = "0" + dd;
 		}
-		addDateOfBirth.clear();
-		addDateOfBirth.sendKeys(month + '/' + day + '/' + year);
+		Thread.sleep(2000);
+		WebUtil.input(driver, month + '/' + day + '/' + year, By.cssSelector(
+				"input[class='form-control item-focusable order-field-input ng-pristine ng-untouched ng-valid empty k-input']"));
 	}
 
 	public void fillLastNameTextfield(WebDriver driver) {
-		WebElement addLastName = driver.findElement(By.xpath("(//input[@type='text'])[42]"));
-		int lengthOfLastName = 8;
-		addLastName.clear();
+		int lengthOfLastName = WebUtil.randNumber(50);
 		for (int i = 0; i < lengthOfLastName; i++) {
 			if (i == 0) {
-				randomString.append(candidateChars.toUpperCase().charAt(rand.nextInt(candidateChars.length())));
+				randomStringBuilder
+						.append(candidateChars.toUpperCase().charAt(WebUtil.randNumber(candidateChars.length())));
 			} else {
-				randomString.append(candidateChars.charAt(rand.nextInt(candidateChars.length())));
+				randomStringBuilder.append(candidateChars.charAt(WebUtil.randNumber(candidateChars.length())));
 			}
 		}
-		addLastName.sendKeys(randomString);
+		String randomString = randomStringBuilder.toString();
+		WebUtil.input(driver, randomString, By.cssSelector(
+				"design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___LAST_NAME'] > div > div > input"));
+		System.out.println(randomString);
 	}
 
 	public void fillFirstNameTextfield(WebDriver driver) {
-		WebElement addFirstName = driver.findElement(By.xpath("(//input[@type='text'])[43]"));
-		addFirstName.clear();
-		addFirstName.sendKeys("Dan");
-
+		WebUtil.input(driver, "Dan", By.cssSelector(
+				"design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___FIRST_NAME'] > div > div > input"));
 	}
 
 	public void selectMaleFemaleRadioButton(WebDriver driver) {
 		List<WebElement> maleFemaleRadioButtons = driver.findElements(By.cssSelector(
 				"design-item-list-box[class='lwp-design__item col-md-6 column ng-isolate-scope'][data-item-id='Patients___SEX'] > div > div > ul > li > div > fa-radio"));
-		int randMaleFemale = rand.nextInt(maleFemaleRadioButtons.size());
+		int randMaleFemale = WebUtil.randNumber(maleFemaleRadioButtons.size());
 		maleFemaleRadioButtons.get(randMaleFemale).click();
 
 	}
 
 	public void clickSubmitButton(WebDriver driver) throws InterruptedException {
-		WebElement submitButton = driver.findElement(
+		WebUtil.waitForElementVisible(driver,
 				By.xpath("//button[contains(@class,'btn btn-primary btn-form-md')]//span[text()='Submit']"));
-		Thread.sleep(3000);
-		WebElement addDateOfBirth = driver.findElement(By.cssSelector(
-				"input[class='form-control item-focusable order-field-input ng-valid k-input ng-dirty ng-valid-parse ng-touched']"));
-		addDateOfBirth.click();
-		Thread.sleep(1000);
-		addDateOfBirth.click();
-		submitButton.click();
-		Thread.sleep(1000);
 
+		WebUtil.click(driver, By.cssSelector(
+				"div[data-ng-hide='model.Layout[1].properties.ishidden'] > design-items > div > div > div > design-item-date-picker > div > div > div > span > span > input"));
+		Thread.sleep(1000);
+		WebUtil.click(driver, By.cssSelector(
+				"div[data-ng-hide='model.Layout[1].properties.ishidden'] > design-items > div > div > div > design-item-date-picker > div > div > div > span > span > input"));
+		WebUtil.click(driver,
+				By.xpath("//button[contains(@class,'btn btn-primary btn-form-md')]//span[text()='Submit']"));
 	}
-
 }
