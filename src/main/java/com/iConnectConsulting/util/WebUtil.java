@@ -7,19 +7,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.iConnectConsulting.pageobjects.SignInPage;
-
 public class WebUtil {
-
-	public static SignInPage goToSignInPage(WebDriver driver) {
-		driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
-		driver.manage().window().maximize();
-		return PageFactory.initElements(driver, SignInPage.class);
-	}
 
 	public static void input(WebDriver driver, String s, By locator) {
 		WebElement inputField = driver.findElement(locator);

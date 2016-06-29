@@ -3,24 +3,13 @@
  */
 package iConnectConsulting;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
-import java.util.Random;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
 
-import com.iConnectConsulting.categories.Critical;
-import com.iConnectConsulting.categories.Major;
 import com.iConnectConsulting.pageobjects.AddNewPatientPopup;
 import com.iConnectConsulting.pageobjects.CertificationOfTestOrderPopup;
 import com.iConnectConsulting.pageobjects.DashBoardPage;
@@ -29,62 +18,31 @@ import com.iConnectConsulting.pageobjects.OrderPlacedcePopup;
 import com.iConnectConsulting.pageobjects.PhysicianNamePopup;
 import com.iConnectConsulting.pageobjects.SignInPage;
 import com.iConnectConsulting.pageobjects.TestOrderPage;
-import com.iConnectConsulting.util.WebUtil;
 
 /**
  * @author dancalif
  *
  */
-public class LabWebportal {
+public class LabWebportal extends MainTest {
 
-	// FF Browser
-	WebDriver driver = new FirefoxDriver();
-
-	// Chrome Browser
-	// WebDriver driver = new ChromeDriver();
-
-	// Safari Browser
-	// WebDriver driver = new SafariDriver();
-
-	JavascriptExecutor je = (JavascriptExecutor) driver;
-	Actions action = new Actions(driver);
-	Random rand = new Random();
-	WebDriverWait wait = new WebDriverWait(driver, 30);
-	int randomNumber, numberID, maxNum = 0;
+	public SignInPage signInPage = PageFactory.initElements(getWebDriver(), SignInPage.class);
 	String specimenIDName = "";
 
-	@Category({ Critical.class })
-	@Test
-	public void labwebportalLoginPass() {
-		// Got to www.labwebportal.com
-		SignInPage signInPage = WebUtil.goToSignInPage(driver);
-		// Fill in username
-		signInPage.fillInUserName(driver, "ptox");
-		// Fill in password
-		signInPage.fillInPassword(driver, "ptox2013");
-		// Click Sing in button
-		DashBoardPage dashBoardPage = signInPage.clickSignInButton(driver);
+	@Test(enabled = true)
+	public void labwebportalLoginPass() throws InterruptedException {
+		DashBoardPage dashBoardPage = signInPage.login(driver, user);
+		signInPage.clickSignInButton(driver);
 		// Verify if user successfully signed in
-		Assert.assertTrue("Dashboard is not shown up", dashBoardPage.doesDashboardExist(driver));
+		Assert.assertTrue(dashBoardPage.doesDashboardExist(driver), "Dashboard is not shown up");
 		// Sign out
 		signInPage = dashBoardPage.signOut(driver);
 		// Verify if user is signed out
-		Assert.assertTrue("User is not signed out", signInPage.doesUsernameExist(driver));
+		Assert.assertTrue(signInPage.doesUsernameExist(driver), "User is not signed out");
 	}
 
-	@Category({ Major.class })
-	@Ignore
-	@Test
+	@Test(enabled = false)
 	public void testOrderSubmit() throws Exception {
-		// Got to www.labwebportal.com
-		SignInPage signInPage = WebUtil.goToSignInPage(driver);
-		// Fill in username
-		signInPage.fillInUserName(driver, "ptox");
-		// Fill in password
-		signInPage.fillInPassword(driver, "ptox2013");
-		// Click Sing in button
-		DashBoardPage dashBoardPage = signInPage.clickSignInButton(driver);
-		// Click Test Order button on the navigation panel
+		DashBoardPage dashBoardPage = signInPage.login(driver, user);
 		TestOrderPage testOrderPage = dashBoardPage.clickTestOrderButton(driver);
 		// Fill in Specimen Id textfield
 		specimenIDName = testOrderPage.fillInSpecimenID(driver);
@@ -132,12 +90,12 @@ public class LabWebportal {
 		testOrderPage.inputcollectorInitials(driver);
 		// Click Submit button
 		CertificationOfTestOrderPopup certificationOfTestOrderPopup = testOrderPage.clickFinalSubmitButton(driver);
-		// Click Agree on the desclaimer
+		// Click Agree on the disclaimer
 		OrderPlacedcePopup orderPlacedPopup = certificationOfTestOrderPopup.clickAgreeButton(driver);
 		// Verify if Order placed module is displayed
-		assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));
+		AssertJUnit.assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));
 		// Verify name of patient
-		assertEquals(specimenIDName, orderPlacedPopup.doesNameUnderOrderMatch(driver));
+		AssertJUnit.assertEquals(specimenIDName, orderPlacedPopup.doesNameUnderOrderMatch(driver));
 		// Verify if Print button is displayed
 		orderPlacedPopup.doesPrintButtonExist(driver);
 		// Click Print button
@@ -145,17 +103,11 @@ public class LabWebportal {
 		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs2.get(1));
 		String getURL = driver.getCurrentUrl();
-		Assert.assertTrue(getURL.contains(specimenIDName));
+		AssertJUnit.assertTrue(getURL.contains(specimenIDName));
 		System.out.println(specimenIDName);
 		driver.switchTo().window(tabs2.get(0));
 		// click OK button to finish
 		Thread.sleep(2000);
 		orderPlacedPopup.clickOkButton(driver);
-	}
-
-	@After
-	public void tearDown() {
-		// Clean up enviroment
-		driver.quit();
 	}
 }
