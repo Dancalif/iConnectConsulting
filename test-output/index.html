@@ -135,7 +135,7 @@
         </div> <!-- panel Default_suite -->
         <div panel-name="test-xml-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">/private/var/folders/17/8xmq9vts2xs3gjgprxq3dtgr0000gn/T/testng-eclipse--1108637797/testng-customsuite.xml</span>
+            <span class="header-content">/private/var/folders/17/8xmq9vts2xs3gjgprxq3dtgr0000gn/T/testng-eclipse--645596261/testng-customsuite.xml</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <pre>
@@ -144,7 +144,19 @@
 &lt;suite guice-stage=&quot;DEVELOPMENT&quot; name=&quot;Default suite&quot;&gt;
   &lt;test verbose=&quot;2&quot; name=&quot;Default test&quot;&gt;
     &lt;classes&gt;
+      &lt;class name=&quot;iConnectConsulting.MainTest&quot;/&gt;
       &lt;class name=&quot;iConnectConsulting.LabWebportal&quot;/&gt;
+      &lt;class name=&quot;com.iConnectConsulting.pageobjects.AddNewPatientPopup&quot;/&gt;
+      &lt;class name=&quot;iConnectConsulting.TestScript&quot;/&gt;
+      &lt;class name=&quot;com.iConnectConsulting.data.UserData&quot;/&gt;
+      &lt;class name=&quot;com.iConnectConsulting.pageobjects.OrderPlacedcePopup&quot;/&gt;
+      &lt;class name=&quot;com.iConnectConsulting.pageobjects.PhysicianNamePopup&quot;/&gt;
+      &lt;class name=&quot;com.iConnectConsulting.pageobjects.DashBoardPage&quot;/&gt;
+      &lt;class name=&quot;com.iConnectConsulting.pageobjects.TestOrderPage&quot;/&gt;
+      &lt;class name=&quot;com.iConnectConsulting.pageobjects.CertificationOfTestOrderPopup&quot;/&gt;
+      &lt;class name=&quot;com.iConnectConsulting.pageobjects.SignInPage&quot;/&gt;
+      &lt;class name=&quot;com.iConnectConsulting.util.WebUtil&quot;/&gt;
+      &lt;class name=&quot;com.iConnectConsulting.pageobjects.LastNamePopup&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Default test --&gt;
 &lt;/suite&gt; &lt;!-- Default suite --&gt;
@@ -158,7 +170,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">Default test (1 class)</span>
+                <span class="test-name">Default test (13 classes)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -188,12 +200,12 @@ data.addRows(1);
 data.setCell(0, 0, 0)
 data.setCell(0, 1, 'labwebportalLoginPass')
 data.setCell(0, 2, 'iConnectConsulting.LabWebportal')
-data.setCell(0, 3, 13523);
+data.setCell(0, 3, 8024);
 window.suiteTableData['Default_suite']= { tableData: data, tableDiv: 'times-div-Default_suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 13 seconds</span>
+              <span class="suite-total-time">Total running time: 8 seconds</span>
               <div id="times-div-Default_suite">
               </div> <!-- times-div-Default_suite -->
             </div> <!-- times-div -->
@@ -208,13 +220,17 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Default_suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">1 ignored method</span>
+            <span class="header-content">3 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="ignored-class-div">
               <span class="ignored-class-name">iConnectConsulting.LabWebportal</span>
               <div class="ignored-methods-div">
+                <span class="ignored-method-name">getWebDriver</span>
+                <br/>
                 <span class="ignored-method-name">testOrderSubmit</span>
+                <br/>
+                <span class="ignored-method-name">tearDown</span>
                 <br/>
               </div> <!-- ignored-methods-div -->
             </div> <!-- ignored-class-div -->
@@ -226,18 +242,24 @@ return data;
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="chronological-class">
-              <div class="chronological-class-name">iConnectConsulting.LabWebportal</div> <!-- chronological-class-name -->
+              <div class="chronological-class-name">iConnectConsulting.MainTest</div> <!-- chronological-class-name -->
               <div class="configuration-test before">
                 <span class="method-name">getWebDriver</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-test before -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">iConnectConsulting.LabWebportal</div> <!-- chronological-class-name -->
               <div class="test-method">
                 <span class="method-name">labwebportalLoginPass</span>
-                <span class="method-start">91 ms</span>
+                <span class="method-start">66 ms</span>
               </div> <!-- test-method -->
+            </div> <!-- chronological-class -->
+            <div class="chronological-class">
+              <div class="chronological-class-name">iConnectConsulting.MainTest</div> <!-- chronological-class-name -->
               <div class="configuration-test after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">13622 ms</span>
+                <span class="method-start">8094 ms</span>
               </div> <!-- configuration-test after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->

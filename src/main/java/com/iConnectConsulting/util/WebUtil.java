@@ -2,7 +2,6 @@ package com.iConnectConsulting.util;
 
 import java.util.Random;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -32,7 +31,7 @@ public class WebUtil {
 	public static void verifyIfElementExists(WebDriver driver, By locator) {
 		WebElement elementToBeFound = driver.findElement(locator);
 		boolean ifDisplayed = elementToBeFound.isDisplayed();
-		Assert.assertTrue(ifDisplayed);
+		org.testng.Assert.assertTrue(ifDisplayed);
 	}
 
 	public static int randNumber(int maxNumber) {
