@@ -1,7 +1,11 @@
 package iConnectConsulting;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -15,7 +19,11 @@ public class MainTest {
 	@BeforeTest
 	public WebDriver getWebDriver() {
 		if (driver == null) {
-			driver = new SafariDriver();
+			try {
+				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
 			driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
 			driver.manage().window().maximize();
 		}
