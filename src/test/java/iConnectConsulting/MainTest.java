@@ -1,7 +1,7 @@
 package iConnectConsulting;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
@@ -15,7 +15,7 @@ public class MainTest {
 	@BeforeTest
 	public WebDriver getWebDriver() {
 		if (driver == null) {
-			driver = new FirefoxDriver();
+			driver = new SafariDriver();
 			driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
 			driver.manage().window().maximize();
 		}
