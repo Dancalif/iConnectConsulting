@@ -33,6 +33,7 @@ public class LabWebportal extends MainTest {
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
 		signInPage.clickSignInButton(driver);
 		// Verify if user successfully signed in
+		Thread.sleep(5000);
 		Assert.assertTrue(dashBoardPage.doesDashboardExist(driver), "Dashboard is not shown up");
 		// Sign out
 		signInPage = dashBoardPage.signOut(driver);
