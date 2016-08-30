@@ -28,7 +28,7 @@ public class LabWebportal extends MainTest {
 	public SignInPage signInPage = PageFactory.initElements(getWebDriver(), SignInPage.class);
 	String specimenIDName = "";
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void labwebportalLoginPass() throws InterruptedException {
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
 		signInPage.clickSignInButton(driver);
@@ -41,7 +41,7 @@ public class LabWebportal extends MainTest {
 		Assert.assertTrue(signInPage.doesUsernameExist(driver), "User is not signed out");
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testOrderSubmit() throws Exception {
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
 		TestOrderPage testOrderPage = dashBoardPage.clickTestOrderButton(driver);
