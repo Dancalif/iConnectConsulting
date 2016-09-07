@@ -18,15 +18,15 @@ public class MainTest {
 
 	@BeforeTest
 	public WebDriver getWebDriver() {
-		if (driver == null) {
-			try {
-				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
-			} catch (MalformedURLException e) {
-				e.printStackTrace();
-			}
-			driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
-			driver.manage().window().maximize();
+		 if (driver == null) {
+		try {
+			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
 		}
+		driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
+		driver.manage().window().maximize();
+		 }
 		return driver;
 	}
 
