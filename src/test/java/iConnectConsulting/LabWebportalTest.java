@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
 import com.iConnectConsulting.pageobjects.AddNewPatientPopup;
@@ -97,9 +96,13 @@ public class LabWebportalTest extends MainTest {
 		// Click Agree on the disclaimer
 		OrderPlacedcePopup orderPlacedPopup = certificationOfTestOrderPopup.clickAgreeButton(driver);
 		// Verify if Order placed module is displayed
-		AssertJUnit.assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));
+		Assert.assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));
+		// AssertJUnit.assertEquals("Order Placed",
+		// orderPlacedPopup.doesOrderPlacedExist(driver));
 		// Verify name of patient
-		AssertJUnit.assertEquals(specimenIDName, orderPlacedPopup.doesNameUnderOrderMatch(driver));
+		Assert.assertEquals(specimenIDName, orderPlacedPopup.doesNameUnderOrderMatch(driver));
+		// AssertJUnit.assertEquals(specimenIDName,
+		// orderPlacedPopup.doesNameUnderOrderMatch(driver));
 		// Verify if Print button is displayed
 		orderPlacedPopup.doesPrintButtonExist(driver);
 		// Click Print button
@@ -107,7 +110,8 @@ public class LabWebportalTest extends MainTest {
 		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs2.get(1));
 		String getURL = driver.getCurrentUrl();
-		AssertJUnit.assertTrue(getURL.contains(specimenIDName));
+		Assert.assertTrue(getURL.contains(specimenIDName));
+		// AssertJUnit.assertTrue(getURL.contains(specimenIDName));
 		System.out.println(specimenIDName);
 		driver.switchTo().window(tabs2.get(0));
 		// click OK button to finish
