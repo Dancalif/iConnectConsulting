@@ -3,6 +3,7 @@ package com.iConnectConsulting.util;
 import java.util.Random;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,13 +43,33 @@ public class WebUtil {
 
 	public static void getElementVisible(WebDriver driver, By locator) throws Exception {
 		WebElement elmentToBeVisible = driver.findElement(locator);
+
+		elmentToBeVisible.sendKeys(Keys.PAGE_DOWN);
+		Thread.sleep(1000);
 		try {
-			elmentToBeVisible.click();
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.elementToBeClickable(locator));
 		} catch (Exception e) {
 			elmentToBeVisible.sendKeys(Keys.PAGE_UP);
+			Thread.sleep(1000);
+			WebDriverWait wait = new WebDriverWait(driver, 30);
+			wait.until(ExpectedConditions.elementToBeClickable(locator));
 		}
 
-		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions.elementToBeClickable(locator));
+		// try {
+		// elmentToBeVisible.click();
+		// } catch (Exception e) {
+		// elmentToBeVisible.sendKeys(Keys.PAGE_UP);
+		// }
+		//
+		// WebDriverWait wait = new WebDriverWait(driver, 30);
+		// wait.until(ExpectedConditions.elementToBeClickable(locator));
+	}
+
+	public static void clickHiddenElement(WebDriver driver, By locator) {
+		WebElement elementToClik = driver.findElement(locator);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", elementToClik);
+
 	}
 }

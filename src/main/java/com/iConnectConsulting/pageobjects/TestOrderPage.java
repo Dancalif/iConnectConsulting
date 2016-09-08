@@ -5,7 +5,6 @@ import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -64,12 +63,21 @@ public class TestOrderPage {
 	}
 
 	public void clickUninsuredRadioButton(WebDriver driver) throws Exception {
-		WebUtil.waitForElementVisible(driver,
+		// WebUtil.waitForElementVisible(driver,
+		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
+		// WebUtil.getElementVisible(driver, By.xpath("//span[text()='*Billing
+		// Method']"));
+		// WebUtil.waitForElementVisible(driver,
+		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
+		Thread.sleep(3000);
+		WebUtil.clickHiddenElement(driver,
 				By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
-		WebUtil.getElementVisible(driver, By.xpath("//span[text()='*Billing Method']"));
-		WebUtil.waitForElementVisible(driver,
-				By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
-		WebUtil.click(driver, By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
+
+		// WebElement UninsuredRadioButto = driver
+		// .findElement(By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
+
+		// WebUtil.click(driver,
+		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
 	}
 
 	public void inputDiagnosisCode(WebDriver driver) throws Exception {
@@ -86,10 +94,17 @@ public class TestOrderPage {
 	}
 
 	public void clickUrineRadioButton(WebDriver driver) throws Exception {
-		WebUtil.waitForElementVisible(driver, By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
-		WebUtil.getElementVisible(driver, By.xpath("//span[text()='*SPECIMEN TYPE']"));
-		WebUtil.waitForElementVisible(driver, By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
-		WebUtil.click(driver, By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
+
+		WebUtil.clickHiddenElement(driver, By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
+
+		// WebUtil.waitForElementVisible(driver,
+		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
+		// WebUtil.getElementVisible(driver, By.xpath("//span[text()='*SPECIMEN
+		// TYPE']"));
+		// WebUtil.waitForElementVisible(driver,
+		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
+		// WebUtil.click(driver,
+		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
 	}
 
 	public void clickRecordPOCResultsExpand(WebDriver driver) throws Exception {
@@ -97,8 +112,13 @@ public class TestOrderPage {
 		// WebUtil.getElementVisible(driver, By.cssSelector(
 		// "div[class='print-field order-form-field fieldfiller'] >
 		// div[class='print-poc-code-list'] > data-multicolumn-layout"));
-		WebUtil.click(driver, By.cssSelector(
+
+		WebUtil.clickHiddenElement(driver, By.cssSelector(
 				"design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309'] > div > div > div > a"));
+
+		// WebUtil.click(driver, By.cssSelector(
+		// "design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309']
+		// > div > div > div > a"));
 
 		// WebElement pocResultsExpand = driver.findElement(By.cssSelector(
 		// "design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309']
@@ -153,11 +173,16 @@ public class TestOrderPage {
 	}
 
 	public void clickPerformCustomProfile(WebDriver driver) throws Exception {
-		WebUtil.getElementVisible(driver,
-				By.xpath("//div[text()='6 SELECT YOUR TESTING OPTION (THIS SECTION MUST BE COMPLETED)']"));
-		WebUtil.click(driver, By.xpath("//span[text()='PERFORM CUSTOM PROFILE']"));
+		// WebUtil.getElementVisible(driver,
+		// By.xpath("//div[text()='6 SELECT YOUR TESTING OPTION (THIS SECTION
+		// MUST BE COMPLETED)']"));
+		// WebUtil.click(driver, By.xpath("//span[text()='PERFORM CUSTOM
+		// PROFILE']"));
+		WebUtil.click(driver, By.cssSelector(
+				"ul[class='lwp-design__test-codes__controls list-inline-centered pull-right additional-controls']"));
 		WebUtil.waitForElementVisible(driver, By.cssSelector("span[class='k-icon k-i-arrow-s']"));
 		WebUtil.click(driver, By.cssSelector("span[class='k-icon k-i-arrow-s']"));
+
 		WebUtil.click(driver, By.xpath("//li[text()='FULLPANELMIX']"));
 	}
 
@@ -169,17 +194,21 @@ public class TestOrderPage {
 		do
 
 		{
+			JavascriptExecutor js = (JavascriptExecutor) driver;
 			randomNumber = WebUtil.randNumber(medicationsCheckBoxes.size());
+
 			WebElement myElement = medicationsCheckBoxes.get(randomNumber);
-			myElement.sendKeys(Keys.PAGE_DOWN);
-			Thread.sleep(1000);
-			try {
-				myElement.click();
-			} catch (Exception e) {
-				myElement.sendKeys(Keys.PAGE_UP);
-				Thread.sleep(1000);
-				myElement.click();
-			}
+
+			js.executeScript("arguments[0].click();", myElement);
+			// myElement.sendKeys(Keys.PAGE_DOWN);
+			// Thread.sleep(1000);
+			// try {
+			// myElement.click();
+			// } catch (Exception e) {
+			// myElement.sendKeys(Keys.PAGE_UP);
+			// Thread.sleep(1000);
+			// myElement.click();
+			// }
 			maxNum++;
 		} while (maxNum < 8);
 

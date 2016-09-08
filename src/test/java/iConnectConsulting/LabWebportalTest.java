@@ -16,6 +16,7 @@ import com.iConnectConsulting.pageobjects.DashBoardPage;
 import com.iConnectConsulting.pageobjects.LastNamePopup;
 import com.iConnectConsulting.pageobjects.OrderPlacedcePopup;
 import com.iConnectConsulting.pageobjects.PhysicianNamePopup;
+import com.iConnectConsulting.pageobjects.SampleTemplateSelectionPopup;
 import com.iConnectConsulting.pageobjects.SignInPage;
 import com.iConnectConsulting.pageobjects.TestOrderPage;
 
@@ -28,7 +29,7 @@ public class LabWebportalTest extends MainTest {
 	public SignInPage signInPage = PageFactory.initElements(getWebDriver(), SignInPage.class);
 	String specimenIDName = "";
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void labwebportalLoginPass() throws InterruptedException {
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
 		signInPage.clickSignInButton(driver);
@@ -41,10 +42,12 @@ public class LabWebportalTest extends MainTest {
 		Assert.assertTrue(signInPage.doesUsernameExist(driver), "User is not signed out");
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testOrderSubmit() throws Exception {
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
+		signInPage.clickSignInButton(driver);
 		TestOrderPage testOrderPage = dashBoardPage.clickTestOrderButton(driver);
+		SampleTemplateSelectionPopup sampletemplateselectionpopup = dashBoardPage.clickPrecisionDiagnostics(driver);
 		// Fill in Specimen Id textfield
 		specimenIDName = testOrderPage.fillInSpecimenID(driver);
 		// Click Physician Name textfield

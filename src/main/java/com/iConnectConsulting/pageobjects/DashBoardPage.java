@@ -21,7 +21,16 @@ public class DashBoardPage {
 
 	public TestOrderPage clickTestOrderButton(WebDriver driver) {
 		WebUtil.click(driver, By.cssSelector("a[href='#/test-order']"));
-		WebUtil.waitForElementVisible(driver, By.cssSelector("input"));
+		WebUtil.waitForElementVisible(driver,
+				By.xpath("//div[contains(@class, 'modal-header')]//h1[contains(@class, 'ng-binding')]"));
+
+		// WebUtil.waitForElementVisible(driver, By.cssSelector("input"));
 		return PageFactory.initElements(driver, TestOrderPage.class);
+	}
+
+	public SampleTemplateSelectionPopup clickPrecisionDiagnostics(WebDriver driver) {
+		WebUtil.click(driver, By.xpath("//li[text()='Precision Diagnostics']"));
+		WebUtil.click(driver, By.xpath(".//*[@id='se_refresh_btn']"));
+		return PageFactory.initElements(driver, SampleTemplateSelectionPopup.class);
 	}
 }
