@@ -25,11 +25,13 @@ import com.iConnectConsulting.pageobjects.TestOrderPage;
  */
 public class LabWebportalTest extends MainTest {
 
-	public SignInPage signInPage = PageFactory.initElements(getWebDriver(), SignInPage.class);
+	// public SignInPage signInPage = PageFactory.initElements(getWebDriver(),
+	// SignInPage.class);
 	String specimenIDName = "";
 
 	@Test(enabled = false)
 	public void labwebportalLoginPass() throws InterruptedException {
+		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
 		signInPage.clickSignInButton(driver);
 		// Verify if user successfully signed in
@@ -43,6 +45,7 @@ public class LabWebportalTest extends MainTest {
 
 	@Test(enabled = true)
 	public void testOrderSubmit() throws Exception {
+		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
 		signInPage.clickSignInButton(driver);
 		TestOrderPage testOrderPage = dashBoardPage.clickTestOrderButton(driver);

@@ -1,33 +1,36 @@
 package iConnectConsulting;
 
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 
 import com.iConnectConsulting.data.UserData;
 
 public class MainTest {
 
-	public static WebDriver driver;
-	public UserData user = new UserData("ptox", "ptox2013");
+	WebDriver driver;
+	UserData user = new UserData("ptox", "ptox2013");
 
+	@Parameters({ "browser", "url" })
 	@BeforeTest
-	public WebDriver getWebDriver() {
-		 if (driver == null) {
-		try {
+	public void getWebDriver(String browser, String url) throws Exception {
+
+		if (browser.equalsIgnoreCase("chrome")) {
 			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
+		} else if (browser.equalsIgnoreCase("firefox")) {
+			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.firefox());
 		}
-		driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
+
+		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		 }
-		return driver;
+		driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
+		// return driver;
 	}
 
 	@AfterTest

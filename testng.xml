@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Suite">
-  <test name="Test">
+
+<suite name="Suite" parallel="tests" thread-count="2">
+<tests>
+  <test name="Firefox Test">
+  <parameters>
+  <parameter name="browser" value="chrome" />
+  <parameter name="url" value="https://www.labwebportal.com/Precision_v7_dev/#/login" />
+  </parameters>
     <classes>
-      <class name="iConnectConsulting.LabWebportalTest"></class>
+      <class name="iConnectConsulting.LabWebportalTest" />
     </classes>
-  </test> <!-- Test -->
-</suite> <!-- Suite -->
+  </test>
+   <test name="Chrome Test">
+  <parameters>
+  <parameter name="browser" value="firefox" />
+  <parameter name="url" value="https://www.labwebportal.com/Precision_v7_dev/#/login" />
+  </parameters>
+    <classes>
+      <class name="iConnectConsulting.LabWebportalTest" />
+    </classes>
+  </test>
+  </tests>
+</suite>
