@@ -14,6 +14,7 @@ import com.iConnectConsulting.pageobjects.CertificationOfTestOrderPopup;
 import com.iConnectConsulting.pageobjects.DashBoardPage;
 import com.iConnectConsulting.pageobjects.LastNamePopup;
 import com.iConnectConsulting.pageobjects.OrderPlacedcePopup;
+import com.iConnectConsulting.pageobjects.PatientInsurancePopup;
 import com.iConnectConsulting.pageobjects.PhysicianNamePopup;
 import com.iConnectConsulting.pageobjects.SampleTemplateSelectionPopup;
 import com.iConnectConsulting.pageobjects.SignInPage;
@@ -43,7 +44,7 @@ public class LabWebportalTest extends MainTest {
 		Assert.assertTrue(signInPage.doesUsernameExist(driver), "User is not signed out");
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testOrderSubmit() throws Exception {
 		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
@@ -74,8 +75,6 @@ public class LabWebportalTest extends MainTest {
 		addNewPatientPopup.selectMaleFemaleRadioButton(driver);
 		// Click Submit button
 		addNewPatientPopup.clickSubmitButton(driver);
-		// Scroll to the elements
-		// testOrderPage.scrollToBillingMethod(driver);
 		// Select uninsured radio button
 		testOrderPage.clickUninsuredRadioButton(driver);
 		// Enter 304 under DIAGNOSIS CODES
@@ -120,5 +119,41 @@ public class LabWebportalTest extends MainTest {
 		// click OK button to finish
 		Thread.sleep(2000);
 		orderPlacedPopup.clickOkButton(driver);
+	}
+
+	@Test(enabled = true)
+	public void testOrderSubmitUninsured() throws Exception {
+		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
+		DashBoardPage dashBoardPage = signInPage.login(driver, user);
+		signInPage.clickSignInButton(driver);
+		TestOrderPage testOrderPage = dashBoardPage.clickTestOrderButton(driver);
+		SampleTemplateSelectionPopup sampletemplateselectionpopup = dashBoardPage.clickPrecisionDiagnostics(driver);
+		// Fill in Specimen Id textfield
+		specimenIDName = testOrderPage.fillInSpecimenID(driver);
+		// Click Physician Name textfield
+		PhysicianNamePopup physicianNamePopup = testOrderPage.clickPhysicianNameTextField(driver);
+		// Select any physician
+		physicianNamePopup.clickPhysicianName(driver);
+		// Click Apply selected button
+		physicianNamePopup.clickApplySelectedButton(driver);
+		// Verify if Specimen ID is unique
+		testOrderPage.verifyIfSpecimenIDunigue(driver);
+		// Click Last Name box
+		LastNamePopup lastNamePopup = testOrderPage.clickLastNameTextField(driver);
+		// Click Add New button
+		AddNewPatientPopup addNewPatientPopup = lastNamePopup.clickAddNewButton(driver);
+		// Enter Date of Birth
+		addNewPatientPopup.fillInDateOfBirthTextfield(driver);
+		// Fill out Last name text field
+		addNewPatientPopup.fillLastNameTextfield(driver);
+		// Fill out First name text field
+		addNewPatientPopup.fillFirstNameTextfield(driver);
+		// Select a gender
+		addNewPatientPopup.selectMaleFemaleRadioButton(driver);
+		// Click Submit button
+		addNewPatientPopup.clickSubmitButton(driver);
+		testOrderPage.clickInsuredRadioButton(driver);
+		PatientInsurancePopup patientInsurancePopup = testOrderPage.clickInsuranceNameTextfield(driver);
+
 	}
 }

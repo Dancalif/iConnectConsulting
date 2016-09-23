@@ -63,21 +63,9 @@ public class TestOrderPage {
 	}
 
 	public void clickUninsuredRadioButton(WebDriver driver) throws Exception {
-		// WebUtil.waitForElementVisible(driver,
-		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
-		// WebUtil.getElementVisible(driver, By.xpath("//span[text()='*Billing
-		// Method']"));
-		// WebUtil.waitForElementVisible(driver,
-		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
 		Thread.sleep(3000);
 		WebUtil.clickHiddenElement(driver,
 				By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
-
-		// WebElement UninsuredRadioButto = driver
-		// .findElement(By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
-
-		// WebUtil.click(driver,
-		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
 	}
 
 	public void inputDiagnosisCode(WebDriver driver) throws Exception {
@@ -94,45 +82,13 @@ public class TestOrderPage {
 	}
 
 	public void clickUrineRadioButton(WebDriver driver) throws Exception {
-
 		WebUtil.clickHiddenElement(driver, By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
-
-		// WebUtil.waitForElementVisible(driver,
-		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
-		// WebUtil.getElementVisible(driver, By.xpath("//span[text()='*SPECIMEN
-		// TYPE']"));
-		// WebUtil.waitForElementVisible(driver,
-		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
-		// WebUtil.click(driver,
-		// By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
 	}
 
 	public void clickRecordPOCResultsExpand(WebDriver driver) throws Exception {
-		// Thread.sleep(1000);
-		// WebUtil.getElementVisible(driver, By.cssSelector(
-		// "div[class='print-field order-form-field fieldfiller'] >
-		// div[class='print-poc-code-list'] > data-multicolumn-layout"));
-
 		WebUtil.clickHiddenElement(driver, By.cssSelector(
 				"design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309'] > div > div > div > a"));
 
-		// WebUtil.click(driver, By.cssSelector(
-		// "design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309']
-		// > div > div > div > a"));
-
-		// WebElement pocResultsExpand = driver.findElement(By.cssSelector(
-		// "design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309']
-		// > div > div > div > a"));
-		// try {
-		// WebUtil.click(driver, By.cssSelector(
-		// "design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309']
-		// > div > div > div > a"));
-		// } catch (Exception e) {
-		// pocResultsExpand.sendKeys(Keys.PAGE_UP);
-		// WebUtil.click(driver, By.cssSelector(
-		// "design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309']
-		// > div > div > div > a"));
-		// }
 	}
 
 	public void selectRecordPOCResults(WebDriver driver) throws InterruptedException {
@@ -154,10 +110,6 @@ public class TestOrderPage {
 				maxNum++;
 			} catch (Exception e) {
 
-				// WebElement urineRadioButton = driver
-				// .findElement(By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
-				// je.executeScript("arguments[0].scrollIntoView(true);",
-				// urineRadioButton);
 			}
 
 			try {
@@ -173,11 +125,6 @@ public class TestOrderPage {
 	}
 
 	public void clickPerformCustomProfile(WebDriver driver) throws Exception {
-		// WebUtil.getElementVisible(driver,
-		// By.xpath("//div[text()='6 SELECT YOUR TESTING OPTION (THIS SECTION
-		// MUST BE COMPLETED)']"));
-		// WebUtil.click(driver, By.xpath("//span[text()='PERFORM CUSTOM
-		// PROFILE']"));
 		WebUtil.click(driver, By.cssSelector(
 				"ul[class='lwp-design__test-codes__controls list-inline-centered pull-right additional-controls']"));
 		WebUtil.waitForElementVisible(driver, By.cssSelector("span[class='k-icon k-i-arrow-s']"));
@@ -200,15 +147,6 @@ public class TestOrderPage {
 			WebElement myElement = medicationsCheckBoxes.get(randomNumber);
 
 			js.executeScript("arguments[0].click();", myElement);
-			// myElement.sendKeys(Keys.PAGE_DOWN);
-			// Thread.sleep(1000);
-			// try {
-			// myElement.click();
-			// } catch (Exception e) {
-			// myElement.sendKeys(Keys.PAGE_UP);
-			// Thread.sleep(1000);
-			// myElement.click();
-			// }
 			maxNum++;
 		} while (maxNum < 8);
 
@@ -222,5 +160,17 @@ public class TestOrderPage {
 	public CertificationOfTestOrderPopup clickFinalSubmitButton(WebDriver driver) {
 		WebUtil.click(driver, By.xpath("//span[text()='Submit']"));
 		return PageFactory.initElements(driver, CertificationOfTestOrderPopup.class);
+	}
+
+	public void clickInsuredRadioButton(WebDriver driver) throws InterruptedException {
+		Thread.sleep(3000);
+		WebUtil.clickHiddenElement(driver, By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Insured']"));
+
+	}
+
+	public PatientInsurancePopup clickInsuranceNameTextfield(WebDriver driver) throws Exception {
+		WebUtil.clickHiddenElement(driver, By.cssSelector(
+				"div > design-items[data-item-id='d32c5ffa-fd7c-4833-8406-aea37559e163'] > div > div > div > design-item-lookup > div > div[class='print-field order-form-field fieldfiller'] > div > div > div > div > button[ng-click='openLookup(model)'] > i"));
+		return PageFactory.initElements(driver, PatientInsurancePopup.class);
 	}
 }
