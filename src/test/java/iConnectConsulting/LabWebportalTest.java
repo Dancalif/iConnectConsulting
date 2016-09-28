@@ -99,8 +99,6 @@ public class LabWebportalTest extends MainTest {
 		OrderPlacedcePopup orderPlacedPopup = certificationOfTestOrderPopup.clickAgreeButton(driver);
 		// Verify if Order placed module is displayed
 		Assert.assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));
-		// AssertJUnit.assertEquals("Order Placed",
-		// orderPlacedPopup.doesOrderPlacedExist(driver));
 		// Verify name of patient
 		Assert.assertEquals(specimenIDName, orderPlacedPopup.doesNameUnderOrderMatch(driver));
 		// AssertJUnit.assertEquals(specimenIDName,
