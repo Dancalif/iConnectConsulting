@@ -56,14 +56,6 @@ public class WebUtil {
 			wait.until(ExpectedConditions.elementToBeClickable(locator));
 		}
 
-		// try {
-		// elmentToBeVisible.click();
-		// } catch (Exception e) {
-		// elmentToBeVisible.sendKeys(Keys.PAGE_UP);
-		// }
-		//
-		// WebDriverWait wait = new WebDriverWait(driver, 30);
-		// wait.until(ExpectedConditions.elementToBeClickable(locator));
 	}
 
 	public static void clickHiddenElement(WebDriver driver, By locator) {

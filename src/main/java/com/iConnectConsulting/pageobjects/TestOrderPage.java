@@ -38,7 +38,7 @@ public class TestOrderPage {
 				if (uniqueMessage.isDisplayed()) {
 					randomNumber = 1000 + rand.nextInt(8999);
 					specimenIDName = "DanU" + randomNumber;
-					WebElement specimenID = driver.findElement(By.cssSelector("input"));
+					WebElement specimenID = driver.findElement(By.cssSelector("input[placeholder='Specimen Id']"));
 					specimenID.clear();
 					specimenID.sendKeys(specimenIDName);
 					System.out.print("The specimen ID is " + specimenIDName);
@@ -125,12 +125,17 @@ public class TestOrderPage {
 	}
 
 	public void clickPerformCustomProfile(WebDriver driver) throws Exception {
-		WebUtil.click(driver, By.cssSelector(
-				"ul[class='lwp-design__test-codes__controls list-inline-centered pull-right additional-controls']"));
-		WebUtil.waitForElementVisible(driver, By.cssSelector("span[class='k-icon k-i-arrow-s']"));
-		WebUtil.click(driver, By.cssSelector("span[class='k-icon k-i-arrow-s']"));
-
-		WebUtil.click(driver, By.xpath("//li[text()='FULLPANELMIX']"));
+		WebUtil.clickHiddenElement(driver, By.cssSelector(
+				"ul[class='lwp-design__test-codes__controls list-inline-centered pull-right additional-controls'] > li > ul > li > fa-check-box > i"));
+		// WebUtil.click(driver, By.cssSelector(
+		// "ul[class='lwp-design__test-codes__controls list-inline-centered
+		// pull-right additional-controls']"));
+		// WebUtil.waitForElementVisible(driver,
+		// By.cssSelector("span[class='k-icon k-i-arrow-s']"));
+		// WebUtil.click(driver, By.cssSelector("span[class='k-icon
+		// k-i-arrow-s']"));
+		//
+		// WebUtil.click(driver, By.xpath("//li[text()='FULLPANELMIX']"));
 	}
 
 	public void clickMedicationsCheckBoxes(WebDriver driver) throws InterruptedException {
@@ -157,7 +162,8 @@ public class TestOrderPage {
 				By.cssSelector("design-item-text-box[data-item-id='Sample___ORDERING_PHYSICIAN'] > div > div > input"));
 	}
 
-	public CertificationOfTestOrderPopup clickFinalSubmitButton(WebDriver driver) {
+	public CertificationOfTestOrderPopup clickFinalSubmitButton(WebDriver driver) throws InterruptedException {
+		Thread.sleep(3000);
 		WebUtil.click(driver, By.xpath("//span[text()='Submit']"));
 		return PageFactory.initElements(driver, CertificationOfTestOrderPopup.class);
 	}
@@ -169,6 +175,7 @@ public class TestOrderPage {
 	}
 
 	public PatientInsurancePopup clickInsuranceNameTextfield(WebDriver driver) throws Exception {
+		Thread.sleep(3000);
 		WebUtil.clickHiddenElement(driver, By.cssSelector(
 				"div > design-items[data-item-id='d32c5ffa-fd7c-4833-8406-aea37559e163'] > div > div > div > design-item-lookup > div > div[class='print-field order-form-field fieldfiller'] > div > div > div > div > button[ng-click='openLookup(model)'] > i"));
 		return PageFactory.initElements(driver, PatientInsurancePopup.class);

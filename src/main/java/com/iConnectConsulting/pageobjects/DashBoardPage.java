@@ -24,7 +24,6 @@ public class DashBoardPage {
 		WebUtil.waitForElementVisible(driver,
 				By.xpath("//div[contains(@class, 'modal-header')]//h1[contains(@class, 'ng-binding')]"));
 
-		// WebUtil.waitForElementVisible(driver, By.cssSelector("input"));
 		return PageFactory.initElements(driver, TestOrderPage.class);
 	}
 

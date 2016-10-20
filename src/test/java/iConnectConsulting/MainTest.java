@@ -23,16 +23,14 @@ public class MainTest {
 
 		if (browser.equalsIgnoreCase("chrome")) {
 			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
-			// } else if (browser.equalsIgnoreCase("firefox")) {
-			// driver = new RemoteWebDriver(new
-			// URL("http://localhost:4444/wd/hub"),
-			// DesiredCapabilities.firefox());
+		} else if (browser.equalsIgnoreCase("firefox")) {
+			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.firefox());
 		}
 
 		driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
-		// return driver;
+		driver.get(url);
+		return;
 	}
 
 	@AfterTest

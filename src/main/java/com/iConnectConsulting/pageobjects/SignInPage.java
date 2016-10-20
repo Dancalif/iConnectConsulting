@@ -9,7 +9,8 @@ import com.iConnectConsulting.util.WebUtil;
 
 public class SignInPage {
 
-	public DashBoardPage clickSignInButton(WebDriver driver) {
+	public DashBoardPage clickSignInButton(WebDriver driver) throws InterruptedException {
+		Thread.sleep(3000);
 		WebUtil.click(driver, By.xpath("//*[@type='submit']"));
 		WebUtil.waitForElementVisible(driver, By.cssSelector("a[href='#/dashboard']"));
 		return PageFactory.initElements(driver, DashBoardPage.class);
@@ -25,6 +26,7 @@ public class SignInPage {
 		// Fill in password
 		Thread.sleep(1000);
 		WebUtil.input(driver, user.password, By.name("password"));
+		Thread.sleep(1000);
 		return PageFactory.initElements(driver, DashBoardPage.class);
 
 	}

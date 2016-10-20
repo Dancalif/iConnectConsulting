@@ -3,8 +3,10 @@ package com.iConnectConsulting.pageobjects;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.iConnectConsulting.util.WebUtil;
 
@@ -67,7 +69,10 @@ public class AddNewPatientPopup {
 	}
 
 	public void fillFirstNameTextfield(WebDriver driver) {
-		WebUtil.input(driver, "Dan", By.cssSelector(
+		Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
+		String browserName = cap.getBrowserName();
+
+		WebUtil.input(driver, browserName.substring(0, 1).toUpperCase() + browserName.substring(1), By.cssSelector(
 				"design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___FIRST_NAME'] > div > div > input"));
 	}
 
