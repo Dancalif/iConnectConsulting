@@ -70,15 +70,23 @@ public class TestOrderPage {
 
 	public void inputDiagnosisCode(WebDriver driver) throws Exception {
 		WebUtil.getElementVisible(driver, By.xpath("//input[contains(@placeholder, 'Select diagnosis...')]"));
-		WebUtil.waitForElementVisible(driver, By.xpath("//input[contains(@placeholder, 'Select diagnosis...')]"));
+		// WebUtil.waitForElementVisible(driver,
+		// By.xpath("//input[contains(@placeholder, 'Select diagnosis...')]"));
 		WebUtil.input(driver, "304", By.xpath("//input[contains(@placeholder, 'Select diagnosis...')]"));
 	}
 
-	public void selectDiagnosisOption(WebDriver driver) throws InterruptedException {
-		WebUtil.waitForElementVisible(driver, By.cssSelector("span[class='k-state-default']"));
+	public void selectDiagnosisOption(WebDriver driver) throws Exception {
+		// WebUtil.getElementVisible(driver,
+		// By.cssSelector("span[class='k-state-default']"));
+		// WebUtil.waitForElementVisible(driver,
+		// By.cssSelector("span[class='k-state-default']"));
+		Thread.sleep(1000);
 		List<WebElement> diagnosOptions = driver.findElements(By.cssSelector("span[class='k-state-default']"));
 		randomNumber = rand.nextInt(diagnosOptions.size());
+		Thread.sleep(1000);
+		// diagnosOptions.get(randomNumber);
 		diagnosOptions.get(randomNumber).click();
+
 	}
 
 	public void clickUrineRadioButton(WebDriver driver) throws Exception {

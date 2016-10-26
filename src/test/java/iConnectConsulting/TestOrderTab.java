@@ -29,7 +29,7 @@ import com.iConnectConsulting.util.WebUtil;
  * @author dancalif
  *
  */
-public class LabWebportalTest extends MainTest {
+public class TestOrderTab extends MainTest {
 
 	// public SignInPage signInPage = PageFactory.initElements(getWebDriver(),
 	// SignInPage.class);
@@ -127,6 +127,7 @@ public class LabWebportalTest extends MainTest {
 	@Test(enabled = true)
 	public void testOrderSubmitUninsured() throws Exception {
 		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
+		Thread.sleep(2000);
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
 		signInPage.clickSignInButton(driver);
 		TestOrderPage testOrderPage = dashBoardPage.clickTestOrderButton(driver);
