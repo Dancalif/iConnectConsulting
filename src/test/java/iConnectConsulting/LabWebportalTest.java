@@ -232,6 +232,7 @@ public class LabWebportalTest extends MainTest {
 		CertificationOfTestOrderPopup certificationOfTestOrderPopup = testOrderPage.clickFinalSubmitButton(driver);
 		// Click Agree on the disclaimer
 		OrderPlacedcePopup orderPlacedPopup = certificationOfTestOrderPopup.clickAgreeButton(driver);
+		Thread.sleep(2000);
 		// Verify if Order placed module is displayed
 		Assert.assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));
 		// Verify name of patient
