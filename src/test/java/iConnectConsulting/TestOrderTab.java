@@ -36,20 +36,6 @@ public class TestOrderTab extends MainTest {
 	String specimenIDName = "";
 
 	@Test(enabled = false)
-	public void labwebportalLoginPass() throws InterruptedException {
-		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
-		DashBoardPage dashBoardPage = signInPage.login(driver, user);
-		signInPage.clickSignInButton(driver);
-		// Verify if user successfully signed in
-		Thread.sleep(2000);
-		Assert.assertTrue(dashBoardPage.doesDashboardExist(driver), "Dashboard is not shown up");
-		// Sign out
-		signInPage = dashBoardPage.signOut(driver);
-		// Verify if user is signed out
-		Assert.assertTrue(signInPage.doesUsernameExist(driver), "User is not signed out");
-	}
-
-	@Test(enabled = false)
 	public void testOrderSubmit() throws Exception {
 		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
@@ -127,8 +113,9 @@ public class TestOrderTab extends MainTest {
 	@Test(enabled = true)
 	public void testOrderSubmitUninsured() throws Exception {
 		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
-		Thread.sleep(2000);
+		Thread.sleep(3000);
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
+		Thread.sleep(3000);
 		signInPage.clickSignInButton(driver);
 		TestOrderPage testOrderPage = dashBoardPage.clickTestOrderButton(driver);
 		SampleTemplateSelectionPopup sampletemplateselectionpopup = dashBoardPage.clickPrecisionDiagnostics(driver);
