@@ -31,6 +31,12 @@
 				<configuration>
 					<suiteXmlFiles>
 						<suiteXmlFile>testOrderTab.xml</suiteXmlFile>
+						<suiteXmlFile>allSpecimensTab.xml</suiteXmlFile>
+						<suiteXmlFile>dashboardTab.xml</suiteXmlFile>
+						<suiteXmlFile>physicianQueueTab.xml</suiteXmlFile>
+						<suiteXmlFile>publishedReportsTab.xml</suiteXmlFile>
+						<suiteXmlFile>regressionTest.xml</suiteXmlFile>
+						<suiteXmlFile>smokeTest.xml</suiteXmlFile>
 						<suiteXmlFile>signIn.xml</suiteXmlFile>
 					</suiteXmlFiles>
 				</configuration>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="Suite" parallel="tests" thread-count="1">
+<tests>
+  <test name="Chrome Test">
+  <parameters>
+  <parameter name="browser" value="chrome" />
+  <parameter name="url" value="https://www.labwebportal.com/Precision_v7_dev/#/login" />
+  </parameters>
+    <classes>
+      <class name="iConnectConsulting.PhysicianQueueTab" />
+    </classes>
+  </test>
+   <test name="Firefox Test">
+  <parameters>
+  <parameter name="browser" value="firefox" />
+  <parameter name="url" value="https://www.labwebportal.com/Precision_v7_dev/#/login" />
+  </parameters>
+    <classes>
+      <class name="iConnectConsulting.PhysicianQueueTab" />
+    </classes>
+  </test>
+  </tests>
+</suite>
