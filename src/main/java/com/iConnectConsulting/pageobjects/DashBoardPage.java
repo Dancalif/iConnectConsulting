@@ -32,4 +32,9 @@ public class DashBoardPage {
 		WebUtil.click(driver, By.xpath(".//*[@id='se_refresh_btn']"));
 		return PageFactory.initElements(driver, SampleTemplateSelectionPopup.class);
 	}
+
+	public AllSpecimensPage clickAllSpecimensButton(WebDriver driver) {
+		WebUtil.click(driver, By.cssSelector("a[href='#/all-specimens']"));
+		return PageFactory.initElements(driver, AllSpecimensPage.class);
+	}
 }

@@ -17,7 +17,6 @@ import com.iConnectConsulting.pageobjects.SignInPage;
 public class SignIn extends MainTest {
 	@Test(enabled = true)
 	public void labwebportalLoginPass() throws InterruptedException {
-		System.out.print("Hello!!! Hello!!!");
 		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
 		signInPage.clickSignInButton(driver);
