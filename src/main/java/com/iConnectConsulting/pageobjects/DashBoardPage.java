@@ -37,4 +37,11 @@ public class DashBoardPage {
 		WebUtil.click(driver, By.cssSelector("a[href='#/all-specimens']"));
 		return PageFactory.initElements(driver, AllSpecimensPage.class);
 	}
+
+	public boolean ifdashBoardPageDisplayed(WebDriver driver) {
+		return driver
+				.findElement(By
+						.xpath("//div[@class='dashboard__tile dashboard__tile--lg dashboard__tile--announcement dashboard__tile--783C82']"))
+				.isDisplayed();
+	}
 }
