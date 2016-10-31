@@ -24,9 +24,12 @@ public class DashboardTab extends MainTest {
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
 		Thread.sleep(3000);
 		signInPage.clickSignInButton(driver);
+		DashBoardPage dashBoradPage = dashBoardPage.clickDashboardTab(driver);
+		Thread.sleep(1000);
 		Assert.assertTrue(dashBoardPage.ifdashBoardPageDisplayed(driver), "DashBoard Page Page is not shown up");
 		// Sign out
 		signInPage = dashBoardPage.signOut(driver);
+		Thread.sleep(1000);
 
 	}
 }

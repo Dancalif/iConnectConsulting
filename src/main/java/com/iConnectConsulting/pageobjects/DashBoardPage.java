@@ -44,4 +44,9 @@ public class DashBoardPage {
 						.xpath("//div[@class='dashboard__tile dashboard__tile--lg dashboard__tile--announcement dashboard__tile--783C82']"))
 				.isDisplayed();
 	}
+
+	public DashBoardPage clickDashboardTab(WebDriver driver) {
+		WebUtil.click(driver, By.cssSelector("a[href='#/dashboard']"));
+		return PageFactory.initElements(driver, DashBoardPage.class);
+	}
 }
