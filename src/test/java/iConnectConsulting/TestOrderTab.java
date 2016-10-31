@@ -231,12 +231,13 @@ public class TestOrderTab extends MainTest {
 		orderPlacedPopup.doesPrintButtonExist(driver);
 		// Click Print button
 		orderPlacedPopup.clickPrintButton(driver);
+		Thread.sleep(2000);
 		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs2.get(1));
 		String getURL = driver.getCurrentUrl();
 		Assert.assertTrue(getURL.contains(specimenIDName));
+		Thread.sleep(2000);
 		// AssertJUnit.assertTrue(getURL.contains(specimenIDName));
-		System.out.println(specimenIDName);
 		driver.switchTo().window(tabs2.get(0));
 		// click OK button to finish
 		Thread.sleep(2000);
