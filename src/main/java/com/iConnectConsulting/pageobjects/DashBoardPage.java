@@ -49,4 +49,9 @@ public class DashBoardPage {
 		WebUtil.click(driver, By.cssSelector("a[href='#/dashboard']"));
 		return PageFactory.initElements(driver, DashBoardPage.class);
 	}
+
+	public PhysicianQueuePage clickPhysicianQueueButton(WebDriver driver) {
+		WebUtil.click(driver, By.cssSelector("a[href='#/physician-queue']"));
+		return PageFactory.initElements(driver, PhysicianQueuePage.class);
+	}
 }
