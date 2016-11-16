@@ -1,0 +1,24 @@
+{
+  "server": "hub-cloud.browserstack.com",
+  "user": "andrewsinyaver",
+  "key": "81EzbaDp5pJCda9g2rk3",
+
+  "capabilities": {
+    "browserstack.debug": true
+  },
+
+  "environments": {
+    "chrome": {
+      "browser": "chrome"
+    },
+    "firefox": {
+      "browser": "firefox"
+    },
+    "safari": {
+      "browser": "safari"
+    },
+    "ie": {
+      "browser": "internet explorer"
+    }
+  }
+}
