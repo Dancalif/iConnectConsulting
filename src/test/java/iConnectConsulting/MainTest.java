@@ -11,10 +11,13 @@ import org.json.simple.parser.JSONParser;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 import com.iConnectConsulting.data.UserData;
+import com.iConnectConsulting.pageobjects.DashBoardPage;
+import com.iConnectConsulting.pageobjects.SignInPage;
 
 import net.sf.cglib.core.Local;
 
@@ -72,8 +75,13 @@ public class MainTest {
 		driver = new RemoteWebDriver(
 				new URL("http://" + username + ":" + accessKey + "@" + config.get("server") + "/wd/hub"), capabilities);
 
-		driver.get("https://www.labwebportal.com/Precision_v7_dev/#/login");
+		driver.get("https://www.labwebportal.com/Precision_qc/#/login");
 
+		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
+		Thread.sleep(3000);
+		DashBoardPage dashBoardPage = signInPage.login(driver, user);
+		Thread.sleep(3000);
+		signInPage.clickSignInButton(driver);
 	}
 
 	@AfterMethod(alwaysRun = true)
@@ -83,25 +91,4 @@ public class MainTest {
 			;
 		// l.stop();
 	}
-
-	// if (browser.equalsIgnoreCase("chrome")) {
-	// driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),
-	// DesiredCapabilities.chrome());
-	// } else if (browser.equalsIgnoreCase("firefox")) {
-	// driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"),
-	// DesiredCapabilities.firefox());
-	// }
-	//
-	// driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
-	// driver.manage().window().maximize();
-	// driver.get(url);
-	// return;
 }
-
-// @AfterTest
-// public void tearDown() {
-// // Clean up environment
-// driver.quit();
-// }
-
-// }
