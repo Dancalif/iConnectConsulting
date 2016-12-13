@@ -21,6 +21,7 @@ public class SignInPage {
 	}
 
 	public DashBoardPage login(WebDriver driver, UserData user) throws InterruptedException {
+
 		// Fill in username
 		WebUtil.input(driver, user.userName, By.id("username"));
 		// Fill in password
