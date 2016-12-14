@@ -46,7 +46,6 @@ public class PublishedReportsTab extends MainTest {
 		List<WebElement> reportSpecomenIDNames = driver.findElements(By.cssSelector("div[class='textLayer'] > div"));
 		int countNum = 0;
 		for (WebElement nextItem : reportSpecomenIDNames) {
-			System.out.println(nextItem.getText());
 			countNum++;
 			if (nextItem.getText().equalsIgnoreCase(specimenIDName)) {
 				Assert.assertEquals(specimenIDName, nextItem.getText());
