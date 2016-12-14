@@ -30,7 +30,7 @@ public class PublishedReportsTab extends MainTest {
 		WebUtil.waitForElementVisible(driver, By.cssSelector("a[href='#/reports-all']"));
 
 		PublishedReportsTab publishedReportsTab = PublishedReportsPage.clickPublishedReportsTab(driver);
-
+		WebUtil.waitForElementVisible(driver, By.cssSelector("table > tbody > tr > td:nth-child(3)"));
 		List<WebElement> specimenIDsList = driver.findElements(By.cssSelector("table > tbody > tr > td:nth-child(3)"));
 		int specimenIDsNum = specimenIDsList.size();
 		int randomNum = rand.nextInt(specimenIDsNum);
