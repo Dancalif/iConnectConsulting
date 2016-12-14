@@ -30,7 +30,7 @@ public class MainTest {
 	@BeforeMethod(alwaysRun = true)
 	@org.testng.annotations.Parameters(value = { "conf", "environment" })
 	public void setUp(String conf, String environment) throws Exception {
-
+		// Privet
 		JSONParser parser = new JSONParser();
 		JSONObject config = (JSONObject) parser.parse(new FileReader(
 				"/Users/dancalif/Dropbox/iConnect_workspace/iConnectConsulting_PROD/src/test/resources/" + conf));
