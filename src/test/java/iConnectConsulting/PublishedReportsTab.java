@@ -34,6 +34,7 @@ public class PublishedReportsTab extends MainTest {
 		List<WebElement> specimenIDsList = driver.findElements(By.cssSelector("table > tbody > tr > td:nth-child(3)"));
 		int specimenIDsNum = specimenIDsList.size();
 		int randomNum = rand.nextInt(specimenIDsNum);
+
 		String specimenIDName = specimenIDsList.get(randomNum).getText();
 
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -43,13 +44,18 @@ public class PublishedReportsTab extends MainTest {
 		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs2.get(1));
 		List<WebElement> reportSpecomenIDNames = driver.findElements(By.cssSelector("div[class='textLayer'] > div"));
-
+		int countNum = 0;
 		for (WebElement nextItem : reportSpecomenIDNames) {
-			if (nextItem.getText().contains(specimenIDName)) {
+			System.out.println(nextItem.getText());
+			countNum++;
+			if (nextItem.getText().equalsIgnoreCase(specimenIDName)) {
 				Assert.assertEquals(specimenIDName, nextItem.getText());
-				Thread.sleep(1000);
 				break;
 			} else {
+				if (specimenIDsList.size() == countNum) {
+					Assert.fail("The SpecimenID that was submitted " + specimenIDName
+							+ " doesn't match with the SpecimenIDs on the report.");
+				}
 			}
 		}
 	}
