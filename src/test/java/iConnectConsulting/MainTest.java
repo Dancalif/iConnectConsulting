@@ -33,7 +33,7 @@ public class MainTest {
 
 		JSONParser parser = new JSONParser();
 		JSONObject config = (JSONObject) parser.parse(new FileReader(
-				"/Users/dancalif/Dropbox/iConnect_workspace/iConnectConsulting/src/test/resources/" + conf));
+				"/Users/dancalif/Dropbox/iConnect_workspace/iConnectConsulting_PROD/src/test/resources/" + conf));
 		JSONObject envs = (JSONObject) config.get("environments");
 
 		DesiredCapabilities capabilities = new DesiredCapabilities();
