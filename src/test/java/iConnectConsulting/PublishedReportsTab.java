@@ -14,7 +14,6 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.iConnectConsulting.pageobjects.PublishedReportsPage;
 import com.iConnectConsulting.util.WebUtil;
 
 /**
@@ -29,7 +28,9 @@ public class PublishedReportsTab extends MainTest {
 		Random rand = new Random();
 		WebUtil.waitForElementVisible(driver, By.cssSelector("a[href='#/reports-all']"));
 
-		PublishedReportsTab publishedReportsTab = PublishedReportsPage.clickPublishedReportsTab(driver);
+		// PublishedReportsTab publishedReportsTab =
+		// PublishedReportsPage.clickPublishedReportsTab(driver);
+		WebUtil.click(driver, By.cssSelector("a[href='#/reports-all']"));
 		WebUtil.waitForElementVisible(driver, By.cssSelector("table > tbody > tr > td:nth-child(3)"));
 		List<WebElement> specimenIDsList = driver.findElements(By.cssSelector("table > tbody > tr > td:nth-child(3)"));
 		int specimenIDsNum = specimenIDsList.size();
