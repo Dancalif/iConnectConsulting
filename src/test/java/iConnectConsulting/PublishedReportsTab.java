@@ -28,8 +28,6 @@ public class PublishedReportsTab extends MainTest {
 		Random rand = new Random();
 		WebUtil.waitForElementVisible(driver, By.cssSelector("a[href='#/reports-all']"));
 
-		// PublishedReportsTab publishedReportsTab =
-		// PublishedReportsPage.clickPublishedReportsTab(driver);
 		WebUtil.click(driver, By.cssSelector("a[href='#/reports-all']"));
 		WebUtil.waitForElementVisible(driver, By.cssSelector("table > tbody > tr > td:nth-child(3)"));
 		List<WebElement> specimenIDsList = driver.findElements(By.cssSelector("table > tbody > tr > td:nth-child(3)"));
@@ -44,6 +42,7 @@ public class PublishedReportsTab extends MainTest {
 		Thread.sleep(2000);
 		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs2.get(1));
+		WebUtil.waitForElementVisible(driver, By.cssSelector("div[class='textLayer'] > div"));
 		List<WebElement> reportSpecomenIDNames = driver.findElements(By.cssSelector("div[class='textLayer'] > div"));
 		int countNum = 0;
 		for (WebElement nextItem : reportSpecomenIDNames) {
@@ -54,7 +53,7 @@ public class PublishedReportsTab extends MainTest {
 			} else {
 				if (specimenIDsList.size() == countNum) {
 					Assert.fail("The SpecimenID that was submitted " + specimenIDName
-							+ " doesn't match with the SpecimenIDs on the report.");
+							+ " doesn't match with the SpecimenID on the report.");
 				}
 			}
 		}
