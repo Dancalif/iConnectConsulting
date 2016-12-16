@@ -19,7 +19,7 @@ public class DashBoardPage {
 		return driver.findElement(By.cssSelector("a[href='#/dashboard']")).isDisplayed();
 	}
 
-	public TestOrderPage clickTestOrderButton(WebDriver driver) {
+	public static TestOrderPage clickTestOrderButton(WebDriver driver) {
 		WebUtil.click(driver, By.cssSelector("a[href='#/test-order']"));
 		WebUtil.waitForElementVisible(driver,
 				By.xpath("//div[contains(@class, 'modal-header')]//h1[contains(@class, 'ng-binding')]"));
@@ -27,7 +27,7 @@ public class DashBoardPage {
 		return PageFactory.initElements(driver, TestOrderPage.class);
 	}
 
-	public SampleTemplateSelectionPopup clickPrecisionDiagnostics(WebDriver driver) {
+	public static SampleTemplateSelectionPopup clickPrecisionDiagnostics(WebDriver driver) {
 		WebUtil.click(driver, By.xpath("//li[text()='Precision Diagnostics']"));
 		WebUtil.click(driver, By.xpath(".//*[@id='se_refresh_btn']"));
 		return PageFactory.initElements(driver, SampleTemplateSelectionPopup.class);

@@ -31,8 +31,6 @@ import com.iConnectConsulting.util.WebUtil;
  */
 public class TestOrderTab extends MainTest {
 
-	// public SignInPage signInPage = PageFactory.initElements(getWebDriver(),
-	// SignInPage.class);
 	String specimenIDName = "";
 
 	@Test(enabled = false)
@@ -112,23 +110,18 @@ public class TestOrderTab extends MainTest {
 
 	@Test(enabled = true)
 	public void testOrderSubmitUninsured() throws Exception {
-		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
-		Thread.sleep(3000);
-		DashBoardPage dashBoardPage = signInPage.login(driver, user);
-		Thread.sleep(3000);
-		signInPage.clickSignInButton(driver);
-		TestOrderPage testOrderPage = dashBoardPage.clickTestOrderButton(driver);
-		SampleTemplateSelectionPopup sampletemplateselectionpopup = dashBoardPage.clickPrecisionDiagnostics(driver);
+
+		TestOrderPage testOrderPage = DashBoardPage.clickTestOrderButton(driver);
+		SampleTemplateSelectionPopup sampletemplateselectionpopup = DashBoardPage.clickPrecisionDiagnostics(driver);
 		// WebUtil.getElementVisible(driver, By.cssSelector("input"));
 		// Fill in Specimen Id textfield
 		specimenIDName = testOrderPage.fillInSpecimenID(driver);
 		// Click Physician Name textfield
-		// PhysicianNamePopup physicianNamePopup =
-		// testOrderPage.clickPhysicianNameTextField(driver);
+		PhysicianNamePopup physicianNamePopup = testOrderPage.clickPhysicianNameTextField(driver);
 		// Select any physician
-		// physicianNamePopup.clickPhysicianName(driver);
+		physicianNamePopup.clickPhysicianName(driver);
 		// Click Apply selected button
-		// physicianNamePopup.clickApplySelectedButton(driver);
+		physicianNamePopup.clickApplySelectedButton(driver);
 		// Verify if Specimen ID is unique
 		testOrderPage.verifyIfSpecimenIDunigue(driver);
 		// Click Last Name box
