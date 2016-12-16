@@ -57,5 +57,6 @@ public class PublishedReportsTab extends MainTest {
 				}
 			}
 		}
+		driver.switchTo().window(tabs2.get(0));
 	}
 }

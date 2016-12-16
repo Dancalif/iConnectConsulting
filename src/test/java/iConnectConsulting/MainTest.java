@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -86,9 +87,12 @@ public class MainTest {
 
 	@AfterMethod(alwaysRun = true)
 	public void tearDown() throws Exception {
+		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
+		signInPage = DashBoardPage.signOut(driver);
+		// Verify if user is signed out
+		Assert.assertTrue(signInPage.doesUsernameExist(driver), "User is not signed out");
+		// Clean up environment
 		driver.quit();
-		if (l != null)
-			;
-		// l.stop();
 	}
+
 }
