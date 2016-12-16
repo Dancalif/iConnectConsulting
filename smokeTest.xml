@@ -1,24 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SignIn" thread-count="4" parallel="tests">
+    <test name="SignInChrome">
+        <parameter name="conf" value="conf"/>
+        <parameter name="environment" value="chrome"/>
+        <classes>
+            <class name="iConnectConsulting.SmokeTest"/>
+        </classes>
+    </test>
 
-<suite name="Suite" parallel="tests" thread-count="1">
-<tests>
-  <test name="Chrome Test">
-  <parameters>
-  <parameter name="browser" value="chrome" />
-  <parameter name="url" value="https://www.labwebportal.com/Precision_v7_dev/#/login" />
-  </parameters>
-    <classes>
-      <class name="iConnectConsulting.SmokeTest" />
-    </classes>
-  </test>
-   <test name="Firefox Test">
-  <parameters>
-  <parameter name="browser" value="firefox" />
-  <parameter name="url" value="https://www.labwebportal.com/Precision_v7_dev/#/login" />
-  </parameters>
-    <classes>
-      <class name="iConnectConsulting.SmokeTest" />
-    </classes>
-  </test>
-  </tests>
+    <test name="SignInFireFox">
+        <parameter name="conf" value="conf"/>
+        <parameter name="environment" value="firefox"/>
+        <classes>
+            <class name="iConnectConsulting.SmokeTest"/>
+        </classes>
+    </test>
+
+    <test name="SignInSafari">
+        <parameter name="conf" value="conf"/>
+        <parameter name="environment" value="safari"/>
+        <classes>
+            <class name="iConnectConsulting.SmokeTest"/>
+        </classes>
+    </test>
+
+    <test name="SignInIE">
+        <parameter name="conf" value="conf"/>
+        <parameter name="environment" value="ie"/>
+        <classes>
+            <class name="iConnectConsulting.SmokeTest"/>
+        </classes>
+    </test>
 </suite>

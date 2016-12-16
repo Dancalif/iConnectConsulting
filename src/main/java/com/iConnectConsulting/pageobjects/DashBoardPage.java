@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.iConnectConsulting.util.WebUtil;
 
 public class DashBoardPage {
-	public SignInPage signOut(WebDriver driver) {
+	public static SignInPage signOut(WebDriver driver) {
 		WebUtil.click(driver, By
 				.cssSelector("div[class='navbar-collapse collapse hidden-xs main-navigation__top'] > ul > li > a > i"));
 		WebUtil.click(driver, By.linkText("Logout"));
@@ -15,7 +15,7 @@ public class DashBoardPage {
 		return PageFactory.initElements(driver, SignInPage.class);
 	}
 
-	public boolean doesDashboardExist(WebDriver driver) {
+	public static boolean doesDashboardExist(WebDriver driver) {
 		return driver.findElement(By.cssSelector("a[href='#/dashboard']")).isDisplayed();
 	}
 
