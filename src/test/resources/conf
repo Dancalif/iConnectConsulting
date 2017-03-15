@@ -8,17 +8,26 @@
   },
 
   "environments": {
-    "chrome": {
-      "browser": "chrome"
-    },
-    "firefox": {
-      "browser": "firefox"
-    },
-    "safari": {
-      "browser": "safari"
-    },
-    "ie": {
-      "browser": "internet explorer"
-    }
+    "Firefox": {
+    "os": "Windows",
+    "os_version": "8.1",
+    "browser": "Firefox",
+    "browser_version": "48.0",
+    "resolution": "1024x768"
+  },
+  	"Chrome": {
+    "os": "Windows",
+    "os_version": "8.1",
+    "browser": "Chrome",
+    "browser_version": "54.0",
+    "resolution": "1024x768"
+  },
+  	 "IE": {
+    "os": "Windows",
+    "os_version": "8.1",
+    "browser": "IE",
+    "browser_version": "11.0",
+    "resolution": "1024x768"
   }
+}
 }
