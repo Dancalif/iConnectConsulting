@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SignIn" thread-count="4" parallel="tests">
+    <test name="SignInChrome">
+        <parameter name="conf" value="conf"/>
+        <parameter name="environment" value="chrome"/>
+        <classes>
+            <class name="iConnectConsulting.SignIn"/>
+        </classes>
+    </test>
+
+    <test name="SignInFireFox">
+        <parameter name="conf" value="conf"/>
+        <parameter name="environment" value="firefox"/>
+        <classes>
+            <class name="iConnectConsulting.SignIn"/>
+        </classes>
+    </test>
+
+    <test name="SignInSafari">
+        <parameter name="conf" value="conf"/>
+        <parameter name="environment" value="safari"/>
+        <classes>
+            <class name="iConnectConsulting.SignIn"/>
+        </classes>
+    </test>
+
+    <test name="SignInIE">
+        <parameter name="conf" value="conf"/>
+        <parameter name="environment" value="ie"/>
+        <classes>
+            <class name="iConnectConsulting.SignIn"/>
+        </classes>
+    </test>
+</suite>

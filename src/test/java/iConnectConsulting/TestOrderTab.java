@@ -33,7 +33,7 @@ public class TestOrderTab extends MainTest {
 
 	String specimenIDName = "";
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testOrderSubmit() throws Exception {
 		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
 		DashBoardPage dashBoardPage = signInPage.login(driver, user);
@@ -108,7 +108,7 @@ public class TestOrderTab extends MainTest {
 		orderPlacedPopup.clickOkButton(driver);
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testOrderSubmitUninsured() throws Exception {
 
 		TestOrderPage testOrderPage = DashBoardPage.clickTestOrderButton(driver);
