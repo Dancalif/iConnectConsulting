@@ -16,8 +16,8 @@ import org.testng.annotations.Test;
 import com.iConnectConsulting.pageobjects.AddNewPatientPopup;
 import com.iConnectConsulting.pageobjects.CertificationOfTestOrderPopup;
 import com.iConnectConsulting.pageobjects.DashBoardPage;
-import com.iConnectConsulting.pageobjects.LastNamePopup;
-import com.iConnectConsulting.pageobjects.OrderPlacedcePopup;
+import com.iConnectConsulting.pageobjects.SelectPatientsPopup;
+import com.iConnectConsulting.pageobjects.OrderPlacedPopup;
 import com.iConnectConsulting.pageobjects.PatientInsurancePopup;
 import com.iConnectConsulting.pageobjects.PhysicianNamePopup;
 import com.iConnectConsulting.pageobjects.SampleTemplateSelectionPopup;
@@ -50,17 +50,16 @@ public class TestOrderTab extends MainTest {
 		PhysicianNamePopup physicianNamePopup = PageFactory.initElements(driver, PhysicianNamePopup.class);
 		// Select any physician
 		physicianNamePopup.clickPhysicianName(driver);
-		
-		
-		
 		// Click Apply selected button
 		physicianNamePopup.clickApplySelectedButton(driver);
 		// Verify if Specimen ID is unique
 		testOrderPage.verifyIfSpecimenIDunigue(driver);
 		// Click Last Name box
-		LastNamePopup lastNamePopup = testOrderPage.clickLastNameTextField(driver);
+		testOrderPage.clickLastNameTextField(driver);
+		SelectPatientsPopup selectPatientsPopup = PageFactory.initElements(driver, SelectPatientsPopup.class);
 		// Click Add New button
-		AddNewPatientPopup addNewPatientPopup = lastNamePopup.clickAddNewButton(driver);
+		selectPatientsPopup.clickAddNewButton(driver);
+		AddNewPatientPopup addNewPatientPopup = PageFactory.initElements(driver, AddNewPatientPopup.class);
 		// Enter Date of Birth
 		addNewPatientPopup.fillInDateOfBirthTextfield(driver);
 		// Fill out Last name text field
@@ -90,25 +89,26 @@ public class TestOrderTab extends MainTest {
 		// Enter initials into the Collector's initials textfield
 		testOrderPage.inputcollectorInitials(driver);
 		// Click Submit button
-		CertificationOfTestOrderPopup certificationOfTestOrderPopup = testOrderPage.clickFinalSubmitButton(driver);
+		testOrderPage.clickFinalSubmitButton(driver);
+		CertificationOfTestOrderPopup certificationOfTestOrderPopup = PageFactory.initElements(driver, CertificationOfTestOrderPopup.class);
 		// Click Agree on the disclaimer
-		OrderPlacedcePopup orderPlacedPopup = certificationOfTestOrderPopup.clickAgreeButton(driver);
+		certificationOfTestOrderPopup.clickAgreeButton(driver);
 		// Verify if Order placed module is displayed
+		OrderPlacedPopup orderPlacedPopup = PageFactory.initElements(driver, OrderPlacedPopup.class);
 		Assert.assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));
 		// Verify name of patient
 		Assert.assertEquals(specimenIDName, orderPlacedPopup.doesNameUnderOrderMatch(driver));
-		// AssertJUnit.assertEquals(specimenIDName,
-		// orderPlacedPopup.doesNameUnderOrderMatch(driver));
 		// Verify if Print button is displayed
 		orderPlacedPopup.doesPrintButtonExist(driver);
 		// Click Print button
 		orderPlacedPopup.clickPrintButton(driver);
+		//Switching to another window
 		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs2.get(1));
+		//Verify if url contains specimen ID name
 		String getURL = driver.getCurrentUrl();
 		Assert.assertTrue(getURL.contains(specimenIDName));
-		// AssertJUnit.assertTrue(getURL.contains(specimenIDName));
-		System.out.println(specimenIDName);
+		//Switching back to parent window
 		driver.switchTo().window(tabs2.get(0));
 		// click OK button to finish
 		Thread.sleep(2000);
@@ -132,7 +132,7 @@ public class TestOrderTab extends MainTest {
 		// Verify if Specimen ID is unique
 		testOrderPage.verifyIfSpecimenIDunigue(driver);
 		// Click Last Name box
-		LastNamePopup lastNamePopup = testOrderPage.clickLastNameTextField(driver);
+		SelectPatientsPopup lastNamePopup = testOrderPage.clickLastNameTextField(driver);
 		// Click Add New button
 		AddNewPatientPopup addNewPatientPopup = lastNamePopup.clickAddNewButton(driver);
 		// Enter Date of Birth
@@ -219,7 +219,7 @@ public class TestOrderTab extends MainTest {
 		// Click Submit button
 		CertificationOfTestOrderPopup certificationOfTestOrderPopup = testOrderPage.clickFinalSubmitButton(driver);
 		// Click Agree on the disclaimer
-		OrderPlacedcePopup orderPlacedPopup = certificationOfTestOrderPopup.clickAgreeButton(driver);
+		OrderPlacedPopup orderPlacedPopup = certificationOfTestOrderPopup.clickAgreeButton(driver);
 		Thread.sleep(2000);
 		// Verify if Order placed module is displayed
 		Assert.assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));

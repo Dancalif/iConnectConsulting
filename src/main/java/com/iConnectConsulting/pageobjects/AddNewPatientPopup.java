@@ -7,12 +7,30 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 import com.iConnectConsulting.util.WebUtil;
 
 public class AddNewPatientPopup {
 	StringBuilder randomStringBuilder = new StringBuilder();
 	String candidateChars = "abcdefghijklmnopqrstuvwxyz";
+	
+	@FindBy(how = How.CSS, using = "input[class='form-control item-focusable order-field-input ng-pristine ng-untouched ng-valid empty k-input']")
+	WebElement dateOfBirthTextfield;
+	@FindBy(how = How.CSS, using = "div[data-ng-hide='model.Layout[1].properties.ishidden'] > design-items > div > div > div > design-item-date-picker > div > div > div > span > span > input")
+	WebElement entereDateOfBirthTextfield;
+	@FindBy(how = How.CSS, using = "design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___LAST_NAME'] > div > div > input")
+	WebElement lastNameTextfield;
+	@FindBy(how = How.CSS, using = "design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___FIRST_NAME'] > div > div > input")
+	WebElement firstNameTextfield;
+	@FindBy(how = How.CSS, using = "design-item-list-box[class='lwp-design__item col-md-6 column ng-isolate-scope'][data-item-id='Patients___SEX'] > div > div > ul > li > div > fa-radio")
+	List<WebElement> maleFemaleRadiobuttons;
+	@FindBy(how = How.XPATH, using = "//button[contains(@class,'btn btn-primary btn-form-md')]//span[text()='Submit']")
+	WebElement submitButton;
+	
+	
+	
 
 	public void fillInDateOfBirthTextfield(WebDriver driver) throws InterruptedException {
 		int yyyy = 1900 + WebUtil.randNumber(116);
@@ -48,8 +66,7 @@ public class AddNewPatientPopup {
 			day = "0" + dd;
 		}
 		Thread.sleep(2000);
-		WebUtil.input(driver, month + '/' + day + '/' + year, By.cssSelector(
-				"input[class='form-control item-focusable order-field-input ng-pristine ng-untouched ng-valid empty k-input']"));
+		WebUtil.input(driver, month + '/' + day + '/' + year, dateOfBirthTextfield);
 	}
 
 	public void fillLastNameTextfield(WebDriver driver) {
@@ -63,37 +80,26 @@ public class AddNewPatientPopup {
 			}
 		}
 		String randomString = randomStringBuilder.toString();
-		WebUtil.input(driver, randomString, By.cssSelector(
-				"design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___LAST_NAME'] > div > div > input"));
-		System.out.println(randomString);
+		WebUtil.input(driver, randomString, lastNameTextfield);
 	}
 
 	public void fillFirstNameTextfield(WebDriver driver) {
 		Capabilities cap = ((RemoteWebDriver) driver).getCapabilities();
 		String browserName = cap.getBrowserName();
-
-		WebUtil.input(driver, browserName.substring(0, 1).toUpperCase() + browserName.substring(1), By.cssSelector(
-				"design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___FIRST_NAME'] > div > div > input"));
+		WebUtil.input(driver, browserName.substring(0, 1).toUpperCase() + browserName.substring(1), firstNameTextfield);
 	}
 
 	public void selectMaleFemaleRadioButton(WebDriver driver) {
-		List<WebElement> maleFemaleRadioButtons = driver.findElements(By.cssSelector(
-				"design-item-list-box[class='lwp-design__item col-md-6 column ng-isolate-scope'][data-item-id='Patients___SEX'] > div > div > ul > li > div > fa-radio"));
+		List<WebElement> maleFemaleRadioButtons = WebUtil.createListOfElements(driver, maleFemaleRadiobuttons);
 		int randMaleFemale = WebUtil.randNumber(maleFemaleRadioButtons.size());
 		maleFemaleRadioButtons.get(randMaleFemale).click();
-
 	}
 
 	public void clickSubmitButton(WebDriver driver) throws InterruptedException {
-		WebUtil.waitForElementVisible(driver,
-				By.xpath("//button[contains(@class,'btn btn-primary btn-form-md')]//span[text()='Submit']"));
-
-		WebUtil.click(driver, By.cssSelector(
-				"div[data-ng-hide='model.Layout[1].properties.ishidden'] > design-items > div > div > div > design-item-date-picker > div > div > div > span > span > input"));
+		WebUtil.waitForElementVisible(driver, submitButton);
+		WebUtil.click(driver, entereDateOfBirthTextfield);
 		Thread.sleep(1000);
-		WebUtil.click(driver, By.cssSelector(
-				"div[data-ng-hide='model.Layout[1].properties.ishidden'] > design-items > div > div > div > design-item-date-picker > div > div > div > span > span > input"));
-		WebUtil.click(driver,
-				By.xpath("//button[contains(@class,'btn btn-primary btn-form-md')]//span[text()='Submit']"));
+		WebUtil.click(driver, entereDateOfBirthTextfield);
+		WebUtil.click(driver, submitButton);
 	}
 }

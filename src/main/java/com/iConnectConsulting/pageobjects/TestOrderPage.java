@@ -26,6 +26,33 @@ public class TestOrderPage {
 	WebElement physiciansNamesTable;
 	@FindBy(how = How.XPATH, using = "//span[text()='The value is not unique']")
 	WebElement uniqueMessage;
+	@FindBy(how = How.CSS, using = "design-item-lookup[data-item-id='Sample___PID'] > div > div > div > div > div > div[class='input-group-btn'] > button > i[class='fa fa-ellipsis-h']")									
+	WebElement lastNameTextField;
+	@FindBy(how = How.XPATH, using = "//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']")
+	WebElement uninsuredRadiobutton;
+	@FindBy(how = How.XPATH, using = "//input[contains(@placeholder, 'Select diagnosis...')]")
+	WebElement selectDiagnosisTextfield;
+	@FindBy(how = How.CSS, using = "span[class='k-state-default']")
+	List<WebElement> listDiagnosOptions;
+	@FindBy(how = How.XPATH, using = "//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']")
+	WebElement urineRadioButton;
+	@FindBy(how = How.CSS, using = "design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309'] > div > div > div > a")
+	WebElement recordPOCResultsExpand;
+	@FindBy(how = How.CSS, using = "data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='POS(+)'] > i")
+	List<WebElement> recordPOCResultsPositive;
+	@FindBy(how = How.CSS, using = "data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='NEG(-)'] > i")
+	List<WebElement> recordPOCResultsNegative;
+	@FindBy(how = How.CSS, using = "ul[class='lwp-design__test-codes__controls list-inline-centered pull-right additional-controls'] > li > ul > li > fa-check-box > i")
+	WebElement PerformCustomProfileModule;
+	@FindBy(how = How.CSS, using = "div[class='animated row fadeInRight'] > div > ul > li > div > div > fa-check-box > i")
+	List<WebElement> listMedicationsCheckBoxes;
+	@FindBy(how = How.CSS, using = "design-item-text-box[data-item-id='Sample___ORDERING_PHYSICIAN'] > div > div > input")
+	WebElement collectorInitialsTextfield;
+	@FindBy(how = How.XPATH, using = "//span[text()='Submit']")
+	WebElement submitButton;
+	
+	
+	
 
 	public void fillInSpecimenID(WebDriver driver) {
 		randomNumber = 1000 + WebUtil.randNumber(8999);
@@ -56,62 +83,44 @@ public class TestOrderPage {
 			}
 		} while (doFlag == false);
 		Thread.sleep(1000);
-		WebUtil.waitForElementVisible(driver, By.cssSelector(
-				"design-item-lookup[data-item-id='Sample___PID'] > div > div > div > div > div > div[class='input-group-btn']"));
+		WebUtil.waitForElementVisible(driver, lastNameTextField);
 	}
 
-	public LastNamePopup clickLastNameTextField(WebDriver driver) {
-		WebUtil.click(driver, By.cssSelector(
-				"design-item-lookup[data-item-id='Sample___PID'] > div > div > div > div > div > div[class='input-group-btn'] > button > i[class='fa fa-ellipsis-h']"));
-		WebUtil.waitForElementVisible(driver,
-				By.cssSelector("button[class='btn btn-default btn-form-md pull-left ng-scope']"));
-		return PageFactory.initElements(driver, LastNamePopup.class);
+	public void clickLastNameTextField(WebDriver driver) {
+		WebUtil.click(driver, lastNameTextField);
 	}
 
 	public void clickUninsuredRadioButton(WebDriver driver) throws Exception {
 		Thread.sleep(3000);
-		WebUtil.clickHiddenElement(driver,
-				By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']"));
+		WebUtil.clickHiddenElement(driver, uninsuredRadiobutton);
 	}
 
 	public void inputDiagnosisCode(WebDriver driver) throws Exception {
-		WebUtil.getElementVisible(driver, By.xpath("//input[contains(@placeholder, 'Select diagnosis...')]"));
-		// WebUtil.waitForElementVisible(driver,
-		// By.xpath("//input[contains(@placeholder, 'Select diagnosis...')]"));
-		WebUtil.input(driver, "304", By.xpath("//input[contains(@placeholder, 'Select diagnosis...')]"));
+		WebUtil.getElementVisible(driver, selectDiagnosisTextfield);
+		WebUtil.input(driver, "304", selectDiagnosisTextfield);
 	}
 
 	public void selectDiagnosisOption(WebDriver driver) throws Exception {
-		// WebUtil.getElementVisible(driver,
-		// By.cssSelector("span[class='k-state-default']"));
-		// WebUtil.waitForElementVisible(driver,
-		// By.cssSelector("span[class='k-state-default']"));
 		Thread.sleep(1000);
-		List<WebElement> diagnosOptions = driver.findElements(By.cssSelector("span[class='k-state-default']"));
-		randomNumber = rand.nextInt(diagnosOptions.size());
+		List<WebElement> diagnosOptions = WebUtil.createListOfElements(driver, listDiagnosOptions);
+		randomNumber = WebUtil.randNumber(diagnosOptions.size());
 		Thread.sleep(1000);
-		// diagnosOptions.get(randomNumber);
 		diagnosOptions.get(randomNumber).click();
-
 	}
 
 	public void clickUrineRadioButton(WebDriver driver) throws Exception {
-		WebUtil.clickHiddenElement(driver, By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
+		WebUtil.clickHiddenElement(driver, urineRadioButton);
 	}
 
 	public void clickRecordPOCResultsExpand(WebDriver driver) throws Exception {
-		WebUtil.clickHiddenElement(driver, By.cssSelector(
-				"design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309'] > div > div > div > a"));
-
+		WebUtil.clickHiddenElement(driver, recordPOCResultsExpand);
 	}
 
 	public void selectRecordPOCResults(WebDriver driver) throws InterruptedException {
 		Thread.sleep(3000);
 		JavascriptExecutor je = (JavascriptExecutor) driver;
-		List<WebElement> posCheckBoxes = driver.findElements(By.cssSelector(
-				"data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='POS(+)'] > i"));
-		List<WebElement> negCheckBoxes = driver.findElements(By.cssSelector(
-				"data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='NEG(-)'] > i"));
+		List<WebElement> posCheckBoxes = WebUtil.createListOfElements(driver, recordPOCResultsPositive);
+		List<WebElement> negCheckBoxes = WebUtil.createListOfElements(driver, recordPOCResultsNegative);
 		int maxNum = 0;
 		do
 
@@ -130,8 +139,6 @@ public class TestOrderPage {
 				negCheckBoxes.get(negRandomNumber).click();
 				maxNum++;
 			} catch (Exception e) {
-				WebElement urineRadioButton = driver
-						.findElement(By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']"));
 				je.executeScript("arguments[0].scrollIntoView(true);", urineRadioButton);
 			}
 		} while (maxNum < 6);
@@ -139,47 +146,29 @@ public class TestOrderPage {
 	}
 
 	public void clickPerformCustomProfile(WebDriver driver) throws Exception {
-		WebUtil.clickHiddenElement(driver, By.cssSelector(
-				"ul[class='lwp-design__test-codes__controls list-inline-centered pull-right additional-controls'] > li > ul > li > fa-check-box > i"));
-		// WebUtil.click(driver, By.cssSelector(
-		// "ul[class='lwp-design__test-codes__controls list-inline-centered
-		// pull-right additional-controls']"));
-		// WebUtil.waitForElementVisible(driver,
-		// By.cssSelector("span[class='k-icon k-i-arrow-s']"));
-		// WebUtil.click(driver, By.cssSelector("span[class='k-icon
-		// k-i-arrow-s']"));
-		//
-		// WebUtil.click(driver, By.xpath("//li[text()='FULLPANELMIX']"));
+		WebUtil.clickHiddenElement(driver, PerformCustomProfileModule);
 	}
 
 	public void clickMedicationsCheckBoxes(WebDriver driver) throws InterruptedException {
-		List<WebElement> medicationsCheckBoxes = driver.findElements(
-				By.cssSelector("div[class='animated row fadeInRight'] > div > ul > li > div > div > fa-check-box > i"));
-
+		List<WebElement> medicationsCheckBoxes = WebUtil.createListOfElements(driver, listMedicationsCheckBoxes);
 		maxNum = 0;
 		do
-
 		{
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			randomNumber = WebUtil.randNumber(medicationsCheckBoxes.size());
-
 			WebElement myElement = medicationsCheckBoxes.get(randomNumber);
-
 			js.executeScript("arguments[0].click();", myElement);
 			maxNum++;
 		} while (maxNum < 8);
-
 	}
 
 	public void inputcollectorInitials(WebDriver driver) {
-		WebUtil.input(driver, "DU",
-				By.cssSelector("design-item-text-box[data-item-id='Sample___ORDERING_PHYSICIAN'] > div > div > input"));
+		WebUtil.input(driver, "DU", collectorInitialsTextfield);
 	}
 
-	public CertificationOfTestOrderPopup clickFinalSubmitButton(WebDriver driver) throws InterruptedException {
+	public void clickFinalSubmitButton(WebDriver driver) throws InterruptedException {
 		Thread.sleep(3000);
-		WebUtil.click(driver, By.xpath("//span[text()='Submit']"));
-		return PageFactory.initElements(driver, CertificationOfTestOrderPopup.class);
+		WebUtil.click(driver, submitButton);
 	}
 
 	public void clickInsuredRadioButton(WebDriver driver) throws InterruptedException {

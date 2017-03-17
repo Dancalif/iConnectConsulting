@@ -1,5 +1,6 @@
 package com.iConnectConsulting.util;
 
+import java.util.List;
 import java.util.Random;
 
 import org.openqa.selenium.By;
@@ -27,9 +28,8 @@ public class WebUtil {
 		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 
-	public static void verifyIfElementExists(WebDriver driver, By locator) {
-		WebElement elementToBeFound = driver.findElement(locator);
-		boolean ifDisplayed = elementToBeFound.isDisplayed();
+	public static void verifyIfElementExists(WebDriver driver, WebElement element) {
+		boolean ifDisplayed = element.isDisplayed();
 		org.testng.Assert.assertTrue(ifDisplayed);
 	}
 
@@ -39,27 +39,28 @@ public class WebUtil {
 		return randomNumber;
 	}
 
-	public static void getElementVisible(WebDriver driver, By locator) throws Exception {
-		WebElement elmentToBeVisible = driver.findElement(locator);
-
-		elmentToBeVisible.sendKeys(Keys.PAGE_DOWN);
+	public static void getElementVisible(WebDriver driver, WebElement element) throws Exception {
+		element.sendKeys(Keys.PAGE_DOWN);
 		Thread.sleep(1000);
 		try {
 			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(locator));
+			wait.until(ExpectedConditions.elementToBeClickable(element));
 		} catch (Exception e) {
-			elmentToBeVisible.sendKeys(Keys.PAGE_UP);
+			element.sendKeys(Keys.PAGE_UP);
 			Thread.sleep(1000);
 			WebDriverWait wait = new WebDriverWait(driver, 30);
-			wait.until(ExpectedConditions.elementToBeClickable(locator));
+			wait.until(ExpectedConditions.elementToBeClickable(element));
 		}
 
 	}
 
-	public static void clickHiddenElement(WebDriver driver, By locator) {
-		WebElement elementToClik = driver.findElement(locator);
+	public static void clickHiddenElement(WebDriver driver, WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].click();", elementToClik);
-
+		js.executeScript("arguments[0].click();", element);
+	}
+	
+	public static List<WebElement> createListOfElements(WebDriver driver, List<WebElement> elements) {
+		List<WebElement> listOfElements = elements;
+		return listOfElements;
 	}
 }
