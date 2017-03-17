@@ -8,5 +8,4 @@ public class UserData {
 		this.userName = userName;
 		this.password = password;
 	}
-
 }

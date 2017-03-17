@@ -36,16 +36,23 @@ public class TestOrderTab extends MainTest {
 	@Test(enabled = true)
 	public void testOrderSubmit() throws Exception {
 		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
-		DashBoardPage dashBoardPage = signInPage.login(driver, user);
+		signInPage.login(driver, user);
 		signInPage.clickSignInButton(driver);
-		TestOrderPage testOrderPage = dashBoardPage.clickTestOrderButton(driver);
-		SampleTemplateSelectionPopup sampletemplateselectionpopup = dashBoardPage.clickPrecisionDiagnostics(driver);
+		DashBoardPage dashBoardPage = PageFactory.initElements(driver, DashBoardPage.class);
+		dashBoardPage.clickTestOrderButton(driver);
+		SampleTemplateSelectionPopup sampleTemplateSelectionPopup = PageFactory.initElements(driver, SampleTemplateSelectionPopup.class);
+		sampleTemplateSelectionPopup.clickPrecisionDiagnostics(driver);
+		TestOrderPage testOrderPage = PageFactory.initElements(driver, TestOrderPage.class);
 		// Fill in Specimen Id textfield
-		specimenIDName = testOrderPage.fillInSpecimenID(driver);
+		testOrderPage.fillInSpecimenID(driver);
 		// Click Physician Name textfield
-		PhysicianNamePopup physicianNamePopup = testOrderPage.clickPhysicianNameTextField(driver);
+		testOrderPage.clickPhysicianNameTextField(driver);
+		PhysicianNamePopup physicianNamePopup = PageFactory.initElements(driver, PhysicianNamePopup.class);
 		// Select any physician
 		physicianNamePopup.clickPhysicianName(driver);
+		
+		
+		
 		// Click Apply selected button
 		physicianNamePopup.clickApplySelectedButton(driver);
 		// Verify if Specimen ID is unique

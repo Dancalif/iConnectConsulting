@@ -12,21 +12,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebUtil {
 
-	public static void input(WebDriver driver, String s, By locator) {
-		WebElement inputField = driver.findElement(locator);
-		inputField.clear();
-		inputField.sendKeys(s);
+	public static void input(WebDriver driver, String s, WebElement element) {
+		element.clear();
+		element.sendKeys(s);
 	}
 
-	public static void click(WebDriver driver, By locator) {
-		WebElement clickableElement = driver.findElement(locator);
-		clickableElement.click();
+	public static void click(WebDriver driver, WebElement element) {
+		element.click();
 
 	}
 
-	public static void waitForElementVisible(WebDriver driver, By locator) {
+	public static void waitForElementVisible(WebDriver driver, WebElement element) {
 		WebDriverWait wait = new WebDriverWait(driver, 30);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		wait.until(ExpectedConditions.visibilityOf(element));
 	}
 
 	public static void verifyIfElementExists(WebDriver driver, By locator) {

@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 import com.iConnectConsulting.util.WebUtil;
@@ -15,33 +17,37 @@ public class TestOrderPage {
 	String specimenIDName = "";
 	Random rand = new Random();
 	int randomNumber, numberID, maxNum = 0;
+	
+	@FindBy(how = How.CSS, using = "input[placeholder='Specimen Id']")
+	WebElement specimenIdTextfield;
+	@FindBy(how = How.CSS, using = "i[class='fa fa-ellipsis-h']")
+	WebElement physicianNameTextfield;
+	@FindBy(how = How.CLASS_NAME, using = "k-grid-content")
+	WebElement physiciansNamesTable;
+	@FindBy(how = How.XPATH, using = "//span[text()='The value is not unique']")
+	WebElement uniqueMessage;
 
-	public String fillInSpecimenID(WebDriver driver) {
-		randomNumber = 1000 + rand.nextInt(8999);
+	public void fillInSpecimenID(WebDriver driver) {
+		randomNumber = 1000 + WebUtil.randNumber(8999);
 		specimenIDName = "DanU" + randomNumber;
-		WebUtil.waitForElementVisible(driver, By.cssSelector("input"));
-		WebUtil.input(driver, specimenIDName, By.cssSelector("input"));
-		return specimenIDName;
+		WebUtil.waitForElementVisible(driver, specimenIdTextfield);
+		WebUtil.input(driver, specimenIDName, specimenIdTextfield);
 	}
 
-	public PhysicianNamePopup clickPhysicianNameTextField(WebDriver driver) {
-		WebUtil.click(driver, By.cssSelector("i[class='fa fa-ellipsis-h']"));
-		WebUtil.waitForElementVisible(driver, By.className("k-grid-content"));
-		return PageFactory.initElements(driver, PhysicianNamePopup.class);
+	public void clickPhysicianNameTextField(WebDriver driver) {
+		WebUtil.click(driver, physicianNameTextfield);
+		WebUtil.waitForElementVisible(driver, physiciansNamesTable);
 	}
 
 	public void verifyIfSpecimenIDunigue(WebDriver driver) throws InterruptedException {
 		boolean doFlag = false;
 		do {
 			try {
-				WebElement uniqueMessage = driver.findElement(By.xpath("//span[text()='The value is not unique']"));
 				if (uniqueMessage.isDisplayed()) {
-					randomNumber = 1000 + rand.nextInt(8999);
+					randomNumber = 1000 + WebUtil.randNumber(rand.nextInt(8999));
 					specimenIDName = "DanU" + randomNumber;
-					WebElement specimenID = driver.findElement(By.cssSelector("input[placeholder='Specimen Id']"));
-					specimenID.clear();
-					specimenID.sendKeys(specimenIDName);
-					System.out.print("The specimen ID is " + specimenIDName);
+					specimenIdTextfield.clear();
+					specimenIdTextfield.sendKeys(specimenIDName);
 				} else {
 					break;
 				}
