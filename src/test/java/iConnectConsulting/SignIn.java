@@ -26,7 +26,7 @@ public class SignIn extends MainTest {
 		WebUtil.waitForElementVisible(driver, By.cssSelector("a[href='#/dashboard']"));
 		Assert.assertTrue(DashBoardPage_PO.doesDashboardExist(driver), "Dashboard is not shown up");
 		// Sign out
-		signInPage = DashBoardPage_PO.signOut(driver);
+		signInPage = DashBoardPage_PO.clickSignOut(driver);
 		// Verify if user is signed out
 		Assert.assertTrue(signInPage.doesUsernameExist(driver), "User is not signed out");
 	}

@@ -11,8 +11,15 @@ public class AddNewPatientInsurancePopup_PO {
 	
 	@FindBy(xpath = "//div//div//span[text()='*Name']/../following-sibling::div[@class='print-field order-form-field fieldfiller']")
 	WebElement nameTextfield;
+	@FindBy(xpath = "//button[@class='btn btn-primary btn-form-md']//span[text()='Submit']")
+	WebElement submitButton;
 	
 	public void clickNameInAddNewPatientInsurance(WebDriver driver) {
 		WebUtil.click(driver, nameTextfield);
+	}
+
+	public void clickSubmitButton(WebDriver driver) throws InterruptedException {
+		WebUtil.click(driver, submitButton);
+		Thread.sleep(2000);
 	}
 }

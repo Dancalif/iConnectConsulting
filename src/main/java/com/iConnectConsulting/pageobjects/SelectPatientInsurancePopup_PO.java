@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.iConnectConsulting.util.WebUtil;
 
-public class SelectPatientsPopup_PO {
+public class SelectPatientInsurancePopup_PO {
 	
 	@FindBy(css = "button[class='btn btn-default btn-form-md pull-left ng-scope']")
 	WebElement addNewButton;

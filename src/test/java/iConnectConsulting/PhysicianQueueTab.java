@@ -31,7 +31,7 @@ public class PhysicianQueueTab extends MainTest {
 		Assert.assertTrue(physicianQueuePage.ifPhysicianQueuePageDisplayed(driver),
 				"PhysicianQueue Page is not shown up");
 		// Sign out
-		signInPage = dashBoardPage.signOut(driver);
+		signInPage = dashBoardPage.clickSignOut(driver);
 	}
 
 }

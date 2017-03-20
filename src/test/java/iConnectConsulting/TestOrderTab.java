@@ -17,11 +17,12 @@ import com.iConnectConsulting.pageobjects.AddNewPatientInsurancePopup_PO;
 import com.iConnectConsulting.pageobjects.AddNewPatientPopup_PO;
 import com.iConnectConsulting.pageobjects.CertificationOfTestOrderPopup_PO;
 import com.iConnectConsulting.pageobjects.DashBoardPage_PO;
-import com.iConnectConsulting.pageobjects.SelectPatientsPopup_PO;
+import com.iConnectConsulting.pageobjects.SelectPatientInsurancePopup_PO;
 import com.iConnectConsulting.pageobjects.OrderPlacedPopup_PO;
 import com.iConnectConsulting.pageobjects.PatientInsurancePopup_PO;
 import com.iConnectConsulting.pageobjects.PhysicianNamePopup_PO;
 import com.iConnectConsulting.pageobjects.SampleTemplateSelectionPopup_PO;
+import com.iConnectConsulting.pageobjects.SelectInsuranceProvidersPopup_PO;
 import com.iConnectConsulting.pageobjects.SignInPage_PO;
 import com.iConnectConsulting.pageobjects.TestOrderPage_PO;
 import com.iConnectConsulting.util.WebUtil;
@@ -57,7 +58,7 @@ public class TestOrderTab extends MainTest {
 		testOrderPage.verifyIfSpecimenIDunigue(driver);
 		// Click Last Name box
 		testOrderPage.clickLastNameTextField(driver);
-		SelectPatientsPopup_PO selectPatientsPopup = PageFactory.initElements(driver, SelectPatientsPopup_PO.class);
+		SelectPatientInsurancePopup_PO selectPatientsPopup = PageFactory.initElements(driver, SelectPatientInsurancePopup_PO.class);
 		// Click Add New button
 		selectPatientsPopup.clickAddNewButton(driver);
 		AddNewPatientPopup_PO addNewPatientPopup = PageFactory.initElements(driver, AddNewPatientPopup_PO.class);
@@ -114,6 +115,7 @@ public class TestOrderTab extends MainTest {
 		// click OK button to finish
 		Thread.sleep(2000);
 		orderPlacedPopup.clickOkButton(driver);
+		testOrderPage.clickSignOut(driver);
 	}
 
 	@Test(enabled = true)
@@ -140,7 +142,7 @@ public class TestOrderTab extends MainTest {
 		testOrderPage.verifyIfSpecimenIDunigue(driver);
 		// Click Last Name box
 		testOrderPage.clickLastNameTextField(driver);
-		SelectPatientsPopup_PO selectPatientsPopup = PageFactory.initElements(driver, SelectPatientsPopup_PO.class);
+		SelectPatientInsurancePopup_PO selectPatientsPopup = PageFactory.initElements(driver, SelectPatientInsurancePopup_PO.class);
 		// Click Add New button
 		selectPatientsPopup.clickAddNewButton(driver);
 		AddNewPatientPopup_PO addNewPatientPopup = PageFactory.initElements(driver, AddNewPatientPopup_PO.class);
@@ -165,65 +167,10 @@ public class TestOrderTab extends MainTest {
 		AddNewPatientInsurancePopup_PO addNewPatientInsurancePopup = PageFactory.initElements(driver, AddNewPatientInsurancePopup_PO.class);
 		//Click Add button to add new insurance
 		addNewPatientInsurancePopup.clickNameInAddNewPatientInsurance(driver);
-		
-				
-				
-			
-				
-		
-		
-		
-		
-		
-		// patientInsurancePopup.getMaxNumberOfPages(driver);
-
-		WebElement lastPageOfInsuranceProviders = driver.findElement(By.xpath(
-				"//a[@class='k-link k-pager-nav']/following-sibling::a[@class='k-link k-pager-nav k-pager-last']"));
-		String paginationInsuranceProvidersString = lastPageOfInsuranceProviders.getAttribute("data-page");
-		int numberOfPagesInsProviders = Integer.parseInt(paginationInsuranceProvidersString);
-		// int desiredPageInsProvider =
-		// WebUtil.randNumber(numberOfPagesInsProviders);
-		int desiredPageInsProvider = 6;
-
-		WebElement currentPageInsProviders = null;
-		int currentPage = 0;
-		do {
-			currentPageInsProviders = driver.findElement(By.xpath(
-					"//div[@class='ng-scope ng-isolate-scope k-grid k-widget k-reorderable']//div//ul//li//span[@class='k-state-selected']"));
-			String currentPageString = currentPageInsProviders.getText();
-			currentPage = Integer.parseInt(currentPageString);
-			Random rand = new Random();
-
-			if (currentPage != desiredPageInsProvider) {
-				Thread.sleep(3000);
-				WebUtil.click(driver, By.xpath("//a[@class='k-link k-pager-nav']//span[@class='k-icon k-i-arrow-e']"));
-			} else {
-				Thread.sleep(3000);
-				List<WebElement> insuranceProvidersA = driver.findElements(
-						By.xpath("//table[@class='k-selectable']//tbody[@role='rowgroup']//tr[@class='ng-scope']"));
-				List<WebElement> insuranceProvidersB = driver.findElements(By
-						.xpath("//table[@class='k-selectable']//tbody[@role='rowgroup']//tr[@class='k-alt ng-scope']"));
-				int totalInsuranceProviders = insuranceProvidersA.size() + insuranceProvidersB.size();
-				int randomNumber = rand.nextInt(totalInsuranceProviders);
-				Thread.sleep(1000);
-				if (randomNumber <= 5) {
-					int randomNum = rand.nextInt(insuranceProvidersA.size());
-					insuranceProvidersA.get(randomNum).click();
-				} else {
-					int randomNum = rand.nextInt(insuranceProvidersB.size());
-					insuranceProvidersB.get(randomNum).click();
-				}
-
-				WebUtil.click(driver, By.xpath(
-						"//div[@index='2']//div//div//div//div//button[@class='btn btn-primary btn-form-md']//span[text()='Apply selected']"));
-			}
-		} while (currentPage != desiredPageInsProvider);
-		Thread.sleep(2000);
-		WebUtil.click(driver, By.xpath("//button[@class='btn btn-primary btn-form-md']//span[text()='Submit']"));
-		Thread.sleep(2000);
-		
-		
-		
+		SelectInsuranceProvidersPopup_PO selectInsuranceProvidersPopup = PageFactory.initElements(driver, SelectInsuranceProvidersPopup_PO.class);
+		//Selecting desired page number in pagination and click random insurance provider on it
+		selectInsuranceProvidersPopup.selectingInsuranceProvider(driver);
+		addNewPatientInsurancePopup.clickSubmitButton(driver);
 		// Enter 304 under DIAGNOSIS CODES
 		testOrderPage.inputDiagnosisCode(driver);
 		// Select any diagnosis from dropdown menue
@@ -241,32 +188,30 @@ public class TestOrderTab extends MainTest {
 		// Enter initials into the Collector's initials textfield
 		testOrderPage.inputcollectorInitials(driver);
 		// Click Submit button
-		CertificationOfTestOrderPopup_PO certificationOfTestOrderPopup = testOrderPage.clickFinalSubmitButton(driver);
+		testOrderPage.clickFinalSubmitButton(driver);
+		CertificationOfTestOrderPopup_PO certificationOfTestOrderPopup = PageFactory.initElements(driver, CertificationOfTestOrderPopup_PO.class);
 		// Click Agree on the disclaimer
-		OrderPlacedPopup_PO orderPlacedPopup = certificationOfTestOrderPopup.clickAgreeButton(driver);
-		Thread.sleep(2000);
+		certificationOfTestOrderPopup.clickAgreeButton(driver);
 		// Verify if Order placed module is displayed
+		OrderPlacedPopup_PO orderPlacedPopup = PageFactory.initElements(driver, OrderPlacedPopup_PO.class);
 		Assert.assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));
 		// Verify name of patient
 		Assert.assertEquals(specimenIDName, orderPlacedPopup.doesNameUnderOrderMatch(driver));
-		// AssertJUnit.assertEquals(specimenIDName,
-		// orderPlacedPopup.doesNameUnderOrderMatch(driver));
 		// Verify if Print button is displayed
 		orderPlacedPopup.doesPrintButtonExist(driver);
 		// Click Print button
 		orderPlacedPopup.clickPrintButton(driver);
-		Thread.sleep(2000);
+		//Switching to another window
 		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
 		driver.switchTo().window(tabs2.get(1));
+		//Verify if url contains specimen ID name
 		String getURL = driver.getCurrentUrl();
 		Assert.assertTrue(getURL.contains(specimenIDName));
-		Thread.sleep(2000);
-		// AssertJUnit.assertTrue(getURL.contains(specimenIDName));
+		//Switching back to parent window
 		driver.switchTo().window(tabs2.get(0));
 		// click OK button to finish
 		Thread.sleep(2000);
 		orderPlacedPopup.clickOkButton(driver);
-
+		testOrderPage.clickSignOut(driver);
 	}
-
 }

@@ -30,6 +30,6 @@ public class AllSpecimensTab extends MainTest {
 		Thread.sleep(2000);
 		Assert.assertTrue(allSpecimensPage.ifAllSpecimensPageDisplayed(driver), "AllSpecimens Page is not shown up");
 		// Sign out
-		signInPage = dashBoardPage.signOut(driver);
+		signInPage = dashBoardPage.clickSignOut(driver);
 	}
 }

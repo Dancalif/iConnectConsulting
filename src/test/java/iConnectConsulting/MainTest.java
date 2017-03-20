@@ -48,7 +48,7 @@ public class MainTest {
 	@AfterMethod(alwaysRun = true)
 	public void tearDown() throws Exception {
 		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
-		signInPage = DashBoardPage_PO.signOut(driver);
+		signInPage = DashBoardPage_PO.clickSignOut(driver);
 		// Verify if user is signed out
 		Assert.assertTrue(signInPage.doesUsernameExist(driver), "User is not signed out");
 		// Clean up environment

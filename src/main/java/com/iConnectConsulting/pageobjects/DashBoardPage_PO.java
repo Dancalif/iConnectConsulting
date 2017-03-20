@@ -16,14 +16,6 @@ public class DashBoardPage_PO {
 	@FindBy(xpath = "//div[contains(@class, 'modal-header')]//h1[contains(@class, 'ng-binding')]")
 	WebElement sampleTemplateSelectionPopup;
 	
-	public static SignInPage_PO signOut(WebDriver driver) {
-		WebUtil.click(driver, By
-				.cssSelector("div[class='navbar-collapse collapse hidden-xs main-navigation__top'] > ul > li > a > i"));
-		WebUtil.click(driver, By.linkText("Logout"));
-		WebUtil.waitForElementVisible(driver, By.id("username"));
-		return PageFactory.initElements(driver, SignInPage_PO.class);
-	}
-
 	public static boolean doesDashboardExist(WebDriver driver) {
 		return driver.findElement(By.cssSelector("a[href='#/dashboard']")).isDisplayed();
 	}

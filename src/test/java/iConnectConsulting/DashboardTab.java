@@ -28,7 +28,7 @@ public class DashboardTab extends MainTest {
 		Thread.sleep(1000);
 		Assert.assertTrue(dashBoardPage.ifdashBoardPageDisplayed(driver), "DashBoard Page Page is not shown up");
 		// Sign out
-		signInPage = dashBoardPage.signOut(driver);
+		signInPage = dashBoardPage.clickSignOut(driver);
 		Thread.sleep(1000);
 
 	}
