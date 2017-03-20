@@ -12,26 +12,23 @@ import org.openqa.selenium.support.How;
 
 import com.iConnectConsulting.util.WebUtil;
 
-public class AddNewPatientPopup {
+public class AddNewPatientPopup_PO {
 	StringBuilder randomStringBuilder = new StringBuilder();
 	String candidateChars = "abcdefghijklmnopqrstuvwxyz";
 	
-	@FindBy(how = How.CSS, using = "input[class='form-control item-focusable order-field-input ng-pristine ng-untouched ng-valid empty k-input']")
+	@FindBy(css = "input[class='form-control item-focusable order-field-input ng-pristine ng-untouched ng-valid empty k-input']")
 	WebElement dateOfBirthTextfield;
-	@FindBy(how = How.CSS, using = "div[data-ng-hide='model.Layout[1].properties.ishidden'] > design-items > div > div > div > design-item-date-picker > div > div > div > span > span > input")
+	@FindBy(css = "div[data-ng-hide='model.Layout[1].properties.ishidden'] > design-items > div > div > div > design-item-date-picker > div > div > div > span > span > input")
 	WebElement entereDateOfBirthTextfield;
-	@FindBy(how = How.CSS, using = "design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___LAST_NAME'] > div > div > input")
+	@FindBy(css = "design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___LAST_NAME'] > div > div > input")
 	WebElement lastNameTextfield;
-	@FindBy(how = How.CSS, using = "design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___FIRST_NAME'] > div > div > input")
+	@FindBy(css = "design-items[data-item-id='9bfd2fbd-3337-446c-ad46-9d27346891fb'] > div > div > div > design-item-text-box[data-item-id='Patients___FIRST_NAME'] > div > div > input")
 	WebElement firstNameTextfield;
-	@FindBy(how = How.CSS, using = "design-item-list-box[class='lwp-design__item col-md-6 column ng-isolate-scope'][data-item-id='Patients___SEX'] > div > div > ul > li > div > fa-radio")
+	@FindBy(css = "design-item-list-box[class='lwp-design__item col-md-6 column ng-isolate-scope'][data-item-id='Patients___SEX'] > div > div > ul > li > div > fa-radio")
 	List<WebElement> maleFemaleRadiobuttons;
-	@FindBy(how = How.XPATH, using = "//button[contains(@class,'btn btn-primary btn-form-md')]//span[text()='Submit']")
+	@FindBy(xpath = "//button[contains(@class,'btn btn-primary btn-form-md')]//span[text()='Submit']")
 	WebElement submitButton;
 	
-	
-	
-
 	public void fillInDateOfBirthTextfield(WebDriver driver) throws InterruptedException {
 		int yyyy = 1900 + WebUtil.randNumber(116);
 		int mm = 1 + WebUtil.randNumber(12);

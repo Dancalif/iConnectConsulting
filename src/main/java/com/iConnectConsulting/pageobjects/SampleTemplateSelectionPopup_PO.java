@@ -9,11 +9,11 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.iConnectConsulting.util.WebUtil;
 
-public class SampleTemplateSelectionPopup {
+public class SampleTemplateSelectionPopup_PO {
 	
-	@FindBy(how = How.XPATH, using = "//li[text()='Precision Diagnostics']")
+	@FindBy(xpath = "//li[text()='Precision Diagnostics']")
 	WebElement precisionDiagnosticsOption;
-	@FindBy(how = How.XPATH, using = ".//*[@id='se_refresh_btn']")
+	@FindBy(xpath = ".//*[@id='se_refresh_btn']")
 	WebElement okButton;
 	
 	public void clickPrecisionDiagnostics(WebDriver driver) {

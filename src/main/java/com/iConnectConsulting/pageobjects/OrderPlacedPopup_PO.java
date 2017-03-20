@@ -8,15 +8,15 @@ import org.openqa.selenium.support.How;
 
 import com.iConnectConsulting.util.WebUtil;
 
-public class OrderPlacedPopup {
+public class OrderPlacedPopup_PO {
 	
-	@FindBy(how = How.XPATH, using = "//div[contains(@class,'modal-header')]/h1")
+	@FindBy(xpath = "//div[contains(@class,'modal-header')]/h1")
 	WebElement orderPlacedTitle;
-	@FindBy(how = How.XPATH, using = "//div[@class='modal-body']/div/p/b")
+	@FindBy(xpath = "//div[@class='modal-body']/div/p/b")
 	WebElement testOrderName;
-	@FindBy(how = How.XPATH, using = "//span[text()='Print']")
+	@FindBy(xpath = "//span[text()='Print']")
 	WebElement printButton;
-	@FindBy(how = How.XPATH, using = "//span[text()='OK']")
+	@FindBy(xpath = "//span[text()='OK']")
 	WebElement okButton;
 
 	public String doesOrderPlacedExist(WebDriver driver) {

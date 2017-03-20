@@ -13,16 +13,17 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.iConnectConsulting.pageobjects.AddNewPatientPopup;
-import com.iConnectConsulting.pageobjects.CertificationOfTestOrderPopup;
-import com.iConnectConsulting.pageobjects.DashBoardPage;
-import com.iConnectConsulting.pageobjects.SelectPatientsPopup;
-import com.iConnectConsulting.pageobjects.OrderPlacedPopup;
-import com.iConnectConsulting.pageobjects.PatientInsurancePopup;
-import com.iConnectConsulting.pageobjects.PhysicianNamePopup;
-import com.iConnectConsulting.pageobjects.SampleTemplateSelectionPopup;
-import com.iConnectConsulting.pageobjects.SignInPage;
-import com.iConnectConsulting.pageobjects.TestOrderPage;
+import com.iConnectConsulting.pageobjects.AddNewPatientInsurancePopup_PO;
+import com.iConnectConsulting.pageobjects.AddNewPatientPopup_PO;
+import com.iConnectConsulting.pageobjects.CertificationOfTestOrderPopup_PO;
+import com.iConnectConsulting.pageobjects.DashBoardPage_PO;
+import com.iConnectConsulting.pageobjects.SelectPatientsPopup_PO;
+import com.iConnectConsulting.pageobjects.OrderPlacedPopup_PO;
+import com.iConnectConsulting.pageobjects.PatientInsurancePopup_PO;
+import com.iConnectConsulting.pageobjects.PhysicianNamePopup_PO;
+import com.iConnectConsulting.pageobjects.SampleTemplateSelectionPopup_PO;
+import com.iConnectConsulting.pageobjects.SignInPage_PO;
+import com.iConnectConsulting.pageobjects.TestOrderPage_PO;
 import com.iConnectConsulting.util.WebUtil;
 
 /**
@@ -33,21 +34,21 @@ public class TestOrderTab extends MainTest {
 
 	String specimenIDName = "";
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testOrderSubmit() throws Exception {
-		SignInPage signInPage = PageFactory.initElements(driver, SignInPage.class);
+		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
 		signInPage.login(driver, user);
 		signInPage.clickSignInButton(driver);
-		DashBoardPage dashBoardPage = PageFactory.initElements(driver, DashBoardPage.class);
+		DashBoardPage_PO dashBoardPage = PageFactory.initElements(driver, DashBoardPage_PO.class);
 		dashBoardPage.clickTestOrderButton(driver);
-		SampleTemplateSelectionPopup sampleTemplateSelectionPopup = PageFactory.initElements(driver, SampleTemplateSelectionPopup.class);
+		SampleTemplateSelectionPopup_PO sampleTemplateSelectionPopup = PageFactory.initElements(driver, SampleTemplateSelectionPopup_PO.class);
 		sampleTemplateSelectionPopup.clickPrecisionDiagnostics(driver);
-		TestOrderPage testOrderPage = PageFactory.initElements(driver, TestOrderPage.class);
+		TestOrderPage_PO testOrderPage = PageFactory.initElements(driver, TestOrderPage_PO.class);
 		// Fill in Specimen Id textfield
 		testOrderPage.fillInSpecimenID(driver);
 		// Click Physician Name textfield
 		testOrderPage.clickPhysicianNameTextField(driver);
-		PhysicianNamePopup physicianNamePopup = PageFactory.initElements(driver, PhysicianNamePopup.class);
+		PhysicianNamePopup_PO physicianNamePopup = PageFactory.initElements(driver, PhysicianNamePopup_PO.class);
 		// Select any physician
 		physicianNamePopup.clickPhysicianName(driver);
 		// Click Apply selected button
@@ -56,10 +57,10 @@ public class TestOrderTab extends MainTest {
 		testOrderPage.verifyIfSpecimenIDunigue(driver);
 		// Click Last Name box
 		testOrderPage.clickLastNameTextField(driver);
-		SelectPatientsPopup selectPatientsPopup = PageFactory.initElements(driver, SelectPatientsPopup.class);
+		SelectPatientsPopup_PO selectPatientsPopup = PageFactory.initElements(driver, SelectPatientsPopup_PO.class);
 		// Click Add New button
 		selectPatientsPopup.clickAddNewButton(driver);
-		AddNewPatientPopup addNewPatientPopup = PageFactory.initElements(driver, AddNewPatientPopup.class);
+		AddNewPatientPopup_PO addNewPatientPopup = PageFactory.initElements(driver, AddNewPatientPopup_PO.class);
 		// Enter Date of Birth
 		addNewPatientPopup.fillInDateOfBirthTextfield(driver);
 		// Fill out Last name text field
@@ -90,11 +91,11 @@ public class TestOrderTab extends MainTest {
 		testOrderPage.inputcollectorInitials(driver);
 		// Click Submit button
 		testOrderPage.clickFinalSubmitButton(driver);
-		CertificationOfTestOrderPopup certificationOfTestOrderPopup = PageFactory.initElements(driver, CertificationOfTestOrderPopup.class);
+		CertificationOfTestOrderPopup_PO certificationOfTestOrderPopup = PageFactory.initElements(driver, CertificationOfTestOrderPopup_PO.class);
 		// Click Agree on the disclaimer
 		certificationOfTestOrderPopup.clickAgreeButton(driver);
 		// Verify if Order placed module is displayed
-		OrderPlacedPopup orderPlacedPopup = PageFactory.initElements(driver, OrderPlacedPopup.class);
+		OrderPlacedPopup_PO orderPlacedPopup = PageFactory.initElements(driver, OrderPlacedPopup_PO.class);
 		Assert.assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));
 		// Verify name of patient
 		Assert.assertEquals(specimenIDName, orderPlacedPopup.doesNameUnderOrderMatch(driver));
@@ -115,16 +116,22 @@ public class TestOrderTab extends MainTest {
 		orderPlacedPopup.clickOkButton(driver);
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testOrderSubmitUninsured() throws Exception {
-
-		TestOrderPage testOrderPage = DashBoardPage.clickTestOrderButton(driver);
-		SampleTemplateSelectionPopup sampletemplateselectionpopup = DashBoardPage.clickPrecisionDiagnostics(driver);
-		// WebUtil.getElementVisible(driver, By.cssSelector("input"));
+		
+		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
+		signInPage.login(driver, user);
+		signInPage.clickSignInButton(driver);
+		DashBoardPage_PO dashBoardPage = PageFactory.initElements(driver, DashBoardPage_PO.class);
+		dashBoardPage.clickTestOrderButton(driver);
+		SampleTemplateSelectionPopup_PO sampleTemplateSelectionPopup = PageFactory.initElements(driver, SampleTemplateSelectionPopup_PO.class);
+		sampleTemplateSelectionPopup.clickPrecisionDiagnostics(driver);
+		TestOrderPage_PO testOrderPage = PageFactory.initElements(driver, TestOrderPage_PO.class);
 		// Fill in Specimen Id textfield
-		specimenIDName = testOrderPage.fillInSpecimenID(driver);
+		testOrderPage.fillInSpecimenID(driver);
 		// Click Physician Name textfield
-		PhysicianNamePopup physicianNamePopup = testOrderPage.clickPhysicianNameTextField(driver);
+		testOrderPage.clickPhysicianNameTextField(driver);
+		PhysicianNamePopup_PO physicianNamePopup = PageFactory.initElements(driver, PhysicianNamePopup_PO.class);
 		// Select any physician
 		physicianNamePopup.clickPhysicianName(driver);
 		// Click Apply selected button
@@ -132,9 +139,11 @@ public class TestOrderTab extends MainTest {
 		// Verify if Specimen ID is unique
 		testOrderPage.verifyIfSpecimenIDunigue(driver);
 		// Click Last Name box
-		SelectPatientsPopup lastNamePopup = testOrderPage.clickLastNameTextField(driver);
+		testOrderPage.clickLastNameTextField(driver);
+		SelectPatientsPopup_PO selectPatientsPopup = PageFactory.initElements(driver, SelectPatientsPopup_PO.class);
 		// Click Add New button
-		AddNewPatientPopup addNewPatientPopup = lastNamePopup.clickAddNewButton(driver);
+		selectPatientsPopup.clickAddNewButton(driver);
+		AddNewPatientPopup_PO addNewPatientPopup = PageFactory.initElements(driver, AddNewPatientPopup_PO.class);
 		// Enter Date of Birth
 		addNewPatientPopup.fillInDateOfBirthTextfield(driver);
 		// Fill out Last name text field
@@ -147,13 +156,25 @@ public class TestOrderTab extends MainTest {
 		addNewPatientPopup.clickSubmitButton(driver);
 		// Click Insired button
 		testOrderPage.clickInsuredRadioButton(driver);
-		// Selectin insurance
-		PatientInsurancePopup patientInsurancePopup = testOrderPage.clickInsuranceNameTextfield(driver);
-		//
-		Thread.sleep(3000);
+		//Click Insurance Name textfield
+		testOrderPage.clickInsuranceNameTextfield(driver);
+		// Selecting insurance
+		PatientInsurancePopup_PO patientInsurancePopup = PageFactory.initElements(driver, PatientInsurancePopup_PO.class);
+		//Click add new insurance
 		patientInsurancePopup.clickAddNewInsuranceButton(driver);
-		Thread.sleep(1000);
-		patientInsurancePopup.clickNameInAddNewPatientInsurance(driver);
+		AddNewPatientInsurancePopup_PO addNewPatientInsurancePopup = PageFactory.initElements(driver, AddNewPatientInsurancePopup_PO.class);
+		//Click Add button to add new insurance
+		addNewPatientInsurancePopup.clickNameInAddNewPatientInsurance(driver);
+		
+				
+				
+			
+				
+		
+		
+		
+		
+		
 		// patientInsurancePopup.getMaxNumberOfPages(driver);
 
 		WebElement lastPageOfInsuranceProviders = driver.findElement(By.xpath(
@@ -200,6 +221,9 @@ public class TestOrderTab extends MainTest {
 		Thread.sleep(2000);
 		WebUtil.click(driver, By.xpath("//button[@class='btn btn-primary btn-form-md']//span[text()='Submit']"));
 		Thread.sleep(2000);
+		
+		
+		
 		// Enter 304 under DIAGNOSIS CODES
 		testOrderPage.inputDiagnosisCode(driver);
 		// Select any diagnosis from dropdown menue
@@ -217,9 +241,9 @@ public class TestOrderTab extends MainTest {
 		// Enter initials into the Collector's initials textfield
 		testOrderPage.inputcollectorInitials(driver);
 		// Click Submit button
-		CertificationOfTestOrderPopup certificationOfTestOrderPopup = testOrderPage.clickFinalSubmitButton(driver);
+		CertificationOfTestOrderPopup_PO certificationOfTestOrderPopup = testOrderPage.clickFinalSubmitButton(driver);
 		// Click Agree on the disclaimer
-		OrderPlacedPopup orderPlacedPopup = certificationOfTestOrderPopup.clickAgreeButton(driver);
+		OrderPlacedPopup_PO orderPlacedPopup = certificationOfTestOrderPopup.clickAgreeButton(driver);
 		Thread.sleep(2000);
 		// Verify if Order placed module is displayed
 		Assert.assertEquals("Order Placed", orderPlacedPopup.doesOrderPlacedExist(driver));

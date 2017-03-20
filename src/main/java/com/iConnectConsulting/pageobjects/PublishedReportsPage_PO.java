@@ -1,6 +1,6 @@
 package com.iConnectConsulting.pageobjects;
 
-public class PublishedReportsPage {
+public class PublishedReportsPage_PO {
 
 	// public static PublishedReportsTab clickPublishedReportsTab(WebDriver
 	// driver) {

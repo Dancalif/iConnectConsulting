@@ -11,13 +11,13 @@ import org.openqa.selenium.support.How;
 
 import com.iConnectConsulting.util.WebUtil;
 
-public class PhysicianNamePopup {
+public class PhysicianNamePopup_PO {
 	Random rand = new Random();
 	int randomNumber = 0;
 	
-	@FindBy(how = How.CLASS_NAME, using = "k-grid-content")
+	@FindBy(className = "k-grid-content")
 	WebElement physiciansNamesTable;
-	@FindBy(how = How.XPATH, using = "//button[@class='btn btn-primary btn-form-md']")
+	@FindBy(xpath = "//button[@class='btn btn-primary btn-form-md']")
 	WebElement applySelectedButton;
 	
 

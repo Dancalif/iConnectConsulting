@@ -10,15 +10,15 @@ import org.openqa.selenium.support.PageFactory;
 import com.iConnectConsulting.data.UserData;
 import com.iConnectConsulting.util.WebUtil;
 
-public class SignInPage {
+public class SignInPage_PO {
 	
-	@FindBy(how = How.ID, using = "username")
+	@FindBy(id = "username")
 	WebElement usernameTextfield;
-	@FindBy(how = How.NAME, using = "password")
+	@FindBy(name = "password")
 	WebElement passwordTextfield;
-	@FindBy(how = How.XPATH, using = "//*[@type='submit']")
+	@FindBy(xpath = "//*[@type='submit']")
 	WebElement submitButton;
-	@FindBy(how = How.CSS, using = "a[href='#/dashboard']")
+	@FindBy(css = "a[href='#/dashboard']")
 	WebElement dashboardTab;
 
 

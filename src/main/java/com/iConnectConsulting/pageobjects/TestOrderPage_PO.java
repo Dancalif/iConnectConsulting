@@ -13,43 +13,47 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.iConnectConsulting.util.WebUtil;
 
-public class TestOrderPage {
+public class TestOrderPage_PO {
 	String specimenIDName = "";
 	Random rand = new Random();
 	int randomNumber, numberID, maxNum = 0;
 	
-	@FindBy(how = How.CSS, using = "input[placeholder='Specimen Id']")
+	@FindBy(css = "input[placeholder='Specimen Id']")
 	WebElement specimenIdTextfield;
-	@FindBy(how = How.CSS, using = "i[class='fa fa-ellipsis-h']")
+	@FindBy(css = "i[class='fa fa-ellipsis-h']")
 	WebElement physicianNameTextfield;
-	@FindBy(how = How.CLASS_NAME, using = "k-grid-content")
+	@FindBy(className = "k-grid-content")
 	WebElement physiciansNamesTable;
-	@FindBy(how = How.XPATH, using = "//span[text()='The value is not unique']")
+	@FindBy(xpath = "//span[text()='The value is not unique']")
 	WebElement uniqueMessage;
-	@FindBy(how = How.CSS, using = "design-item-lookup[data-item-id='Sample___PID'] > div > div > div > div > div > div[class='input-group-btn'] > button > i[class='fa fa-ellipsis-h']")									
+	@FindBy(css = "design-item-lookup[data-item-id='Sample___PID'] > div > div > div > div > div > div[class='input-group-btn'] > button > i[class='fa fa-ellipsis-h']")									
 	WebElement lastNameTextField;
-	@FindBy(how = How.XPATH, using = "//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']")
+	@FindBy(xpath = "//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']")
 	WebElement uninsuredRadiobutton;
-	@FindBy(how = How.XPATH, using = "//input[contains(@placeholder, 'Select diagnosis...')]")
+	@FindBy(xpath = "//input[contains(@placeholder, 'Select diagnosis...')]")
 	WebElement selectDiagnosisTextfield;
-	@FindBy(how = How.CSS, using = "span[class='k-state-default']")
+	@FindBy(css = "span[class='k-state-default']")
 	List<WebElement> listDiagnosOptions;
 	@FindBy(how = How.XPATH, using = "//div[contains(@class,'lwp-checkbox')]//span[text()='Urine']")
 	WebElement urineRadioButton;
-	@FindBy(how = How.CSS, using = "design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309'] > div > div > div > a")
+	@FindBy(css = "design-item-group-box[data-item-id='502b26d4-5aed-4fe9-bbb7-7b8a88349309'] > div > div > div > a")
 	WebElement recordPOCResultsExpand;
-	@FindBy(how = How.CSS, using = "data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='POS(+)'] > i")
+	@FindBy(css = "data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='POS(+)'] > i")
 	List<WebElement> recordPOCResultsPositive;
-	@FindBy(how = How.CSS, using = "data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='NEG(-)'] > i")
+	@FindBy(css = "data-multicolumn-layout[class='ng-scope row'] > div > ul > li > div > div > fa-check-box[title='NEG(-)'] > i")
 	List<WebElement> recordPOCResultsNegative;
-	@FindBy(how = How.CSS, using = "ul[class='lwp-design__test-codes__controls list-inline-centered pull-right additional-controls'] > li > ul > li > fa-check-box > i")
+	@FindBy(css = "ul[class='lwp-design__test-codes__controls list-inline-centered pull-right additional-controls'] > li > ul > li > fa-check-box > i")
 	WebElement PerformCustomProfileModule;
-	@FindBy(how = How.CSS, using = "div[class='animated row fadeInRight'] > div > ul > li > div > div > fa-check-box > i")
+	@FindBy(css = "div[class='animated row fadeInRight'] > div > ul > li > div > div > fa-check-box > i")
 	List<WebElement> listMedicationsCheckBoxes;
-	@FindBy(how = How.CSS, using = "design-item-text-box[data-item-id='Sample___ORDERING_PHYSICIAN'] > div > div > input")
+	@FindBy(css = "design-item-text-box[data-item-id='Sample___ORDERING_PHYSICIAN'] > div > div > input")
 	WebElement collectorInitialsTextfield;
-	@FindBy(how = How.XPATH, using = "//span[text()='Submit']")
+	@FindBy(xpath = "//span[text()='Submit']")
 	WebElement submitButton;
+	@FindBy(xpath = "//div[contains(@class,'lwp-checkbox')]//span[text()='Insured']")
+	WebElement insuredRadioButton;
+	@FindBy(css = "div > design-items[data-item-id='d32c5ffa-fd7c-4833-8406-aea37559e163'] > div > div > div > design-item-lookup > div > div[class='print-field order-form-field fieldfiller'] > div > div > div > div > button[ng-click='openLookup(model)'] > i")
+	WebElement insuranceNameTextfield;
 	
 	
 	
@@ -173,14 +177,13 @@ public class TestOrderPage {
 
 	public void clickInsuredRadioButton(WebDriver driver) throws InterruptedException {
 		Thread.sleep(3000);
-		WebUtil.clickHiddenElement(driver, By.xpath("//div[contains(@class,'lwp-checkbox')]//span[text()='Insured']"));
+		WebUtil.clickHiddenElement(driver, insuredRadioButton);
 
 	}
 
-	public PatientInsurancePopup clickInsuranceNameTextfield(WebDriver driver) throws Exception {
+	public void clickInsuranceNameTextfield(WebDriver driver) throws Exception {
 		Thread.sleep(3000);
-		WebUtil.clickHiddenElement(driver, By.cssSelector(
-				"div > design-items[data-item-id='d32c5ffa-fd7c-4833-8406-aea37559e163'] > div > div > div > design-item-lookup > div > div[class='print-field order-form-field fieldfiller'] > div > div > div > div > button[ng-click='openLookup(model)'] > i"));
-		return PageFactory.initElements(driver, PatientInsurancePopup.class);
+		WebUtil.clickHiddenElement(driver, insuranceNameTextfield);
+		Thread.sleep(3000);
 	}
 }

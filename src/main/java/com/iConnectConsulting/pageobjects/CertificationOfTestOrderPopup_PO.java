@@ -1,7 +1,5 @@
 package com.iConnectConsulting.pageobjects;
 
-import java.util.Random;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,13 +9,14 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.iConnectConsulting.util.WebUtil;
 
-public class SelectPatientsPopup {
+public class CertificationOfTestOrderPopup_PO {
 	
-	@FindBy(how = How.CSS, using = "button[class='btn btn-default btn-form-md pull-left ng-scope']")
-	WebElement addNewButton;
+	@FindBy(xpath = "//span[text()='Agree']")
+	WebElement agreeButton;
 
-	public void clickAddNewButton(WebDriver driver) {
-		WebUtil.waitForElementVisible(driver, addNewButton);
-		WebUtil.click(driver, addNewButton);
+	public void clickAgreeButton(WebDriver driver) throws InterruptedException {
+		WebUtil.click(driver, agreeButton);
+		Thread.sleep(2000);
 	}
+
 }
