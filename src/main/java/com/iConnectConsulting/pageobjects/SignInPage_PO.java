@@ -18,15 +18,6 @@ public class SignInPage_PO {
 	WebElement passwordTextfield;
 	@FindBy(xpath = "//*[@type='submit']")
 	WebElement submitButton;
-	@FindBy(css = "a[href='#/dashboard']")
-	WebElement dashboardTab;
-
-
-	public void clickSignInButton(WebDriver driver) throws InterruptedException {
-		Thread.sleep(3000);
-		WebUtil.click(driver, submitButton);
-		WebUtil.waitForElementVisible(driver, dashboardTab);
-	}
 
 	public boolean doesUsernameExist(WebDriver driver) {
 		return driver.findElement(By.id("username")).isDisplayed();
@@ -39,5 +30,6 @@ public class SignInPage_PO {
 		Thread.sleep(1000);
 		WebUtil.input(driver, user.password, passwordTextfield);
 		Thread.sleep(1000);
+		WebUtil.click(driver, submitButton);
 	}
 }

@@ -54,16 +54,7 @@ public class TestOrderPage_PO {
 	WebElement insuredRadioButton;
 	@FindBy(css = "div > design-items[data-item-id='d32c5ffa-fd7c-4833-8406-aea37559e163'] > div > div > div > design-item-lookup > div > div[class='print-field order-form-field fieldfiller'] > div > div > div > div > button[ng-click='openLookup(model)'] > i")
 	WebElement insuranceNameTextfield;
-	@FindBy(css = "div[class='navbar-collapse collapse hidden-xs main-navigation__top'] > ul > li > a > i")
-	WebElement navBar;
-	@FindBy(linkText = "Logout")
-	WebElement logoutButton;
 	
-	
-	public void clickSignOut(WebDriver driver) {
-		WebUtil.click(driver, navBar);
-		WebUtil.click(driver, logoutButton);
-	}
 	
 	public void fillInSpecimenID(WebDriver driver) {
 		randomNumber = 1000 + WebUtil.randNumber(8999);

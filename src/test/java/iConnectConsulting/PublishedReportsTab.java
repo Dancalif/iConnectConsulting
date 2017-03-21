@@ -11,9 +11,13 @@ import java.util.Random;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.iConnectConsulting.pageobjects.CommonElements;
+import com.iConnectConsulting.pageobjects.PublishedReportsPage_PO;
+import com.iConnectConsulting.pageobjects.SignInPage_PO;
 import com.iConnectConsulting.util.WebUtil;
 
 /**
@@ -24,39 +28,16 @@ public class PublishedReportsTab extends MainTest {
 
 	@Test(enabled = true)
 	public void dashboardTab() throws InterruptedException, MalformedURLException {
-
-		Random rand = new Random();
-		WebUtil.waitForElementVisible(driver, By.cssSelector("a[href='#/reports-all']"));
-
-		WebUtil.click(driver, By.cssSelector("a[href='#/reports-all']"));
-		WebUtil.waitForElementVisible(driver, By.cssSelector("table > tbody > tr > td:nth-child(3)"));
-		List<WebElement> specimenIDsList = driver.findElements(By.cssSelector("table > tbody > tr > td:nth-child(3)"));
-		int specimenIDsNum = specimenIDsList.size();
-		int randomNum = rand.nextInt(specimenIDsNum);
-
-		String specimenIDName = specimenIDsList.get(randomNum).getText();
-
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].click();", specimenIDsList.get(randomNum));
-
-		Thread.sleep(2000);
-		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
-		driver.switchTo().window(tabs2.get(1));
-		WebUtil.waitForElementVisible(driver, By.cssSelector("div[class='textLayer'] > div"));
-		List<WebElement> reportSpecomenIDNames = driver.findElements(By.cssSelector("div[class='textLayer'] > div"));
-		int countNum = 0;
-		for (WebElement nextItem : reportSpecomenIDNames) {
-			countNum++;
-			if (nextItem.getText().equalsIgnoreCase(specimenIDName)) {
-				Assert.assertEquals(specimenIDName, nextItem.getText());
-				break;
-			} else {
-				if (specimenIDsList.size() == countNum) {
-					Assert.fail("The SpecimenID that was submitted " + specimenIDName
-							+ " doesn't match with the SpecimenID on the report.");
-				}
-			}
-		}
-		driver.switchTo().window(tabs2.get(0));
+		//Login to the portal
+		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
+		signInPage.login(driver, user);
+		CommonElements commonElements = PageFactory.initElements(driver, CommonElements.class);
+		//Clicking Published Reports Tab
+		commonElements.clickPublishedReportsTab(driver);
+		PublishedReportsPage_PO publishedReportsPage = PageFactory.initElements(driver, PublishedReportsPage_PO.class);
+		//Assert if user is navigated to th proper page
+		Assert.assertTrue(publishedReportsPage.ifPublishedReportsPageDisplayed(driver), "Published Reports Page is not shown up");
+		//Assert if Specimen ID is displayed on the report
+		publishedReportsPage.verifySpecimenIDonTheReport(driver);
 	}
 }

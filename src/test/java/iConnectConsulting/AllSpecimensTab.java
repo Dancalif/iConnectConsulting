@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.iConnectConsulting.pageobjects.AllSpecimensPage_PO;
+import com.iConnectConsulting.pageobjects.CommonElements;
 import com.iConnectConsulting.pageobjects.DashBoardPage_PO;
 import com.iConnectConsulting.pageobjects.SignInPage_PO;
 
@@ -19,17 +20,15 @@ public class AllSpecimensTab extends MainTest {
 
 	@Test(enabled = true)
 	public void allSpecimensTab() throws InterruptedException {
-
+		//Login to the portal
 		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
-		Thread.sleep(3000);
-		DashBoardPage_PO dashBoardPage = signInPage.login(driver, user);
-		Thread.sleep(3000);
-		signInPage.clickSignInButton(driver);
-		AllSpecimensPage_PO allSpecimensPage = dashBoardPage.clickAllSpecimensButton(driver);
-		// Verify if user successfully signed in
+		signInPage.login(driver, user);
+		CommonElements commonElements = PageFactory.initElements(driver, CommonElements.class);
+		//Clicking All Specimens Tab
+		commonElements.clickAllSpecimensTab(driver);
+		AllSpecimensPage_PO allSpecimensPage = PageFactory.initElements(driver, AllSpecimensPage_PO.class);;
+		//Assert if user is navigated to the proper page
 		Thread.sleep(2000);
 		Assert.assertTrue(allSpecimensPage.ifAllSpecimensPageDisplayed(driver), "AllSpecimens Page is not shown up");
-		// Sign out
-		signInPage = dashBoardPage.clickSignOut(driver);
 	}
 }

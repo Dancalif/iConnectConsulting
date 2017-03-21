@@ -16,6 +16,7 @@ import org.testng.annotations.Test;
 import com.iConnectConsulting.pageobjects.AddNewPatientInsurancePopup_PO;
 import com.iConnectConsulting.pageobjects.AddNewPatientPopup_PO;
 import com.iConnectConsulting.pageobjects.CertificationOfTestOrderPopup_PO;
+import com.iConnectConsulting.pageobjects.CommonElements;
 import com.iConnectConsulting.pageobjects.DashBoardPage_PO;
 import com.iConnectConsulting.pageobjects.SelectPatientInsurancePopup_PO;
 import com.iConnectConsulting.pageobjects.OrderPlacedPopup_PO;
@@ -39,9 +40,8 @@ public class TestOrderTab extends MainTest {
 	public void testOrderSubmit() throws Exception {
 		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
 		signInPage.login(driver, user);
-		signInPage.clickSignInButton(driver);
-		DashBoardPage_PO dashBoardPage = PageFactory.initElements(driver, DashBoardPage_PO.class);
-		dashBoardPage.clickTestOrderButton(driver);
+		CommonElements commonElements = PageFactory.initElements(driver, CommonElements.class);
+		commonElements.clickTestOrderTab(driver);
 		SampleTemplateSelectionPopup_PO sampleTemplateSelectionPopup = PageFactory.initElements(driver, SampleTemplateSelectionPopup_PO.class);
 		sampleTemplateSelectionPopup.clickPrecisionDiagnostics(driver);
 		TestOrderPage_PO testOrderPage = PageFactory.initElements(driver, TestOrderPage_PO.class);
@@ -115,7 +115,6 @@ public class TestOrderTab extends MainTest {
 		// click OK button to finish
 		Thread.sleep(2000);
 		orderPlacedPopup.clickOkButton(driver);
-		testOrderPage.clickSignOut(driver);
 	}
 
 	@Test(enabled = true)
@@ -123,9 +122,8 @@ public class TestOrderTab extends MainTest {
 		
 		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
 		signInPage.login(driver, user);
-		signInPage.clickSignInButton(driver);
-		DashBoardPage_PO dashBoardPage = PageFactory.initElements(driver, DashBoardPage_PO.class);
-		dashBoardPage.clickTestOrderButton(driver);
+		CommonElements commonElements = PageFactory.initElements(driver, CommonElements.class);
+		commonElements.clickTestOrderTab(driver);
 		SampleTemplateSelectionPopup_PO sampleTemplateSelectionPopup = PageFactory.initElements(driver, SampleTemplateSelectionPopup_PO.class);
 		sampleTemplateSelectionPopup.clickPrecisionDiagnostics(driver);
 		TestOrderPage_PO testOrderPage = PageFactory.initElements(driver, TestOrderPage_PO.class);
@@ -212,6 +210,5 @@ public class TestOrderTab extends MainTest {
 		// click OK button to finish
 		Thread.sleep(2000);
 		orderPlacedPopup.clickOkButton(driver);
-		testOrderPage.clickSignOut(driver);
 	}
 }

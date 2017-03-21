@@ -15,6 +15,9 @@ public class SampleTemplateSelectionPopup_PO {
 	WebElement precisionDiagnosticsOption;
 	@FindBy(xpath = ".//*[@id='se_refresh_btn']")
 	WebElement okButton;
+	@FindBy(xpath = "//div[contains(@class, 'modal-header')]//h1[contains(@class, 'ng-binding')]")
+	WebElement sampleTemplateSelectionPopup;
+	
 	
 	public void clickPrecisionDiagnostics(WebDriver driver) {
 		WebUtil.click(driver, precisionDiagnosticsOption);

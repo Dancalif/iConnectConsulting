@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.iConnectConsulting.pageobjects.CommonElements;
 import com.iConnectConsulting.pageobjects.DashBoardPage_PO;
 import com.iConnectConsulting.pageobjects.PhysicianQueuePage_PO;
 import com.iConnectConsulting.pageobjects.SignInPage_PO;
@@ -19,19 +20,17 @@ public class PhysicianQueueTab extends MainTest {
 
 	@Test(enabled = true)
 	public void allSpecimensTab() throws InterruptedException {
-
+		//Login to the portal
 		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
-		Thread.sleep(3000);
-		DashBoardPage_PO dashBoardPage = signInPage.login(driver, user);
-		Thread.sleep(3000);
-		signInPage.clickSignInButton(driver);
-		PhysicianQueuePage_PO physicianQueuePage = dashBoardPage.clickPhysicianQueueButton(driver);
+		signInPage.login(driver, user);
+		CommonElements commonElements = PageFactory.initElements(driver, CommonElements.class);
+		//Clicking Physician Queue Tab
+		commonElements.clickPhysicianQueueTab(driver);
+		PhysicianQueuePage_PO physicianQueuePage = PageFactory.initElements(driver, PhysicianQueuePage_PO.class);
 		// Verify if user successfully signed in
 		Thread.sleep(2000);
+		//Assert if user is properly navigated
 		Assert.assertTrue(physicianQueuePage.ifPhysicianQueuePageDisplayed(driver),
 				"PhysicianQueue Page is not shown up");
-		// Sign out
-		signInPage = dashBoardPage.clickSignOut(driver);
 	}
-
 }

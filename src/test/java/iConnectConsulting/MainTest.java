@@ -15,6 +15,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
 import com.iConnectConsulting.data.UserData;
+import com.iConnectConsulting.pageobjects.CommonElements;
 import com.iConnectConsulting.pageobjects.DashBoardPage_PO;
 import com.iConnectConsulting.pageobjects.SignInPage_PO;
 
@@ -47,8 +48,9 @@ public class MainTest {
 
 	@AfterMethod(alwaysRun = true)
 	public void tearDown() throws Exception {
+		CommonElements commonElements = PageFactory.initElements(driver, CommonElements.class);
+		commonElements.clickSignOut(driver);
 		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
-		signInPage = DashBoardPage_PO.clickSignOut(driver);
 		// Verify if user is signed out
 		Assert.assertTrue(signInPage.doesUsernameExist(driver), "User is not signed out");
 		// Clean up environment
