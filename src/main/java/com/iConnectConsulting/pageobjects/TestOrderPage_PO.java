@@ -56,11 +56,13 @@ public class TestOrderPage_PO {
 	WebElement insuranceNameTextfield;
 	
 	
-	public void fillInSpecimenID(WebDriver driver) {
+	public String fillInSpecimenID(WebDriver driver) {
 		randomNumber = 1000 + WebUtil.randNumber(8999);
 		specimenIDName = "DanU" + randomNumber;
 		WebUtil.waitForElementVisible(driver, specimenIdTextfield);
 		WebUtil.input(driver, specimenIDName, specimenIdTextfield);
+		
+		return specimenIDName;
 	}
 
 	public void clickPhysicianNameTextField(WebDriver driver) {
@@ -97,9 +99,9 @@ public class TestOrderPage_PO {
 		WebUtil.clickHiddenElement(driver, uninsuredRadiobutton);
 	}
 
-	public void inputDiagnosisCode(WebDriver driver) throws Exception {
+	public void inputDiagnosisCode(WebDriver driver, String diagnosisCode) throws Exception {
 		WebUtil.getElementVisible(driver, selectDiagnosisTextfield);
-		WebUtil.input(driver, "304", selectDiagnosisTextfield);
+		WebUtil.input(driver, diagnosisCode, selectDiagnosisTextfield);
 	}
 
 	public void selectDiagnosisOption(WebDriver driver) throws Exception {

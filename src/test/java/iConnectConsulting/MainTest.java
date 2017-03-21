@@ -25,7 +25,6 @@ public class MainTest {
 
 	WebDriver driver;
 	UserData user = new UserData("ptox", "ptox2013");
-	private Local l;
 
 	@BeforeMethod(alwaysRun = true)
 	@Parameters({ "browser", "url" })

@@ -4,6 +4,7 @@
     <test name="TestOrder Chrome">
          <parameter name="browser" value="chrome" />
 		<parameter name="url" value="https://www.labwebportal.com/Precision_qc/#/login" />
+		<parameter name="diagnosisCode" value="304" />
         <classes>
             <class name="iConnectConsulting.TestOrderTab"/>
         </classes>
@@ -12,6 +13,7 @@
     <test name="TestOrder FireFox">
          <parameter name="browser" value="firefox" />
   		<parameter name="url" value="https://www.labwebportal.com/Precision_qc/#/login" />
+  		<parameter name="diagnosisCode" value="304" />
         <classes>
             <class name="iConnectConsulting.TestOrderTab"/>
         </classes>

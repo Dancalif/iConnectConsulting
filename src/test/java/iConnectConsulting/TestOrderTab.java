@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.iConnectConsulting.pageobjects.AddNewPatientInsurancePopup_PO;
@@ -34,19 +35,23 @@ import com.iConnectConsulting.util.WebUtil;
  */
 public class TestOrderTab extends MainTest {
 
-	String specimenIDName = "";
+	//String specimenIDName = "";
 
 	@Test(enabled = false)
-	public void testOrderSubmit() throws Exception {
+	@Parameters({ "diagnosisCode"})
+	public void testOrderSubmit(String diagnosisCode) throws Exception {
+		//Login to the portal
 		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
 		signInPage.login(driver, user);
 		CommonElements commonElements = PageFactory.initElements(driver, CommonElements.class);
+		//Clicking Test Order Tab
 		commonElements.clickTestOrderTab(driver);
 		SampleTemplateSelectionPopup_PO sampleTemplateSelectionPopup = PageFactory.initElements(driver, SampleTemplateSelectionPopup_PO.class);
+		//Selecting Test Requisition Form
 		sampleTemplateSelectionPopup.clickPrecisionDiagnostics(driver);
 		TestOrderPage_PO testOrderPage = PageFactory.initElements(driver, TestOrderPage_PO.class);
 		// Fill in Specimen Id textfield
-		testOrderPage.fillInSpecimenID(driver);
+		String specimenIDName = testOrderPage.fillInSpecimenID(driver);
 		// Click Physician Name textfield
 		testOrderPage.clickPhysicianNameTextField(driver);
 		PhysicianNamePopup_PO physicianNamePopup = PageFactory.initElements(driver, PhysicianNamePopup_PO.class);
@@ -75,7 +80,7 @@ public class TestOrderTab extends MainTest {
 		// Select uninsured radio button
 		testOrderPage.clickUninsuredRadioButton(driver);
 		// Enter 304 under DIAGNOSIS CODES
-		testOrderPage.inputDiagnosisCode(driver);
+		testOrderPage.inputDiagnosisCode(driver, diagnosisCode);
 		// Select any diagnosis from dropdown menue
 		testOrderPage.selectDiagnosisOption(driver);
 		// Click Urine radiobutton under SPECIMEN TYPE
@@ -118,17 +123,20 @@ public class TestOrderTab extends MainTest {
 	}
 
 	@Test(enabled = true)
-	public void testOrderSubmitUninsured() throws Exception {
-		
+	@Parameters({ "diagnosisCode"})
+	public void testOrderSubmitUninsured(String diagnosisCode) throws Exception {
+		//Login to the portal
 		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
 		signInPage.login(driver, user);
 		CommonElements commonElements = PageFactory.initElements(driver, CommonElements.class);
+		//Clicking Test Order Tab
 		commonElements.clickTestOrderTab(driver);
 		SampleTemplateSelectionPopup_PO sampleTemplateSelectionPopup = PageFactory.initElements(driver, SampleTemplateSelectionPopup_PO.class);
+		//Selecting Test Requisition Form
 		sampleTemplateSelectionPopup.clickPrecisionDiagnostics(driver);
 		TestOrderPage_PO testOrderPage = PageFactory.initElements(driver, TestOrderPage_PO.class);
 		// Fill in Specimen Id textfield
-		testOrderPage.fillInSpecimenID(driver);
+		String specimenIDName = testOrderPage.fillInSpecimenID(driver);
 		// Click Physician Name textfield
 		testOrderPage.clickPhysicianNameTextField(driver);
 		PhysicianNamePopup_PO physicianNamePopup = PageFactory.initElements(driver, PhysicianNamePopup_PO.class);
@@ -170,7 +178,7 @@ public class TestOrderTab extends MainTest {
 		selectInsuranceProvidersPopup.selectingInsuranceProvider(driver);
 		addNewPatientInsurancePopup.clickSubmitButton(driver);
 		// Enter 304 under DIAGNOSIS CODES
-		testOrderPage.inputDiagnosisCode(driver);
+		testOrderPage.inputDiagnosisCode(driver, diagnosisCode);
 		// Select any diagnosis from dropdown menue
 		testOrderPage.selectDiagnosisOption(driver);
 		// Click Urine radiobutton under SPECIMEN TYPE
