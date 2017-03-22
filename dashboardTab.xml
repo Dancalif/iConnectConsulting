@@ -1,33 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SignIn" thread-count="4" parallel="tests">
-    <test name="SignInChrome">
-        <parameter name="conf" value="conf"/>
-        <parameter name="environment" value="chrome"/>
+<suite name="Dashboard" thread-count="2" parallel="tests">
+    <test name="Dashboard Chrome">
+        <parameter name="browser" value="chrome" />
+		<parameter name="url" value="yourURL" />
         <classes>
             <class name="iConnectConsulting.DashboardTab"/>
         </classes>
     </test>
 
-    <test name="SignInFireFox">
-        <parameter name="conf" value="conf"/>
-        <parameter name="environment" value="firefox"/>
-        <classes>
-            <class name="iConnectConsulting.DashboardTab"/>
-        </classes>
-    </test>
-
-    <test name="SignInSafari">
-        <parameter name="conf" value="conf"/>
-        <parameter name="environment" value="safari"/>
-        <classes>
-            <class name="iConnectConsulting.DashboardTab"/>
-        </classes>
-    </test>
-
-    <test name="SignInIE">
-        <parameter name="conf" value="conf"/>
-        <parameter name="environment" value="ie"/>
+    <test name="Dashboard FireFox">
+        <parameter name="browser" value="chrome" />
+		<parameter name="url" value="yourURL" />
         <classes>
             <class name="iConnectConsulting.DashboardTab"/>
         </classes>

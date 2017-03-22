@@ -3,7 +3,7 @@
 <suite name="TestOrder" thread-count="2" parallel="tests">
     <test name="TestOrder Chrome">
          <parameter name="browser" value="chrome" />
-		<parameter name="url" value="https://www.labwebportal.com/Precision_qc/#/login" />
+		<parameter name="url" value="yourURL" />
 		<parameter name="diagnosisCode" value="304" />
         <classes>
             <class name="iConnectConsulting.TestOrderTab"/>
@@ -12,7 +12,7 @@
 
     <test name="TestOrder FireFox">
          <parameter name="browser" value="firefox" />
-  		<parameter name="url" value="https://www.labwebportal.com/Precision_qc/#/login" />
+  		<parameter name="url" value="yourURL" />
   		<parameter name="diagnosisCode" value="304" />
         <classes>
             <class name="iConnectConsulting.TestOrderTab"/>
