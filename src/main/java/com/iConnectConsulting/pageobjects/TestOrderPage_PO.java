@@ -3,13 +3,11 @@ package com.iConnectConsulting.pageobjects;
 import java.util.List;
 import java.util.Random;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 
 import com.iConnectConsulting.util.WebUtil;
 
@@ -17,16 +15,16 @@ public class TestOrderPage_PO {
 	String specimenIDName = "";
 	Random rand = new Random();
 	int randomNumber, numberID, maxNum = 0;
-	
+
 	@FindBy(css = "input[placeholder='Specimen Id']")
 	WebElement specimenIdTextfield;
-	@FindBy(css = "i[class='fa fa-ellipsis-h']")
+	@FindBy(css = "design-item-lookup[data-item-id='Sample___CONTACTID'] > div > div[class='print-field order-form-field fieldfiller'] > div > div > div > input")
 	WebElement physicianNameTextfield;
-	@FindBy(className = "k-grid-content")
-	WebElement physiciansNamesTable;
 	@FindBy(xpath = "//span[text()='The value is not unique']")
-	WebElement uniqueMessage;
-	@FindBy(css = "design-item-lookup[data-item-id='Sample___PID'] > div > div > div > div > div > div[class='input-group-btn'] > button > i[class='fa fa-ellipsis-h']")									
+	WebElement uniqueMessage1;
+	@FindBy(xpath = ".//div[text()='*Specimen Id: The value is not unique']")
+	WebElement uniqueMessage2;
+	@FindBy(css = "design-item-lookup[data-item-id='Sample___PID'] > div > div > div > div > div > div[class='input-group-btn'] > button > i[class='fa fa-ellipsis-h']")
 	WebElement lastNameTextField;
 	@FindBy(xpath = "//div[contains(@class,'lwp-checkbox')]//span[text()='Uninsured']")
 	WebElement uninsuredRadiobutton;
@@ -54,48 +52,55 @@ public class TestOrderPage_PO {
 	WebElement insuredRadioButton;
 	@FindBy(css = "div > design-items[data-item-id='d32c5ffa-fd7c-4833-8406-aea37559e163'] > div > div > div > design-item-lookup > div > div[class='print-field order-form-field fieldfiller'] > div > div > div > div > button[ng-click='openLookup(model)'] > i")
 	WebElement insuranceNameTextfield;
-	
-	
-	public String fillInSpecimenID(WebDriver driver) {
+	@FindBy(css = "ul > li > span > span > span > span")
+	WebElement arrowToGetCustomProfileOptions;
+	@FindBy(css = "div[class='k-animation-container'] > div > ul[style='overflow: auto; height: auto;'] > li")
+	List<WebElement> customProfileOptions;
+	@FindBy(xpath = "//span[text()='*Specimen Id']")
+	WebElement specimenIdTitle;
+
+	public void selectCustomProfileOptions(WebDriver driver) throws InterruptedException {
+		List<WebElement> customProfiles = WebUtil.createListOfElements(driver, customProfileOptions);
+		randomNumber = WebUtil.randNumber(customProfiles.size());
+		Thread.sleep(1000);
+		customProfiles.get(randomNumber).click();
+	}
+
+	public void clickCustomProfileOptions(WebDriver driver) {
+		WebUtil.click(driver, arrowToGetCustomProfileOptions);
+	}
+
+	public String fillInSpecimenID(WebDriver driver) throws InterruptedException {
 		randomNumber = 1000 + WebUtil.randNumber(8999);
 		specimenIDName = "DanU" + randomNumber;
 		WebUtil.waitForElementVisible(driver, specimenIdTextfield);
 		WebUtil.input(driver, specimenIDName, specimenIdTextfield);
-		
+		WebUtil.click(driver, specimenIdTitle);
 		return specimenIDName;
 	}
 
 	public void clickPhysicianNameTextField(WebDriver driver) {
 		WebUtil.click(driver, physicianNameTextfield);
-		WebUtil.waitForElementVisible(driver, physiciansNamesTable);
 	}
 
-	public void verifyIfSpecimenIDunigue(WebDriver driver) throws InterruptedException {
-		boolean doFlag = false;
-		do {
-			try {
-				if (uniqueMessage.isDisplayed()) {
-					randomNumber = 1000 + WebUtil.randNumber(rand.nextInt(8999));
-					specimenIDName = "DanU" + randomNumber;
-					specimenIdTextfield.clear();
-					specimenIdTextfield.sendKeys(specimenIDName);
-				} else {
-					break;
-				}
-			} catch (Exception e1) {
-				doFlag = true;
-			}
-		} while (doFlag == false);
+	public boolean verifyIfSpecimenIDunigue1(WebDriver driver) throws InterruptedException {
 		Thread.sleep(1000);
-		WebUtil.waitForElementVisible(driver, lastNameTextField);
+		boolean myFlag = WebUtil.ifElementIsDisplayed(driver, uniqueMessage1);
+		return myFlag;
 	}
 
-	public void clickLastNameTextField(WebDriver driver) {
+	public boolean verifyIfSpecimenIDunigue2(WebDriver driver) {
+		boolean myFlag = WebUtil.ifElementIsDisplayed(driver, uniqueMessage2);
+		return myFlag;
+	}
+
+	public void clickLastNameTextField(WebDriver driver) throws InterruptedException {
+		WebUtil.waitForElementVisible(driver, lastNameTextField);
+		Thread.sleep(1000);
 		WebUtil.click(driver, lastNameTextField);
 	}
 
 	public void clickUninsuredRadioButton(WebDriver driver) throws Exception {
-		Thread.sleep(3000);
 		WebUtil.clickHiddenElement(driver, uninsuredRadiobutton);
 	}
 
@@ -156,8 +161,7 @@ public class TestOrderPage_PO {
 	public void clickMedicationsCheckBoxes(WebDriver driver) throws InterruptedException {
 		List<WebElement> medicationsCheckBoxes = WebUtil.createListOfElements(driver, listMedicationsCheckBoxes);
 		maxNum = 0;
-		do
-		{
+		do {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			randomNumber = WebUtil.randNumber(medicationsCheckBoxes.size());
 			WebElement myElement = medicationsCheckBoxes.get(randomNumber);

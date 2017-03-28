@@ -3,7 +3,6 @@ package com.iConnectConsulting.pageobjects;
 import java.util.List;
 import java.util.Random;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,7 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import com.iConnectConsulting.util.WebUtil;
 
 public class SelectInsuranceProvidersPopup_PO {
-	
+
 	@FindBy(xpath = "//a[@class='k-link k-pager-nav']/following-sibling::a[@class='k-link k-pager-nav k-pager-last']")
 	WebElement lastPageOfInsuranceProviders;
 	@FindBy(xpath = "//div[@class='ng-scope ng-isolate-scope k-grid k-widget k-reorderable']//div//ul//li//span[@class='k-state-selected']")
@@ -26,7 +25,7 @@ public class SelectInsuranceProvidersPopup_PO {
 	WebElement applySelectedButton;
 
 	public void selectingInsuranceProvider(WebDriver driver) throws InterruptedException {
-		
+
 		String paginationInsuranceProvidersString = lastPageOfInsuranceProviders.getAttribute("data-page");
 		int numberOfPagesInsProviders = Integer.parseInt(paginationInsuranceProvidersString);
 		int desiredPageInsProvider = 6;
@@ -57,7 +56,7 @@ public class SelectInsuranceProvidersPopup_PO {
 				WebUtil.click(driver, applySelectedButton);
 			}
 		} while (currentPage != desiredPageInsProvider);
-		
+
 	}
 
 }

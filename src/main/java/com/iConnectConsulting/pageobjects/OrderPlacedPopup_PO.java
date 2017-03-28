@@ -1,15 +1,13 @@
 package com.iConnectConsulting.pageobjects;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 
 import com.iConnectConsulting.util.WebUtil;
 
 public class OrderPlacedPopup_PO {
-	
+
 	@FindBy(xpath = "//div[contains(@class,'modal-header')]/h1")
 	WebElement orderPlacedTitle;
 	@FindBy(xpath = "//div[@class='modal-body']/div/p/b")

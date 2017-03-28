@@ -2,20 +2,18 @@ package com.iConnectConsulting.pageobjects;
 
 import java.util.List;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 
 import com.iConnectConsulting.util.WebUtil;
 
 public class AddNewPatientPopup_PO {
 	StringBuilder randomStringBuilder = new StringBuilder();
 	String candidateChars = "abcdefghijklmnopqrstuvwxyz";
-	
+
 	@FindBy(css = "input[class='form-control item-focusable order-field-input ng-pristine ng-untouched ng-valid empty k-input']")
 	WebElement dateOfBirthTextfield;
 	@FindBy(css = "div[data-ng-hide='model.Layout[1].properties.ishidden'] > design-items > div > div > div > design-item-date-picker > div > div > div > span > span > input")
@@ -28,8 +26,11 @@ public class AddNewPatientPopup_PO {
 	List<WebElement> maleFemaleRadiobuttons;
 	@FindBy(xpath = "//button[contains(@class,'btn btn-primary btn-form-md')]//span[text()='Submit']")
 	WebElement submitButton;
-	
+	@FindBy(css = "design-items[data-item-id='b33f14bc-1228-4d0f-ac6c-9c2895b8fe07'] > div > div > div > design-item-masked-text-box > div > div[class='print-field order-form-field fieldfiller'] > input")
+	WebElement ssNumber;
+
 	public void fillInDateOfBirthTextfield(WebDriver driver) throws InterruptedException {
+		WebUtil.waitForElementVisible(driver, dateOfBirthTextfield);
 		int yyyy = 1900 + WebUtil.randNumber(116);
 		int mm = 1 + WebUtil.randNumber(12);
 		int dd = 0;
@@ -64,6 +65,8 @@ public class AddNewPatientPopup_PO {
 		}
 		Thread.sleep(2000);
 		WebUtil.input(driver, month + '/' + day + '/' + year, dateOfBirthTextfield);
+		Thread.sleep(1000);
+		WebUtil.click(driver, ssNumber);
 	}
 
 	public void fillLastNameTextfield(WebDriver driver) {
@@ -94,9 +97,10 @@ public class AddNewPatientPopup_PO {
 
 	public void clickSubmitButton(WebDriver driver) throws InterruptedException {
 		WebUtil.waitForElementVisible(driver, submitButton);
+		WebUtil.click(driver, ssNumber);
 		WebUtil.click(driver, entereDateOfBirthTextfield);
+		WebUtil.click(driver, ssNumber);
 		Thread.sleep(1000);
-		WebUtil.click(driver, entereDateOfBirthTextfield);
 		WebUtil.click(driver, submitButton);
 	}
 }

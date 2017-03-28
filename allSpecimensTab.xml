@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="AllSpecimens" thread-count="2" parallel="tests">
-    <test name="AllSpecimens Chrome">
+<suite name="AllSpecimensTab" thread-count="4" parallel="tests">
+    <test name="AllSpecimensTab Chrome">
         <parameter name="browser" value="chrome" />
 		<parameter name="url" value="yourURL" />
         <classes>
@@ -9,8 +9,8 @@
         </classes>
     </test>
 
-    <test name="AllSpecimens FireFox">
-       <parameter name="browser" value="chrome" />
+    <test name="AllSpecimensTab FireFox">
+        <parameter name="browser" value="firefox" />
 		<parameter name="url" value="yourURL" />
         <classes>
             <class name="iConnectConsulting.AllSpecimensTab"/>

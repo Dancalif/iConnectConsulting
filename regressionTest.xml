@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Regression" thread-count="2" parallel="tests">
     <test name="Regression Chrome">
-         <parameter name="browser" value="chrome" />
+           <parameter name="browser" value="chrome" />
 		<parameter name="url" value="yourURL" />
         <classes>
             <class name="iConnectConsulting.RegressionTest"/>
@@ -10,10 +10,11 @@
     </test>
 
     <test name="Regression FireFox">
-         <parameter name="browser" value="chrome" />
+           <parameter name="browser" value="firefox" />
 		<parameter name="url" value="yourURL" />
         <classes>
             <class name="iConnectConsulting.RegressionTest"/>
         </classes>
     </test>
+
 </suite>

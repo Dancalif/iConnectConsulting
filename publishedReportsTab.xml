@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="PublishedReports" thread-count="2" parallel="tests">
     <test name="PublishedReports Chrome">
-         <parameter name="browser" value="chrome" />
+          <parameter name="browser" value="chrome" />
 		<parameter name="url" value="yourURL" />
         <classes>
             <class name="iConnectConsulting.PublishedReportsTab"/>
@@ -10,7 +10,7 @@
     </test>
 
     <test name="PublishedReports FireFox">
-        <parameter name="browser" value="chrome" />
+           <parameter name="browser" value="firefox" />
 		<parameter name="url" value="yourURL" />
         <classes>
             <class name="iConnectConsulting.PublishedReportsTab"/>

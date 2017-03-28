@@ -43,9 +43,11 @@ public class MainTest {
 	public void tearDown() throws Exception {
 		CommonElements commonElements = PageFactory.initElements(driver, CommonElements.class);
 		commonElements.clickSignOut(driver);
+		Thread.sleep(1000);
 		SignInPage_PO signInPage = PageFactory.initElements(driver, SignInPage_PO.class);
 		// Verify if user is signed out
 		Assert.assertTrue(signInPage.doesUsernameExist(driver), "User is not signed out");
+		Thread.sleep(1000);
 		// Clean up environment
 		driver.quit();
 	}

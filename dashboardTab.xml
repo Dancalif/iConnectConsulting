@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Dashboard" thread-count="2" parallel="tests">
-    <test name="Dashboard Chrome">
+<suite name="TestOrder" thread-count="2" parallel="tests">
+    <test name="DashboardTab Chrome">
         <parameter name="browser" value="chrome" />
 		<parameter name="url" value="yourURL" />
         <classes>
@@ -9,8 +9,8 @@
         </classes>
     </test>
 
-    <test name="Dashboard FireFox">
-        <parameter name="browser" value="chrome" />
+    <test name="DashboardTab FireFox">
+         <parameter name="browser" value="firefox" />
 		<parameter name="url" value="yourURL" />
         <classes>
             <class name="iConnectConsulting.DashboardTab"/>

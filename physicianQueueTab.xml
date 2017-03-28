@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Physician Queue" thread-count="2" parallel="tests">
+<suite name="PhysicianQueue" thread-count="2" parallel="tests">
   <test name="PhysicianQueue Chrome">
-   <parameter name="browser" value="chrome" />
-	<parameter name="url" value="yourURL" />
+  <parameter name="browser" value="chrome" />
+  <parameter name="url" value="yourURL" />
     <classes>
       <class name="iConnectConsulting.PhysicianQueueTab" />
     </classes>
   </test>
-   <test name="Physician Queue Firefox">
-  <parameter name="browser" value="chrome" />
-	<parameter name="url" value="yourURL" />
+   <test name="PhysicianQueue Firefox">
+  <parameter name="browser" value="firefox" />
+  <parameter name="url" value="yourURL" />
     <classes>
       <class name="iConnectConsulting.PhysicianQueueTab" />
     </classes>

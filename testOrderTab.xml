@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TestOrder" thread-count="2" parallel="tests">
-    <test name="TestOrder Chrome">
+<suite name="TestOrder" thread-count="1" parallel="tests">
+  <test name="TestOrder Chrome">
          <parameter name="browser" value="chrome" />
 		<parameter name="url" value="yourURL" />
 		<parameter name="diagnosisCode" value="304" />
+		<parameter name="serviceForm" value="Precision" />
         <classes>
             <class name="iConnectConsulting.TestOrderTab"/>
         </classes>
     </test>
-
     <test name="TestOrder FireFox">
          <parameter name="browser" value="firefox" />
   		<parameter name="url" value="yourURL" />
   		<parameter name="diagnosisCode" value="304" />
+  		<parameter name="serviceForm" value="Precision" />
         <classes>
             <class name="iConnectConsulting.TestOrderTab"/>
         </classes>
     </test>
-
 </suite>

@@ -3,7 +3,6 @@ package com.iConnectConsulting.util;
 import java.util.List;
 import java.util.Random;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -58,9 +57,18 @@ public class WebUtil {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", element);
 	}
-	
+
 	public static List<WebElement> createListOfElements(WebDriver driver, List<WebElement> elements) {
 		List<WebElement> listOfElements = elements;
 		return listOfElements;
+	}
+
+	public static boolean ifElementIsDisplayed(WebDriver driver, WebElement element) {
+		boolean myFlag = false;
+		try {
+			myFlag = element.isDisplayed();
+		} catch (Exception E) {
+		}
+		return myFlag;
 	}
 }
